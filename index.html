@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TauntBuddy - Your Judgmental Pet 🐹🎓</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e4d5f7 0%, #ffd6e0 35%, #fff1c5 70%, #d4f0f0 100%);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      min-height: 100vh; padding: 20px; font-family: 'Poppins', sans-serif;
+      position: relative; overflow: hidden;
+    }
+
+    body::before {
+      content: ''; position: absolute; bottom: -80px; left: 50%;
+      transform: translateX(-50%); width: 140vw; height: 260px;
+      background: radial-gradient(ellipse at center, #cbe8ba 0%, #b2de9c 100%);
+      border-radius: 50%; z-index: 0;
+      box-shadow: inset 0 10px 20px rgba(255, 255, 255, 0.4);
+    }
+
+    .bg-decor {
+      position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+
+    .item { position: absolute; animation: floatAnim 6s infinite ease-in-out alternate; opacity: 0.75; }
+    .item.h1 { top: 12%; left: 10%; font-size: 24px; animation-delay: 0s; }
+    .item.f1 { top: 22%; right: 12%; font-size: 28px; animation-delay: 1.5s; }
+    .item.h2 { top: 65%; left: 8%; font-size: 22px; animation-delay: 2s; }
+    .item.f2 { top: 60%; right: 9%; font-size: 26px; animation-delay: 0.8s; }
+
+    @keyframes floatAnim {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-12px) rotate(8deg); }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px);
+      border-radius: 36px; padding: 35px 25px; text-align: center;
+      width: 100%; max-width: 380px;
+      box-shadow: 0 20px 40px rgba(180, 140, 160, 0.25);
+      border: 4px solid #ffffff; position: relative; z-index: 1;
+    }
+
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; font-weight: 800; color: #2d1810;
+      margin-bottom: 2px; letter-spacing: -0.5px;
+    }
+
+    .sub-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; color: #3d261a; font-weight: 600; margin-bottom: 8px;
+    }
+
+    .punchline-header {
+      font-size: 14px; color: #c95d28; font-weight: 700;
+      margin-bottom: 25px; letter-spacing: 0.2px;
+    }
+
+    .mascot-stage {
+      position: relative; width: 220px; height: 220px;
+      margin: 0 auto; cursor: pointer;
+      transition: transform 0.2s ease;
+      animation: gentleBreathe 3s infinite ease-in-out;
+    }
+    .mascot-stage:active { transform: scale(0.94); }
+
+    @keyframes gentleBreathe {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .grad-cap {
+      position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
+      z-index: 10; width: 65px; height: 35px;
+      transition: transform 0.2s ease;
+    }
+    .cap-top {
+      width: 60px; height: 18px; background: #1a1a1a;
+      transform: rotate(-5deg); border-radius: 3px; margin: 0 auto;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+    .cap-base {
+      width: 32px; height: 12px; background: #2b2b2b;
+      margin: -5px auto 0; border-radius: 0 0 5px 5px;
+    }
+    .cap-tassel {
+      position: absolute; top: 6px; right: 6px;
+      width: 3px; height: 20px; background: #fbbf24;
+      transform-origin: top center; animation: swing 2s infinite ease-in-out;
+    }
+
+    @keyframes swing { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(15deg); } }
+
+    .hamster-head {
+      width: 145px; height: 130px; 
+      background: radial-gradient(circle at 50% 40%, #f5be8b 0%, #d98e48 85%, #b86e28 100%);
+      border-radius: 50% 50% 45% 45%; position: absolute;
+      top: 25px; left: 37.5px; border: 3.5px solid #3d261a; z-index: 2;
+      box-shadow: inset -6px -6px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .mascot-stage.react .hamster-head { transform: rotate(-4deg) translateY(-2px); }
+    .mascot-stage.react .grad-cap { transform: translateX(-55%) rotate(-6deg); }
+
+    .ear {
+      width: 34px; height: 34px; 
+      background: radial-gradient(circle at 50% 50%, #f5be8b 30%, #d98e48 100%);
+      border: 3.5px solid #3d261a; border-radius: 50%; position: absolute; top: 15px; z-index: 1;
+    }
+    .ear.left { left: 32px; }
+    .ear.right { right: 32px; }
+    .ear-inner { 
+      width: 18px; height: 18px; 
+      background: linear-gradient(180deg, #fca5a5 0%, #f87171 100%); 
+      border-radius: 50%; margin: 4px auto 0; 
+    }
+
+    .cheeks-pattern {
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 118px; height: 75px; 
+      background: radial-gradient(circle at 50% 70%, #ffffff 0%, #fff7ed 80%, #ffedd5 100%); 
+      border-radius: 50% 50% 42% 42%;
+    }
+    
+    .eyes { display: flex; justify-content: space-between; padding: 0 30px; margin-top: 42px; position: relative; z-index: 3; }
+    .eye { 
+      width: 16px; height: 20px; background: #231107; border-radius: 50%; position: relative; 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      animation: blink 3.8s infinite ease-in-out;
+    }
+    .eye::after { content: ''; position: absolute; top: 3px; right: 3px; width: 6px; height: 6px; background: #fff; border-radius: 50%; }
+
+    @keyframes blink {
+      0%, 95%, 100% { transform: scaleY(1); }
+      97% { transform: scaleY(0.1); }
+    }
+
+    .blush-container { display: flex; justify-content: space-between; padding: 0 20px; margin-top: 1px; position: relative; z-index: 3; }
+    .blush { width: 18px; height: 9px; background: #f87171; opacity: 0.55; border-radius: 50%; filter: blur(0.5px); }
+
+    .nose {
+      width: 11px; height: 8px; 
+      background: linear-gradient(180deg, #fb7185 0%, #e11d48 100%);
+      border-radius: 40% 40% 50% 50%; margin: -3px auto 0; position: relative; z-index: 3;
+    }
+
+    .mouth {
+      width: 12px; height: 8px; border-bottom: 3px solid #3d261a;
+      border-radius: 0 0 8px 8px; margin: 2px auto 0;
+      position: relative; z-index: 3; transition: all 0.1s ease;
+    }
+    .mouth.talking {
+      animation: talkSync 0.15s infinite alternate ease-in-out;
+      background: #3d261a; border: none;
+    }
+
+    @keyframes talkSync {
+      0% { width: 10px; height: 4px; border-radius: 50%; }
+      100% { width: 15px; height: 12px; border-radius: 30% 30% 50% 50%; }
+    }
+
+    .paw {
+      position: absolute; bottom: 80px; width: 22px; height: 16px;
+      background: #f5be8b; border: 3px solid #3d261a; border-radius: 10px 10px 12px 12px;
+      z-index: 6;
+    }
+    .paw.left { left: 45px; transform: rotate(-10deg); }
+    .paw.right { 
+      right: 45px; transform-origin: left center;
+      animation: wavePaw 1.2s infinite ease-in-out; 
+    }
+
+    @keyframes wavePaw {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-35deg); }
+    }
+
+    .eggshell-container {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      width: 170px; height: 95px; z-index: 5; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.08));
+    }
+    .egg-svg { width: 100%; height: 100%; }
+
+    .speech-bubble {
+      background: #fff7ed; color: #7c2d12; font-weight: 700;
+      font-size: 14px; padding: 15px 20px; border-radius: 16px;
+      margin-top: 15px; border: 2px solid #fed7aa; line-height: 1.5;
+      box-shadow: 0 4px 10px rgba(251, 146, 60, 0.15);
+      min-height: 75px; display: flex; align-items: center; justify-content: center;
+    }
+
+    .click-hint { font-size: 11px; color: #a8a29e; margin-top: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    #errorLogger {
+      display: none;
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #ffe4e6;
+      border: 1px solid #f43f5e;
+      color: #be123c;
+      font-size: 12px;
+      border-radius: 8px;
+      max-width: 380px;
+      z-index: 10;
+      text-align: left;
+    }
+
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 22px;
+      animation: floatBurst 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+      z-index: 9999;
+    }
+
+    @keyframes floatBurst {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.4) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(1.4) rotate(var(--rot));
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-decor">
+    <div class="item h1">💖</div>
+    <div class="item f1">🌸</div>
+    <div class="item h2">💕</div>
+    <div class="item f2">🌼</div>
+  </div>
+
+  <div class="card">
+    <div class="brand-title">TauntBuddy</div>
+    <div class="sub-title">Your Hamster Judges You 🐹🎓</div>
+    
+    <div class="punchline-header">"Kyuki kal karunga se degree nhi milti"</div>
+
+    <div class="mascot-stage" id="mascotStage" onclick="triggerMascotSpeak(event)">
+      <div class="grad-cap">
+        <div class="cap-top"></div>
+        <div class="cap-base"></div>
+        <div class="cap-tassel"></div>
+      </div>
+
+      <div class="ear left"><div class="ear-inner"></div></div>
+      <div class="ear right"><div class="ear-inner"></div></div>
+
+      <div class="hamster-head">
+        <div class="cheeks-pattern"></div>
+        <div class="eyes">
+          <div class="eye"></div>
+          <div class="eye"></div>
+        </div>
+        <div class="blush-container">
+          <div class="blush"></div>
+          <div class="blush"></div>
+        </div>
+        <div class="nose"></div>
+        <div id="mouth" class="mouth"></div>
+      </div>
+
+      <div class="paw left"></div>
+      <div class="paw right"></div>
+
+      <div class="eggshell-container">
+        <svg class="egg-svg" viewBox="0 0 170 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 3 20 L 22 8 L 42 22 L 62 8 L 85 22 L 108 8 L 128 22 L 148 8 L 167 20 C 167 65, 135 92, 85 92 C 35 92, 3 65, 3 20 Z" 
+                fill="#FFFFFF" stroke="#3D261A" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="click-hint">👇 Tap mascot to hear judgment!</div>
+
+    <div class="speech-bubble" id="speechText">
+      "Tap me! Ready to start working today?"
+    </div>
+  </div>
+
+  <div id="errorLogger"></div>
+
+  <script>
+    // Online Hosted Audio Links (WhatsApp & Direct Shareable)
+    const taunts = [
+      {
+        display: "Assignment is pending, and you're active on Instagram. Wow, priorities! 😭",
+        audio: "https://files.catbox.moe/167lg5.mp3"
+      },
+      {
+        display: "Deadline is tomorrow. When is your 'I will do it tomorrow' actually coming? 💀",
+        audio: "https://files.catbox.moe/hdqf9i.mp3"
+      },
+      {
+        display: "75% attendance needed... looking at your attendance, even I want to bunk now! 😂",
+        audio: "https://files.catbox.moe/tjlcr5.mp3"
+      },
+      {
+        display: "Are you studying for tomorrow's test, or giving emotional support to the topper's notes?",
+        audio: "https://files.catbox.moe/icelqd.mp3"
+      },
+      {
+        display: "If you spent as much time studying as you do scrolling Reels, you'd run the college by now! 💀",
+        audio: "https://files.catbox.moe/mr9btx.mp3"
+      },
+      {
+        display: "Taking a five-minute break after reading just one paragraph? Bold move! ☕",
+        audio: "https://files.catbox.moe/bogfvu.mp3"
+      },
+      {
+        display: "According to your records... You are more consistent with excuses, than studies!",
+        audio: "https://files.catbox.moe/wueqmb.mp3"
+      }
+    ];
+
+    let lastIndex = -1;
+    let currentAudioObj = null;
+
+    function logError(msg) {
+      const logger = document.getElementById("errorLogger");
+      logger.style.display = "block";
+      logger.innerHTML = "<strong>Error:</strong> " + msg;
+    }
+
+    function spawnParticles(event) {
+      const items = ['🦋', '🌸', '✨', '🌺', '🌷', '🦋', '🌼'];
+      const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+      const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+
+      for (let i = 0; i < 9; i++) {
+        const p = document.createElement('span');
+        p.className = 'particle';
+        p.innerText = items[Math.floor(Math.random() * items.length)];
+
+        const dx = (Math.random() - 0.5) * 180 + 'px';
+        const dy = (Math.random() - 0.7) * 180 + 'px';
+        const rot = (Math.random() - 0.5) * 360 + 'deg';
+
+        p.style.left = clientX + 'px';
+        p.style.top = clientY + 'px';
+        p.style.setProperty('--dx', dx);
+        p.style.setProperty('--dy', dy);
+        p.style.setProperty('--rot', rot);
+
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1200);
+      }
+    }
+
+    function playCuteSqueakSound() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1700, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(3200, ctx.currentTime + 0.1);
+        
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+      } catch(e) {}
+    }
+
+    function triggerMascotSpeak(event) {
+      if (event) spawnParticles(event);
+
+      playCuteSqueakSound();
+
+      const stage = document.getElementById("mascotStage");
+      const mouth = document.getElementById("mouth");
+
+      stage.classList.add("react");
+      setTimeout(() => stage.classList.remove("react"), 300);
+
+      if (currentAudioObj) {
+        currentAudioObj.pause();
+        currentAudioObj.currentTime = 0;
+        mouth.classList.remove("talking");
+      }
+
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * taunts.length);
+      } while (randomIndex === lastIndex && taunts.length > 1);
+      
+      lastIndex = randomIndex;
+      const currentTaunt = taunts[randomIndex];
+
+      document.getElementById("speechText").innerText = `"${currentTaunt.display}"`;
+
+      currentAudioObj = new Audio(currentTaunt.audio);
+
+      currentAudioObj.onplay = () => mouth.classList.add("talking");
+      currentAudioObj.onended = () => mouth.classList.remove("talking");
+      currentAudioObj.onpause = () => mouth.classList.remove("talking");
+
+      currentAudioObj.onerror = (e) => {
+        mouth.classList.remove("talking");
+        logError("Failed to load audio from internet. Check network connection.");
+      };
+
+      currentAudioObj.play().catch(err => {
+        logError("Playback failed: " + err.message);
+      });
+    }
+  </script>
+</body>
+</html>
