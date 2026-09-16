@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- The only network call in the app: fetching the public taunt/quote JSON
+         from raw.githubusercontent.com (plus its cache revalidation). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <!-- Smart taunt notifications. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
@@ -7,7 +11,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
     <!-- KAVACH shield: background timer + optional draw-over chip. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
