@@ -126,6 +126,22 @@ Release signing reads `android/key.properties` (see the commented block in
 `android/app/build.gradle`); without it, release builds fall back to the debug
 key so CI and local builds never break.
 
+## Deploy to Vercel
+
+Vercel deploys the **full Flutter web app**, not the legacy single-file page:
+
+1. In Vercel, **Import** the `Tauntbuddy` Git repository (Vercel reads
+   [`vercel.json`](vercel.json) automatically — no manual settings needed).
+2. Push/merge to `main` — every push gets a preview deployment, `main` updates
+   the production URL.
+
+What happens on each deploy: [`tools/vercel_build.sh`](tools/vercel_build.sh)
+installs Flutter (`stable`, overridable via the `FLUTTER_VERSION` env var),
+runs `flutter build web --release` (the same command CI proves green), and
+publishes `build/web`. The legacy page ships alongside the app at
+`/classic.html`, and the repository-root `index.html` stays untouched so the
+original GitHub Pages link keeps working.
+
 ## The taunt engine
 
 1. **Bundled pack** — `assets/data/taunts.json` (31 Hinglish taunts across 7

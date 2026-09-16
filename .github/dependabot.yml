@@ -39,3 +39,20 @@ updates:
       - android
     commit-message:
       prefix: 'chore(android)'
+    groups:
+      # Gradle + AGP + Kotlin + core-ktx must move as one: CI proved that
+      # bumping any of them alone breaks the Android release build, so keep
+      # them in a single toolchain PR that is tested together.
+      android-toolchain:
+        patterns:
+          - '*'
+    ignore:
+      # Major toolchain jumps need a coordinated migration (Gradle 9 / AGP 9
+      # also require JDK 21 plus a Flutter release that supports AGP 9), so
+      # keep Dependabot on minor + patch until that migration is planned.
+      - dependency-name: 'gradle-wrapper'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'com.android.application'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'androidx.core:core-ktx'
+        update-types: ['version-update:semver-major']
