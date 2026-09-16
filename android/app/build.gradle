@@ -28,7 +28,7 @@ if (hasReleaseKeystore) {
 
 android {
     namespace = "com.tauntbuddy.app"
-    compileSdk = 35
+    compileSdk = 36
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -42,9 +42,10 @@ android {
 
     defaultConfig {
         applicationId = "com.tauntbuddy.app"
-        // flutter_local_notifications 22.x requires Android 7.0 (API 24) or newer.
+        // flutter_local_notifications 22.x requires Android 7.0 (API 24) or newer,
+        // and compiles against API 36.
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
         resConfigs "en", "hi"

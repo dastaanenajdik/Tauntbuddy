@@ -217,12 +217,42 @@ jobs:
         run: flutter pub get
 
       - name: Build release APK
-        run: flutter build apk --release --no-shrink
+        id: apk
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          flutter build apk --release --no-shrink 2>&1 | tee apk.log
 
       - name: Build release App Bundle
-        run: flutter build appbundle --release --no-shrink
+        id: appbundle
+        if: steps.apk.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          flutter build appbundle --release --no-shrink 2>&1 | tee appbundle.log
+
+      # Gradle's failure text is the only useful signal, so surface it as
+      # annotations that a reviewer (or an agent) can read through the API.
+      - name: Annotate gradle errors (1-10)
+        if: steps.apk.outcome == 'failure' || steps.appbundle.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -hE "What went wrong|^> |^\* |error:|Error:|FAILURE:|Caused by|Execution failed|requires|not found|Unsupported|deprecated" apk.log appbundle.log 2>/dev/null | sed -n '1,10p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate gradle errors (11-20)
+        if: steps.apk.outcome == 'failure' || steps.appbundle.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -hE "What went wrong|^> |^\* |error:|Error:|FAILURE:|Caused by|Execution failed|requires|not found|Unsupported|deprecated" apk.log appbundle.log 2>/dev/null | sed -n '11,20p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate gradle errors (21-30)
+        if: steps.apk.outcome == 'failure' || steps.appbundle.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -hE "What went wrong|^> |^\* |error:|Error:|FAILURE:|Caused by|Execution failed|requires|not found|Unsupported|deprecated" apk.log appbundle.log 2>/dev/null | sed -n '21,30p' | while IFS= read -r line; do echo "::error::$line"; done
 
       - name: Upload APK
+        if: steps.apk.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: tauntbuddy-release-apk
@@ -231,12 +261,30 @@ jobs:
           retention-days: 14
 
       - name: Upload App Bundle
+        if: steps.appbundle.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: tauntbuddy-release-aab
           path: build/app/outputs/bundle/release/app-release.aab
           if-no-files-found: error
           retention-days: 14
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-logs
+          path: |
+            apk.log
+            appbundle.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Fail when the Android build fails
+        if: steps.apk.outcome == 'failure' || steps.appbundle.outcome == 'failure'
+        run: |
+          echo "::error::flutter build apk/appbundle failed — see the annotations above"
+          exit 1
 
   build-web:
     name: Build Web bundle
