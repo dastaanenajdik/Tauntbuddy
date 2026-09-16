@@ -1,0 +1,454 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-16",
+  "features": [
+    {
+      "id": "ekagra",
+      "title": "Ekagra",
+      "tagline": "Pomodoro + deep focus timer that measures your Ekagra Depth.",
+      "icon": "bolt",
+      "route": "/ekagra",
+      "accent": "violet",
+      "pro": false
+    },
+    {
+      "id": "planner",
+      "title": "Exam Planner",
+      "tagline": "Syllabus tracking, countdowns and a structured study timeline.",
+      "icon": "calendar",
+      "route": "/planner",
+      "accent": "cyan",
+      "pro": true
+    },
+    {
+      "id": "kavach",
+      "title": "KAVACH",
+      "tagline": "Focus shield that locks distractions out of your study block.",
+      "icon": "shield",
+      "route": "/kavach",
+      "accent": "magenta",
+      "pro": false
+    },
+    {
+      "id": "leaderboard",
+      "title": "Leaderboard & Badges",
+      "tagline": "Rank against the circle, unlock milestone badges.",
+      "icon": "trophy",
+      "route": "/leaderboard",
+      "accent": "amber",
+      "pro": false
+    },
+    {
+      "id": "courses",
+      "title": "Courses",
+      "tagline": "Structured modules with lessons, notes and progress.",
+      "icon": "school",
+      "route": "/courses",
+      "accent": "violet",
+      "pro": false
+    },
+    {
+      "id": "circles",
+      "title": "Mehfil & Study Circle",
+      "tagline": "Study rooms, co-working sessions and peer accountability.",
+      "icon": "groups",
+      "route": "/circles",
+      "accent": "cyan",
+      "pro": false
+    },
+    {
+      "id": "dhyan",
+      "title": "Dhyan",
+      "tagline": "Mindfulness timers, breathwork and mood-aware resets.",
+      "icon": "self_improvement",
+      "route": "/dhyan",
+      "accent": "mint",
+      "pro": false
+    },
+    {
+      "id": "timeline",
+      "title": "Timeline & Clock",
+      "tagline": "See the day as blocks, keep a live clock on your desk.",
+      "icon": "schedule",
+      "route": "/timeline",
+      "accent": "amber",
+      "pro": false
+    },
+    {
+      "id": "goals",
+      "title": "Today's Goals",
+      "tagline": "Small, finishable goals that feed your streak.",
+      "icon": "checklist",
+      "route": "/goals",
+      "accent": "magenta",
+      "pro": false
+    },
+    {
+      "id": "taunts",
+      "title": "Taunt Vault",
+      "tagline": "GitHub-synced taunts, favourites and instant test pings.",
+      "icon": "campaign",
+      "route": "/taunts",
+      "accent": "magenta",
+      "pro": false
+    },
+    {
+      "id": "library",
+      "title": "Library",
+      "tagline": "Your saved resources, notes and course shelf.",
+      "icon": "menu_book",
+      "route": "/library",
+      "accent": "violet",
+      "pro": false
+    },
+    {
+      "id": "analytics",
+      "title": "Analytics",
+      "tagline": "Consistency, completion rate and focus depth trends.",
+      "icon": "insights",
+      "route": "/analytics",
+      "accent": "cyan",
+      "pro": false
+    }
+  ],
+  "badges": [
+    {
+      "id": "first_blood",
+      "title": "First Ekagra",
+      "description": "Complete your very first focus session.",
+      "icon": "bolt",
+      "tier": "bronze",
+      "metric": "sessions",
+      "threshold": 1
+    },
+    {
+      "id": "ekagra_novice",
+      "title": "Ekagra Novice",
+      "description": "Bank 10 focused hours in total.",
+      "icon": "hourglass",
+      "tier": "bronze",
+      "metric": "focus_minutes",
+      "threshold": 600
+    },
+    {
+      "id": "deep_worker",
+      "title": "Deep Worker",
+      "description": "Bank 50 focused hours in total.",
+      "icon": "psychology",
+      "tier": "silver",
+      "metric": "focus_minutes",
+      "threshold": 3000
+    },
+    {
+      "id": "century_club",
+      "title": "Century Club",
+      "description": "Finish 100 focus sessions.",
+      "icon": "workspace_premium",
+      "tier": "gold",
+      "metric": "sessions",
+      "threshold": 100
+    },
+    {
+      "id": "streak_7",
+      "title": "One Week Warrior",
+      "description": "Keep a 7 day study streak alive.",
+      "icon": "local_fire_department",
+      "tier": "bronze",
+      "metric": "streak",
+      "threshold": 7
+    },
+    {
+      "id": "streak_30",
+      "title": "Month Of Ekagra",
+      "description": "Keep a 30 day study streak alive.",
+      "icon": "whatshot",
+      "tier": "gold",
+      "metric": "streak",
+      "threshold": 30
+    },
+    {
+      "id": "kavach_keeper",
+      "title": "Kavach Keeper",
+      "description": "Complete 10 sessions with KAVACH shield active.",
+      "icon": "shield",
+      "tier": "silver",
+      "metric": "kavach_sessions",
+      "threshold": 10
+    },
+    {
+      "id": "dhyan_daily",
+      "title": "Still Mind",
+      "description": "Log 10 mindfulness sessions.",
+      "icon": "self_improvement",
+      "tier": "silver",
+      "metric": "dhyan_sessions",
+      "threshold": 10
+    },
+    {
+      "id": "early_bird",
+      "title": "Early Bird",
+      "description": "Start 5 sessions before 7 AM.",
+      "icon": "wb_twilight",
+      "tier": "silver",
+      "metric": "early_sessions",
+      "threshold": 5
+    },
+    {
+      "id": "night_owl",
+      "title": "Night Owl",
+      "description": "Start 10 sessions after 10 PM. We worry about you.",
+      "icon": "dark_mode",
+      "tier": "bronze",
+      "metric": "late_sessions",
+      "threshold": 10
+    },
+    {
+      "id": "goal_getter",
+      "title": "Goal Getter",
+      "description": "Close 50 daily goals.",
+      "icon": "check_circle",
+      "tier": "gold",
+      "metric": "goals_done",
+      "threshold": 50
+    },
+    {
+      "id": "mood_master",
+      "title": "Self Aware",
+      "description": "Check in with your mood 14 days in a row.",
+      "icon": "mood",
+      "tier": "platinum",
+      "metric": "mood_checkins",
+      "threshold": 14
+    }
+  ],
+  "levels": [
+    { "level": 1, "title": "Soja Beta", "minFocusMinutes": 0, "accent": "grey" },
+    { "level": 2, "title": "Uth Ja Bhai", "minFocusMinutes": 60, "accent": "violet" },
+    { "level": 3, "title": "Ekagra Mode", "minFocusMinutes": 300, "accent": "cyan" },
+    { "level": 4, "title": "Deep Work Das", "minFocusMinutes": 900, "accent": "magenta" },
+    { "level": 5, "title": "Ekagra Yogi", "minFocusMinutes": 1800, "accent": "amber" }
+  ],
+  "courses": [
+    {
+      "id": "dsa-core",
+      "title": "DSA Core Sprint",
+      "provider": "TauntBuddy Academy",
+      "category": "Placement",
+      "lessons": 42,
+      "hours": 18,
+      "rating": 4.8,
+      "progress": 0.35,
+      "accent": "violet",
+      "description": "Arrays to graphs with a 25 minute Ekagra block before every problem set."
+    },
+    {
+      "id": "quant-aptitude",
+      "title": "Quant Aptitude Reset",
+      "provider": "TauntBuddy Academy",
+      "category": "Aptitude",
+      "lessons": 30,
+      "hours": 12,
+      "rating": 4.6,
+      "progress": 0.12,
+      "accent": "cyan",
+      "description": "Speed maths, ratios and DI drills with daily timed mocks."
+    },
+    {
+      "id": "os-networks",
+      "title": "OS & Networks Crash",
+      "provider": "Semester Survival",
+      "category": "Semester",
+      "lessons": 24,
+      "hours": 10,
+      "rating": 4.7,
+      "progress": 0.58,
+      "accent": "magenta",
+      "description": "Semester-end rescue pack: units, PYQs and one-page revision sheets."
+    },
+    {
+      "id": "python-for-data",
+      "title": "Python For Data",
+      "provider": "TauntBuddy Academy",
+      "category": "Skill",
+      "lessons": 36,
+      "hours": 16,
+      "rating": 4.9,
+      "progress": 0.05,
+      "accent": "amber",
+      "description": "NumPy, Pandas and matplotlib by building small graded projects."
+    },
+    {
+      "id": "english-comm",
+      "title": "Communication Lab",
+      "provider": "Mehfil Studio",
+      "category": "Soft Skills",
+      "lessons": 18,
+      "hours": 7,
+      "rating": 4.4,
+      "progress": 0.71,
+      "accent": "mint",
+      "description": "Group discussions, interview answers and stage confidence reps."
+    },
+    {
+      "id": "upsc-foundation",
+      "title": "UPSC Foundation Lite",
+      "provider": "Nishtha Pathshala",
+      "category": "Competitive",
+      "lessons": 60,
+      "hours": 30,
+      "rating": 4.5,
+      "progress": 0.22,
+      "accent": "violet",
+      "description": "Polity, geography and current affairs in 45 minute daily sprints."
+    }
+  ],
+  "circles": [
+    {
+      "id": "mehfil-night-shift",
+      "name": "Mehfil · Night Shift",
+      "subject": "Silent co-working",
+      "members": 128,
+      "activity": "live",
+      "accent": "violet",
+      "description": "Cameras off, mics off, 9 PM to midnight. Just people studying together."
+    },
+    {
+      "id": "circle-dsa-dhamaka",
+      "name": "Study Circle · DSA Dhamaka",
+      "subject": "Placement prep",
+      "members": 64,
+      "activity": "starting soon",
+      "accent": "cyan",
+      "description": "Daily 2 problems, weekly mock interview, one accountability partner each."
+    },
+    {
+      "id": "circle-sem-survivors",
+      "name": "Study Circle · Sem Survivors",
+      "subject": "Semester exams",
+      "members": 212,
+      "activity": "live",
+      "accent": "magenta",
+      "description": "Subject-wise channels, PYQ swaps and last-week panic support group."
+    },
+    {
+      "id": "mehfil-morning-club",
+      "name": "Mehfil · 5 AM Club",
+      "subject": "Morning routine",
+      "members": 87,
+      "activity": "opens 5:00 AM",
+      "accent": "amber",
+      "description": "Wake-up roll call, 25 minute Ekagra and a no-excuse attendance board."
+    },
+    {
+      "id": "circle-upsc-ekagra",
+      "name": "Study Circle · Ekagra Yogi",
+      "subject": "Long form study",
+      "members": 45,
+      "activity": "live",
+      "accent": "mint",
+      "description": "90 minute deep blocks, Dhyan breaks and weekly answer writing reviews."
+    }
+  ],
+  "leaderboard": [
+    { "rank": 1, "name": "Ananya S.", "handle": "@ekagraananya", "focusMinutes": 2840, "streak": 46, "badge": "Ekagra Yogi" },
+    { "rank": 2, "name": "Rohit K.", "handle": "@deepworkrohit", "focusMinutes": 2615, "streak": 38, "badge": "Deep Worker" },
+    { "rank": 3, "name": "Ishita M.", "handle": "@ishita.revises", "focusMinutes": 2470, "streak": 33, "badge": "Century Club" },
+    { "rank": 4, "name": "Aryan P.", "handle": "@aryanpyq", "focusMinutes": 2135, "streak": 27, "badge": "Kavach Keeper" },
+    { "rank": 5, "name": "Sneha B.", "handle": "@sneha_still", "focusMinutes": 1980, "streak": 25, "badge": "Still Mind" },
+    { "rank": 6, "name": "Kabir A.", "handle": "@kabir5am", "focusMinutes": 1875, "streak": 22, "badge": "Early Bird" },
+    { "rank": 7, "name": "Meera J.", "handle": "@meerapadhai", "focusMinutes": 1690, "streak": 19, "badge": "One Week Warrior" },
+    { "rank": 8, "name": "Dev R.", "handle": "@devdoesdsa", "focusMinutes": 1520, "streak": 17, "badge": "Goal Getter" },
+    { "rank": 9, "name": "Tanvi N.", "handle": "@tanvi.timeline", "focusMinutes": 1345, "streak": 14, "badge": "Ekagra Novice" },
+    { "rank": 10, "name": "Yash V.", "handle": "@yashnightowl", "focusMinutes": 1120, "streak": 11, "badge": "Night Owl" },
+    { "rank": 11, "name": "Priya D.", "handle": "@priyadhyan", "focusMinutes": 940, "streak": 9, "badge": "Self Aware" },
+    { "rank": 12, "name": "Rehan Q.", "handle": "@rehanrevision", "focusMinutes": 715, "streak": 6, "badge": "Month Of Ekagra" }
+  ],
+  "moods": [
+    { "id": "focused", "label": "Focused", "emoji": "🎯", "score": 5 },
+    { "id": "calm", "label": "Calm", "emoji": "🌊", "score": 4 },
+    { "id": "okay", "label": "Okay", "emoji": "🙂", "score": 3 },
+    { "id": "tired", "label": "Tired", "emoji": "😮‍💨", "score": 2 },
+    { "id": "stressed", "label": "Stressed", "emoji": "😵‍💫", "score": 2 },
+    { "id": "burnt", "label": "Burnt out", "emoji": "🥀", "score": 1 }
+  ],
+  "dhyan_techniques": [
+    { "id": "breath-478", "title": "4-7-8 Breathing", "minutes": 5, "accent": "mint", "description": "Inhale 4, hold 7, exhale 8. Instant nervous system reset between blocks." },
+    { "id": "body-scan", "title": "Body Scan", "minutes": 10, "accent": "violet", "description": "Head to toe release for the shoulders you forgot you were holding." },
+    { "id": "anapan", "title": "Anapan Sati", "minutes": 15, "accent": "cyan", "description": "Single point breath awareness to rebuild attention after a distraction." },
+    { "id": "box-breath", "title": "Box Breathing", "minutes": 4, "accent": "amber", "description": "4-4-4-4 military pattern before a mock test or viva." },
+    { "id": "gratitude", "title": "Gratitude Journal", "minutes": 6, "accent": "magenta", "description": "Three lines about today. Mood-aware reflection that pairs with check-ins." },
+    { "id": "tratak", "title": "Tratak Focus Gaze", "minutes": 8, "accent": "violet", "description": "Single object gaze to train the same muscle deep work uses." }
+  ],
+  "planner_templates": [
+    {
+      "id": "template-end-sem",
+      "title": "End Semester Rescue",
+      "exam": "End Semester",
+      "daysOut": 21,
+      "subjects": [
+        { "name": "Operating Systems", "units": 5, "progress": 0.4 },
+        { "name": "Computer Networks", "units": 5, "progress": 0.25 },
+        { "name": "DBMS", "units": 4, "progress": 0.7 },
+        { "name": "Discrete Maths", "units": 4, "progress": 0.15 }
+      ]
+    },
+    {
+      "id": "template-placements",
+      "title": "Placement Season",
+      "exam": "Campus Placements",
+      "daysOut": 45,
+      "subjects": [
+        { "name": "DSA", "units": 12, "progress": 0.35 },
+        { "name": "Aptitude", "units": 8, "progress": 0.2 },
+        { "name": "Core CS", "units": 6, "progress": 0.45 },
+        { "name": "HR Round", "units": 3, "progress": 0.6 }
+      ]
+    },
+    {
+      "id": "template-competitive",
+      "title": "Competitive Foundation",
+      "exam": "Competitive Exam",
+      "daysOut": 120,
+      "subjects": [
+        { "name": "Polity", "units": 10, "progress": 0.3 },
+        { "name": "Geography", "units": 9, "progress": 0.18 },
+        { "name": "Current Affairs", "units": 52, "progress": 0.5 },
+        { "name": "Quant", "units": 14, "progress": 0.22 }
+      ]
+    }
+  ],
+  "kavach_profiles": [
+    {
+      "id": "kavach-soft",
+      "title": "Soft Shield",
+      "strictness": "5 minute grace",
+      "accent": "mint",
+      "description": "Gentle nudge when you leave the focus screen. Good for the first week.",
+      "blockedApps": ["Instagram", "YouTube Shorts", "X"]
+    },
+    {
+      "id": "kavach-strict",
+      "title": "Strict Shield",
+      "strictness": "no grace",
+      "accent": "magenta",
+      "description": "The hamster judges instantly. Every app switch logs a broken shield.",
+      "blockedApps": ["Instagram", "YouTube", "X", "Reddit", "Netflix", "Games"]
+    },
+    {
+      "id": "kavach-exam",
+      "title": "Exam Lockdown",
+      "strictness": "maximum",
+      "accent": "amber",
+      "description": "Full lockdown for exam week with taunt escalation on every escape attempt.",
+      "blockedApps": ["All non-study apps", "Notifications", "Calls (except emergency)"]
+    }
+  ],
+  "timeline_blocks": [
+    { "id": "block-fajr", "title": "Morning Ekagra", "kind": "focus", "start": "05:30", "end": "07:00", "accent": "violet" },
+    { "id": "block-classes", "title": "Classes", "kind": "college", "start": "09:00", "end": "13:00", "accent": "cyan" },
+    { "id": "block-revision", "title": "Revision Block", "kind": "focus", "start": "15:00", "end": "17:00", "accent": "magenta" },
+    { "id": "block-mehfil", "title": "Mehfil Co-Working", "kind": "social", "start": "18:30", "end": "19:30", "accent": "mint" },
+    { "id": "block-dhyan", "title": "Dhyan Reset", "kind": "wellbeing", "start": "20:00", "end": "20:20", "accent": "amber" },
+    { "id": "block-deepwork", "title": "Night Deep Work", "kind": "focus", "start": "21:30", "end": "23:30", "accent": "violet" }
+  ]
+}

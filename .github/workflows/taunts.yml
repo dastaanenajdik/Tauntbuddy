@@ -1,0 +1,138 @@
+name: Taunt dataset
+
+# The taunt/quote JSON in assets/data is the app's content API: it is bundled
+# with the binary *and* fetched from GitHub raw at runtime. This workflow is the
+# contract on that data — it validates every change, and every night it checks
+# the copy that is actually being served to users.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'assets/data/**'
+      - '.github/workflows/taunts.yml'
+  pull_request:
+    paths:
+      - 'assets/data/**'
+      - '.github/workflows/taunts.yml'
+  schedule:
+    # 21:50 UTC = 03:20 IST — overnight health check on the published dataset.
+    - cron: '50 21 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  RAW_BASE: https://raw.githubusercontent.com/${{ github.repository }}/main/assets/data
+
+jobs:
+  validate:
+    name: Validate taunt + quote datasets
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate bundled datasets
+        run: python3 .github/scripts/validate_taunts.py assets/data
+
+  published-health:
+    name: Health-check the published dataset
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch the live datasets from GitHub raw
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/live
+          curl -fsSL --retry 3 --max-time 20 "$RAW_BASE/taunts.json" -o /tmp/live/taunts.json
+          curl -fsSL --retry 3 --max-time 20 "$RAW_BASE/quotes.json" -o /tmp/live/quotes.json
+          curl -fsSL --retry 3 --max-time 20 "$RAW_BASE/seed_catalog.json" -o /tmp/live/seed_catalog.json
+          ls -la /tmp/live
+
+      - name: Validate the published copy
+        run: python3 .github/scripts/validate_taunts.py /tmp/live
+
+      - name: Confirm the app's parser can read it
+        run: python3 .github/scripts/validate_taunts.py /tmp/live --require-fresh
+
+      - name: Open an issue when the published dataset breaks
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = '🚨 Published taunt dataset failed its nightly health check';
+            const body = [
+              'The datasets served from `raw.githubusercontent.com` no longer validate.',
+              '',
+              `Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              '',
+              'The app falls back to its bundled pack, so users keep getting taunts —',
+              'but the remote sync is degraded until this is fixed.',
+            ].join('\n');
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'dataset-health',
+            });
+            if (existing.data.length > 0) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.data[0].number,
+                body,
+              });
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['dataset-health'],
+            });
+
+  sync-mirror:
+    name: Mirror datasets to the deploy branch
+    # Keeps an evergreen copy of the validated JSON on the `dataset` branch so a
+    # CDN or a partner app can consume it without tracking `main`.
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish dataset snapshot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name 'tauntbuddy-bot'
+          git config user.email 'bot@tauntbuddy.app'
+          git checkout --orphan dataset-snapshot
+          git rm -rf --cached . >/dev/null
+          git add -f assets/data
+          git commit -m "chore(dataset): mirror validated taunts $(date -u +%Y-%m-%dT%H:%M:%SZ)" || echo "nothing to mirror"
+          git push --force origin dataset-snapshot

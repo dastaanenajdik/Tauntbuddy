@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="TauntBuddy — an agentic AI study companion with a judgemental hamster mascot, Ekagra deep-focus timers, KAVACH distraction shield and GitHub-synced taunts.">
+  <meta name="theme-color" content="#0C0B10">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TauntBuddy">
+
+  <title>TauntBuddy · Your Judgmental Study Buddy 🐹🎓</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <style>
+    :root {
+      --tb-bg: #0c0b10;
+      --tb-bg-2: #141021;
+      --tb-primary: #9d4edd;
+      --tb-glow: #b388ff;
+      --tb-text: #f6f4ff;
+      --tb-muted: #9a95ad;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(157, 78, 221, 0.28), transparent 45%),
+        radial-gradient(circle at 80% 85%, rgba(76, 201, 240, 0.18), transparent 45%),
+        linear-gradient(160deg, var(--tb-bg) 0%, var(--tb-bg-2) 55%, var(--tb-bg) 100%);
+      color: var(--tb-text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow: hidden;
+    }
+    #splash {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      transition: opacity 420ms ease;
+      z-index: 10;
+    }
+    #splash.hidden { opacity: 0; pointer-events: none; }
+    .hamster {
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 40%, rgba(179, 136, 255, 0.45), rgba(157, 78, 221, 0.08));
+      box-shadow: 0 0 60px rgba(157, 78, 221, 0.55);
+      display: grid;
+      place-items: center;
+      font-size: 62px;
+      animation: breathe 2.6s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.03); }
+    }
+    .brand {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(120deg, #b388ff, #f72585);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .tagline { font-size: 13px; color: var(--tb-muted); font-style: italic; }
+    .loading { font-size: 12px; color: var(--tb-muted); letter-spacing: 0.4px; }
+    .dots span {
+      display: inline-block;
+      width: 7px; height: 7px; margin: 0 3px;
+      border-radius: 50%;
+      background: var(--tb-glow);
+      animation: bounce 0.9s infinite alternate;
+    }
+    .dots span:nth-child(2) { animation-delay: 0.15s; }
+    .dots span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-7px); } }
+    .fallback { max-width: 520px; text-align: center; padding: 0 24px; line-height: 1.6; }
+    .fallback a { color: var(--tb-glow); }
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <div class="hamster">🐹</div>
+    <div class="brand">TauntBuddy</div>
+    <div class="tagline">"Kyuki kal karunga se degree nahi milti"</div>
+    <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="loading">Waking the hamster…</div>
+    <noscript>
+      <div class="fallback">
+        <p><strong>TauntBuddy needs JavaScript.</strong> Enable it to load the focus timers,
+        KAVACH shield, exam planner and the GitHub-synced taunt engine.</p>
+      </div>
+    </noscript>
+  </div>
+
+  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Hide the hand-written splash once Flutter paints its first frame.
+    window.addEventListener('flutter-first-frame', function () {
+      var splash = document.getElementById('splash');
+      if (splash) {
+        splash.classList.add('hidden');
+        setTimeout(function () { splash.remove(); }, 500);
+      }
+    });
+  </script>
+</body>
+</html>

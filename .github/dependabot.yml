@@ -1,0 +1,41 @@
+version: 2
+updates:
+  - package-ecosystem: pub
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+    commit-message:
+      prefix: 'chore(deps)'
+    groups:
+      flutter-and-lints:
+        patterns:
+          - flutter_lints
+          - lints
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    labels:
+      - ci
+    commit-message:
+      prefix: 'chore(ci)'
+    groups:
+      actions:
+        patterns:
+          - '*'
+
+  - package-ecosystem: gradle
+    directory: /android
+    schedule:
+      interval: monthly
+    labels:
+      - dependencies
+      - android
+    commit-message:
+      prefix: 'chore(android)'

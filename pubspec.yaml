@@ -1,0 +1,48 @@
+name: tauntbuddy
+description: "TauntBuddy — an agentic AI study companion with animated hamster mascot that taunts you back to your books. Cross-platform Flutter app for web, mobile and desktop."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.0
+  flutter: '>=3.38.1'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # State management
+  provider: ^6.1.5
+
+  # Local persistence (sessions, goals, mood, settings, onboarding)
+  shared_preferences: ^2.5.3
+
+  # Remote taunt + quote datasets from GitHub raw
+  http: ^1.5.0
+
+  # Date / score formatting for analytics + timeline
+  intl: ^0.20.2
+
+  # Smart taunt notifications (all platforms, incl. web Notification API)
+  flutter_local_notifications: ^22.3.1
+  timezone: ^0.11.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/branding/
+    - assets/data/
+
+  # Fonts are intentionally NOT bundled as binaries: TauntBuddy ships with the
+  # platform's native type stack (Inter/Segoe/Roboto system fallbacks) so that the
+  # repository stays free of large binary font blobs and CI builds stay fast.
+  # See docs/BRANDING.md for the optional Google Fonts drop-in.

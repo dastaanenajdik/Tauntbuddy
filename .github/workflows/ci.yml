@@ -1,0 +1,146 @@
+name: CI
+
+# Analyse, test and build on every push to main plus every pull request. This is
+# the gate the release/hand-off depends on.
+on:
+  push:
+    branches:
+      - main
+      - 'arena/**'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_CHANNEL: stable
+
+jobs:
+  analyze-and-test:
+    name: Analyse + test
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Toolchain versions
+        run: flutter --version && dart --version
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Verify formatting (report only)
+        continue-on-error: true
+        run: dart format --output=none --set-exit-if-changed lib test
+
+      - name: Static analysis
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Unit + widget tests
+        run: flutter test --coverage --reporter expanded
+
+      - name: Coverage summary
+        if: always()
+        run: |
+          if [ -f coverage/lcov.info ]; then
+            awk -F: '/^LF:/{t+=$2} /^LH:/{h+=$2} END{printf "Line coverage: %d/%d (%.1f%%)\n", h, t, (t ? h/t*100 : 0)}' coverage/lcov.info
+          else
+            echo "no coverage file produced"
+          fi
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+          if-no-files-found: warn
+          retention-days: 14
+
+  build-android:
+    name: Build Android APK + AAB
+    runs-on: ubuntu-latest
+    needs: analyze-and-test
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build release APK
+        run: flutter build apk --release --no-shrink
+
+      - name: Build release App Bundle
+        run: flutter build appbundle --release --no-shrink
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauntbuddy-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload App Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauntbuddy-release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+          retention-days: 14
+
+  build-web:
+    name: Build Web bundle
+    runs-on: ubuntu-latest
+    needs: analyze-and-test
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build web release
+        run: flutter build web --release
+
+      - name: Verify PWA manifest icons
+        run: |
+          python3 -c "import json,os,sys; m=json.load(open('web/manifest.json')); missing=[i['src'] for i in m.get('icons',[]) if not os.path.exists(os.path.join('web', i['src']))]; print('manifest OK ·', len(m.get('icons',[])), 'icons') if not missing else sys.exit('missing manifest icons: %s' % missing)"
+
+      - name: Upload web bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauntbuddy-web
+          path: build/web
+          if-no-files-found: error
+          retention-days: 14
