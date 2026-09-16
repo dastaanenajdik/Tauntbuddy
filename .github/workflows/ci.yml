@@ -1,0 +1,320 @@
+name: CI
+
+# Analyse, test and build on every push to main plus every pull request. This is
+# the gate the release/hand-off depends on.
+on:
+  push:
+    branches:
+      - main
+      - 'arena/**'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+env:
+  FLUTTER_CHANNEL: stable
+
+jobs:
+  analyze-and-test:
+    name: Analyse + test
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Toolchain versions
+        run: flutter --version && dart --version
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Verify formatting (report only)
+        continue-on-error: true
+        run: dart format --output=none --set-exit-if-changed lib test
+
+      - name: Static analysis
+        id: analyze
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          flutter analyze --no-fatal-infos --no-fatal-warnings 2>&1 | tee analyze.log
+
+      - name: Unit + widget tests
+        id: tests
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          flutter test --coverage --reporter expanded 2>&1 | tee test.log
+
+      # Annotations are readable straight from the API, which makes them the
+      # most reliable way to see *which* line broke even when the raw log and
+      # the uploaded artefacts are not reachable from the reviewing machine.
+      - name: Annotate analysis errors (1-10)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '1,10p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate analysis errors (11-20)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '11,20p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate analysis errors (21-30)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '21,30p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate analysis errors (31-40)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '31,40p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate analysis errors (41-50)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '41,50p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate test failures (1-10)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E '\[E\]|Expected:|Actual:|Which:|Failed to load|Test failed|Exception' test.log | sed -n '1,10p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate test failures (11-20)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E '\[E\]|Expected:|Actual:|Which:|Failed to load|Test failed|Exception' test.log | sed -n '11,20p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate test failures (21-30)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E '\[E\]|Expected:|Actual:|Which:|Failed to load|Test failed|Exception' test.log | sed -n '21,30p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate test errors (1-10)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'Error:|error' test.log | sed -n '1,10p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate test errors (11-20)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'Error:|error' test.log | sed -n '11,20p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      # Pull-request diagnostics: the raw log is uploaded as an artefact, but a
+      # PR comment means the failure is readable without downloading anything.
+      - name: Publish diagnostics to the pull request
+        continue-on-error: true
+        if: >-
+          github.event_name == 'pull_request' &&
+          (steps.analyze.outcome == 'failure' || steps.tests.outcome == 'failure')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const read = (file) => fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : `(${file} was not produced)`;
+            const clip = (text) => text.length > 55000 ? `${text.slice(0, 55000)}\n… truncated` : text;
+            const body = [
+              '### CI diagnostics',
+              '',
+              `**flutter analyze**: ${'${{ steps.analyze.outcome }}'} · **flutter test**: ${'${{ steps.tests.outcome }}'}`,
+              '',
+              '<details><summary>flutter analyze output</summary>',
+              '',
+              '```',
+              clip(read('analyze.log')),
+              '```',
+              '',
+              '</details>',
+              '',
+              '<details><summary>flutter test output</summary>',
+              '',
+              '```',
+              clip(read('test.log')),
+              '```',
+              '',
+              '</details>',
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Fail when analysis or tests fail
+        if: steps.analyze.outcome == 'failure' || steps.tests.outcome == 'failure'
+        run: |
+          echo "::error::flutter analyze or flutter test failed — see the diagnostics comment / artifacts"
+          exit 1
+
+      - name: Coverage summary
+        if: always()
+        run: |
+          if [ -f coverage/lcov.info ]; then
+            awk -F: '/^LF:/{t+=$2} /^LH:/{h+=$2} END{printf "Line coverage: %d/%d (%.1f%%)\n", h, t, (t ? h/t*100 : 0)}' coverage/lcov.info
+          else
+            echo "no coverage file produced"
+          fi
+
+      - name: Upload coverage + logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-reports
+          path: |
+            coverage/lcov.info
+            analyze.log
+            test.log
+          if-no-files-found: warn
+          retention-days: 14
+
+  build-android:
+    name: Build Android APK + AAB
+    runs-on: ubuntu-latest
+    needs: analyze-and-test
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build release APK
+        id: apk
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          flutter build apk --release --no-shrink 2>&1 | tee apk.log
+
+      - name: Build release App Bundle
+        id: appbundle
+        if: steps.apk.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          flutter build appbundle --release --no-shrink 2>&1 | tee appbundle.log
+
+      # Gradle's failure text is the only useful signal, so surface it as
+      # annotations that a reviewer (or an agent) can read through the API.
+      - name: Annotate gradle errors (1-10)
+        if: steps.apk.outcome == 'failure' || steps.appbundle.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -hE "What went wrong|^> |^\* |error:|Error:|FAILURE:|Caused by|Execution failed|requires|not found|Unsupported|deprecated" apk.log appbundle.log 2>/dev/null | sed -n '1,10p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate gradle errors (11-20)
+        if: steps.apk.outcome == 'failure' || steps.appbundle.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -hE "What went wrong|^> |^\* |error:|Error:|FAILURE:|Caused by|Execution failed|requires|not found|Unsupported|deprecated" apk.log appbundle.log 2>/dev/null | sed -n '11,20p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate gradle errors (21-30)
+        if: steps.apk.outcome == 'failure' || steps.appbundle.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -hE "What went wrong|^> |^\* |error:|Error:|FAILURE:|Caused by|Execution failed|requires|not found|Unsupported|deprecated" apk.log appbundle.log 2>/dev/null | sed -n '21,30p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Upload APK
+        if: steps.apk.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauntbuddy-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload App Bundle
+        if: steps.appbundle.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauntbuddy-release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-logs
+          path: |
+            apk.log
+            appbundle.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Fail when the Android build fails
+        if: steps.apk.outcome == 'failure' || steps.appbundle.outcome == 'failure'
+        run: |
+          echo "::error::flutter build apk/appbundle failed — see the annotations above"
+          exit 1
+
+  build-web:
+    name: Build Web bundle
+    runs-on: ubuntu-latest
+    needs: analyze-and-test
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build web release
+        run: flutter build web --release
+
+      - name: Verify PWA manifest icons
+        run: |
+          python3 -c "import json,os,sys; m=json.load(open('web/manifest.json')); missing=[i['src'] for i in m.get('icons',[]) if not os.path.exists(os.path.join('web', i['src']))]; print('manifest OK ·', len(m.get('icons',[])), 'icons') if not missing else sys.exit('missing manifest icons: %s' % missing)"
+
+      - name: Upload web bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauntbuddy-web
+          path: build/web
+          if-no-files-found: error
+          retention-days: 14

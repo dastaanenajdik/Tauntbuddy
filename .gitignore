@@ -1,0 +1,53 @@
+# --- Flutter / Dart ---
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+.idea/
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+*.log
+coverage/
+lcov.info
+doc/api/
+.metadata.bak
+
+# --- Generated web build (published to the gh-pages branch by CI) ---
+/web_build/
+
+# --- Android ---
+android/.gradle/
+android/local.properties
+android/key.properties
+android/**/gen/
+android/.cxx/
+*.jks
+*.keystore
+!android/app/debug.keystore
+
+# --- iOS / macOS ---
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/Runner/GeneratedPluginRegistrant.*
+macos/Pods/
+macos/Flutter/ephemeral/
+**/Podfile.lock
+
+# --- Windows / Linux ---
+windows/flutter/ephemeral/
+linux/flutter/ephemeral/
+
+# --- OS noise ---
+.DS_Store
+Thumbs.db
+*.swp
+*~

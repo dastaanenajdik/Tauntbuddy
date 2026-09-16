@@ -1,0 +1,23 @@
+# This file tracks properties of this Flutter project.
+# Used by tooling to recreate the platform folders via `flutter create .`.
+version:
+  revision: "tauntbuddy-1.0.0"
+  channel: "stable"
+
+project_type: app
+
+# Platforms that are checked into this repository.
+migration:
+  platforms:
+    - platform: root
+      create_revision: tauntbuddy-1.0.0
+      base_revision: tauntbuddy-1.0.0
+    - platform: android
+      create_revision: tauntbuddy-1.0.0
+      base_revision: tauntbuddy-1.0.0
+    - platform: web
+      create_revision: tauntbuddy-1.0.0
+      base_revision: tauntbuddy-1.0.0
+
+# ios / macos / linux / windows are generated on demand:
+#   bash tools/add_platforms.sh ios macos linux windows

@@ -1,0 +1,149 @@
+name: Release
+
+# Tagging `v*` (or pressing the button) publishes the Android + Web artefacts
+# that were built from the exact commit, so a release can always be traced back
+# to a green CI run.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to release (e.g. v1.0.0)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    name: Verify the tagged commit
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Analyse
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Tests
+        run: flutter test
+
+      - name: Validate datasets
+        run: python3 .github/scripts/validate_taunts.py assets/data
+
+  android:
+    name: Android artefacts
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release --no-shrink
+
+      - name: Build App Bundle
+        run: flutter build appbundle --release --no-shrink
+
+      - name: Upload artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-artefacts
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+          retention-days: 30
+
+  web:
+    name: Web artefacts
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build web
+        run: flutter build web --release
+
+      - name: Package web bundle
+        run: |
+          cd build/web
+          zip -qr ../../tauntbuddy-web.zip .
+
+      - name: Upload artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-artefacts
+          path: tauntbuddy-web.zip
+          if-no-files-found: error
+          retention-days: 30
+
+  publish:
+    name: Publish GitHub release
+    needs: [android, web]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download artefacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artefacts
+
+      - name: Show what will be published
+        run: find release-artefacts -type f | sort
+
+      - name: Create / update the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: TauntBuddy ${{ github.event.inputs.tag || github.ref_name }}
+          generate_release_notes: true
+          draft: false
+          files: |
+            release-artefacts/android-artefacts/app-release.apk
+            release-artefacts/android-artefacts/app-release.aab
+            release-artefacts/web-artefacts/tauntbuddy-web.zip

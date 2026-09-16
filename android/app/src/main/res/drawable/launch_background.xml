@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TauntBuddy launch canvas: deep space with a violet bloom, matching the
+     Dark Neon theme so the handoff to Flutter is invisible. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:centerColor="#141021"
+                android:endColor="#0C0B10"
+                android:startColor="#0C0B10"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item
+        android:gravity="center"
+        android:width="180dp"
+        android:height="180dp">
+        <shape android:shape="oval">
+            <gradient
+                android:centerColor="#3A9D4EDD"
+                android:endColor="#009D4EDD"
+                android:gradientRadius="90dp"
+                android:type="radial" />
+        </shape>
+    </item>
+</layer-list>
