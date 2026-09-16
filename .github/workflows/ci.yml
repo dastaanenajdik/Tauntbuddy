@@ -14,6 +14,11 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 env:
   FLUTTER_CHANNEL: stable
 
@@ -56,9 +61,43 @@ jobs:
           set -o pipefail
           flutter test --coverage --reporter expanded 2>&1 | tee test.log
 
+      # Annotations are readable straight from the API, which makes them the
+      # most reliable way to see *which* line broke even when the raw log and
+      # the uploaded artefacts are not reachable from the reviewing machine.
+      - name: Annotate analysis errors (1-10)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '1,10p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate analysis errors (11-20)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '11,20p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate analysis errors (21-30)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '21,30p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate test errors (1-10)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'Error:|error' test.log | sed -n '1,10p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate test errors (11-20)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'Error:|error' test.log | sed -n '11,20p' | while IFS= read -r line; do echo "::error::$line"; done
+
       # Pull-request diagnostics: the raw log is uploaded as an artefact, but a
       # PR comment means the failure is readable without downloading anything.
       - name: Publish diagnostics to the pull request
+        continue-on-error: true
         if: >-
           github.event_name == 'pull_request' &&
           (steps.analyze.outcome == 'failure' || steps.tests.outcome == 'failure')
