@@ -94,6 +94,24 @@ jobs:
         run: |
           grep -E 'error' analyze.log | sed -n '41,50p' | while IFS= read -r line; do echo "::error::$line"; done
 
+      - name: Annotate test failures (1-10)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E '\[E\]|Expected:|Actual:|Which:|Failed to load|Test failed|Exception' test.log | sed -n '1,10p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate test failures (11-20)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E '\[E\]|Expected:|Actual:|Which:|Failed to load|Test failed|Exception' test.log | sed -n '11,20p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate test failures (21-30)
+        if: steps.tests.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E '\[E\]|Expected:|Actual:|Which:|Failed to load|Test failed|Exception' test.log | sed -n '21,30p' | while IFS= read -r line; do echo "::error::$line"; done
+
       - name: Annotate test errors (1-10)
         if: steps.tests.outcome == 'failure'
         continue-on-error: true

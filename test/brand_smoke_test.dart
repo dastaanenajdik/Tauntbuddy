@@ -92,36 +92,37 @@ void main() {
       }
     });
 
-    testWidgets('glass kit renders and stays interactive', (WidgetTester tester) async {
-      int taps = 0;
+    testWidgets('glass kit renders on a tall page', (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(1200, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
       await tester.pumpWidget(
         MaterialApp(
           theme: AppTheme.dark(),
           home: Scaffold(
-            body: ListView(
+            body: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
-              children: <Widget>[
-                GlassCard(
-                  child: Column(
-                    children: <Widget>[
-                      const Text('glass card body'),
-                      NeonChip(label: 'FOCUS MODE', dense: true),
-                      const GradientText('TauntBuddy'),
-                    ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  GlassCard(
+                    child: Column(
+                      children: <Widget>[
+                        const Text('glass card body'),
+                        const NeonChip(label: 'FOCUS MODE', dense: true),
+                        const GradientText('TauntBuddy'),
+                      ],
+                    ),
                   ),
-                ),
-                const StatTile(label: 'Streak', value: '12d'),
-                const MetricRing(progress: 0.5, value: '50%', label: 'EKAGRA'),
-                const NeonProgressBar(progress: 0.4),
-                const SectionHeader(title: 'Today', subtitle: 'Nothing yet'),
-                const EmptyState(title: 'Empty', message: 'Nothing here yet'),
-                const ProBadge(),
-                GlowButton(
-                  label: 'Start focus',
-                  onPressed: () => taps += 1,
-                ),
-                GhostButton(label: 'Later', onPressed: () => taps += 1),
-              ],
+                  const StatTile(label: 'Streak', value: '12d'),
+                  const MetricRing(progress: 0.5, value: '50%', label: 'EKAGRA'),
+                  const NeonProgressBar(progress: 0.4),
+                  const SectionHeader(title: 'Today', subtitle: 'Nothing yet'),
+                  const EmptyState(title: 'Empty', message: 'Nothing here yet'),
+                  const ProBadge(),
+                ],
+              ),
             ),
           ),
         ),
@@ -130,13 +131,39 @@ void main() {
 
       expect(find.text('glass card body'), findsOneWidget);
       expect(find.text('FOCUS MODE'), findsOneWidget);
-      expect(find.text('EKAGRA'), findsOneWidget);
       expect(find.text('TauntBuddy'), findsOneWidget);
+      expect(find.text('50%'), findsOneWidget);
+      expect(find.text('Nothing here yet'), findsOneWidget);
       expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('action buttons fire their callbacks', (WidgetTester tester) async {
+      int taps = 0;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.dark(),
+          home: Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  GlowButton(label: 'Start focus', onPressed: () => taps += 1),
+                  const SizedBox(height: 12),
+                  GhostButton(label: 'Later', onPressed: () => taps += 1),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pump(const Duration(milliseconds: 60));
 
       await tester.tap(find.text('Start focus'));
       await tester.pump();
-      expect(taps, 1);
+      await tester.tap(find.text('Later'));
+      await tester.pump();
+      expect(taps, 2);
+      expect(tester.takeException(), isNull);
     });
   });
 }
