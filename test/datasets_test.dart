@@ -57,9 +57,13 @@ void main() {
     });
 
     test('triggers round-trip through the enum', () {
-      for (final TauntPack pack in raw['packs'] as List<dynamic>) {
-        for (final dynamic entry in (pack as Map<String, dynamic>)['taunts'] as List<dynamic>) {
-          final String key = (entry as Map<String, dynamic>)['trigger'] as String;
+      final List<dynamic> packs = raw['packs'] as List<dynamic>;
+      for (final dynamic packEntry in packs) {
+        final Map<String, dynamic> pack = packEntry as Map<String, dynamic>;
+        final List<dynamic> taunts = pack['taunts'] as List<dynamic>;
+        for (final dynamic tauntEntry in taunts) {
+          final Map<String, dynamic> taunt = tauntEntry as Map<String, dynamic>;
+          final String key = taunt['trigger'] as String;
           final TauntTrigger trigger = TauntTrigger.fromKey(key);
           expect(trigger.key, key, reason: 'unknown trigger key "$key"');
         }
