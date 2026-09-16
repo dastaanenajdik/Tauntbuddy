@@ -43,10 +43,64 @@ jobs:
         run: dart format --output=none --set-exit-if-changed lib test
 
       - name: Static analysis
-        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+        id: analyze
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          flutter analyze --no-fatal-infos --no-fatal-warnings 2>&1 | tee analyze.log
 
       - name: Unit + widget tests
-        run: flutter test --coverage --reporter expanded
+        id: tests
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          flutter test --coverage --reporter expanded 2>&1 | tee test.log
+
+      # Pull-request diagnostics: the raw log is uploaded as an artefact, but a
+      # PR comment means the failure is readable without downloading anything.
+      - name: Publish diagnostics to the pull request
+        if: >-
+          github.event_name == 'pull_request' &&
+          (steps.analyze.outcome == 'failure' || steps.tests.outcome == 'failure')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const read = (file) => fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : `(${file} was not produced)`;
+            const clip = (text) => text.length > 55000 ? `${text.slice(0, 55000)}\n… truncated` : text;
+            const body = [
+              '### CI diagnostics',
+              '',
+              `**flutter analyze**: ${'${{ steps.analyze.outcome }}'} · **flutter test**: ${'${{ steps.tests.outcome }}'}`,
+              '',
+              '<details><summary>flutter analyze output</summary>',
+              '',
+              '```',
+              clip(read('analyze.log')),
+              '```',
+              '',
+              '</details>',
+              '',
+              '<details><summary>flutter test output</summary>',
+              '',
+              '```',
+              clip(read('test.log')),
+              '```',
+              '',
+              '</details>',
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Fail when analysis or tests fail
+        if: steps.analyze.outcome == 'failure' || steps.tests.outcome == 'failure'
+        run: |
+          echo "::error::flutter analyze or flutter test failed — see the diagnostics comment / artifacts"
+          exit 1
 
       - name: Coverage summary
         if: always()
@@ -57,12 +111,15 @@ jobs:
             echo "no coverage file produced"
           fi
 
-      - name: Upload coverage
+      - name: Upload coverage + logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-lcov
-          path: coverage/lcov.info
+          name: ci-reports
+          path: |
+            coverage/lcov.info
+            analyze.log
+            test.log
           if-no-files-found: warn
           retention-days: 14
 
