@@ -5,6 +5,7 @@ import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/catalog.dart';
 import '../models/quote.dart';
+import '../models/tracking.dart';
 import '../services/github_source.dart';
 import '../services/storage_service.dart';
 
@@ -95,6 +96,7 @@ class CatalogRepository {
   List<Course> get courses => _catalog.courses;
   List<StudyCircle> get circles => _catalog.circles;
   List<LeaderboardEntry> get leaderboard => _catalog.leaderboard;
+  List<MoodOption> get moods => _catalog.moods;
   List<DhyanTechnique> get dhyanTechniques => _catalog.dhyanTechniques;
   List<PlannerTemplate> get plannerTemplates => _catalog.plannerTemplates;
   List<KavachProfile> get kavachProfiles => _catalog.kavachProfiles;

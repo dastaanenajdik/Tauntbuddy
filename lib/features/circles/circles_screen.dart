@@ -44,7 +44,7 @@ class CirclesScreen extends StatelessWidget {
         _JoinCard(
           liveCount: circles.where((StudyCircle c) => c.isLive).length,
           onJoinMehfil: () async {
-            await ekagra.setSubject('Mehfil co-working');
+            ekagra.setSubject('Mehfil co-working');
             await ekagra.start(armShield: true);
             if (!context.mounted) return;
             EmojiBurst.fireFrom(context, emojis: EmojiBurst.focusEmojis, count: 10);
@@ -65,7 +65,7 @@ class CirclesScreen extends StatelessWidget {
                 circle: circle,
                 actionLabel: 'Join room',
                 onAction: () async {
-                  await ekagra.setSubject(circle.name);
+                  ekagra.setSubject(circle.name);
                   await ekagra.start(armShield: true);
                   if (!context.mounted) return;
                   AppRouter.go(context, AppRouter.ekagra);

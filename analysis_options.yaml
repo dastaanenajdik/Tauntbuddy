@@ -11,6 +11,9 @@ analyzer:
     unawaited_futures: warning
     missing_required_param: error
     missing_return: error
+    # Intentionally relaxed: TauntBuddy touches BuildContext across async gaps
+    # *after* mounted guards, which the rule cannot see through.
+    use_build_context_synchronously: ignore
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
@@ -28,7 +31,3 @@ linter:
     - unnecessary_lambdas
     - use_super_parameters
 
-    # Intentionally relaxed: TauntBuddy renders a lot of deliberately short-lived
-    # UI copy and uses BuildContext across async gaps *after* mounted guards,
-    # which the default rule cannot understand.
-    use_build_context_synchronously: false

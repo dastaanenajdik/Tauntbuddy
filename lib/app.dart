@@ -9,6 +9,7 @@ import 'core/widgets/hamster_mascot.dart';
 import 'core/widgets/glass.dart';
 import 'core/theme/app_tokens.dart';
 import 'data/services/storage_service.dart';
+import 'features/onboarding/onboarding_screen.dart';
 import 'state/activity_controller.dart';
 import 'state/app_state.dart';
 import 'state/ekagra_controller.dart';

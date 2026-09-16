@@ -6,6 +6,7 @@ import 'package:flutter/material.dart' show ThemeMode;
 import '../core/theme/theme_controller.dart';
 import '../core/utils/app_date_utils.dart';
 import '../data/models/app_settings.dart';
+import '../data/models/focus_session.dart';
 import '../data/models/study_task.dart';
 import '../data/models/taunt.dart';
 import '../data/models/tracking.dart';

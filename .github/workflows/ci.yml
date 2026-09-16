@@ -82,6 +82,18 @@ jobs:
         run: |
           grep -E 'error' analyze.log | sed -n '21,30p' | while IFS= read -r line; do echo "::error::$line"; done
 
+      - name: Annotate analysis errors (31-40)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '31,40p' | while IFS= read -r line; do echo "::error::$line"; done
+
+      - name: Annotate analysis errors (41-50)
+        if: steps.analyze.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          grep -E 'error' analyze.log | sed -n '41,50p' | while IFS= read -r line; do echo "::error::$line"; done
+
       - name: Annotate test errors (1-10)
         if: steps.tests.outcome == 'failure'
         continue-on-error: true
