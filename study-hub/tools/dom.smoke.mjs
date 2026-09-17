@@ -72,7 +72,7 @@ const nav = async (h) => { window.location.hash = h; await tick(50); };
 console.log("Home");
 ok(view.innerHTML.includes("Apka din"), "home hero rendered");
 ok(view.querySelectorAll(".exam-card").length === exams.EXAMS.length, `${exams.EXAMS.length} exam cards on home`);
-ok(view.querySelector('[data-stat="sessions"]').textContent === "0", "stats strip live");
+ok(view.querySelector('[data-stat="sessions"]').textContent === "00", "stats strip starts honestly at 00");
 ok([...window.document.querySelectorAll("[data-nav]")][0].classList.contains("active"), "Home nav active");
 
 console.log("Courses");

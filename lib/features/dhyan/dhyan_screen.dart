@@ -35,7 +35,7 @@ class DhyanScreen extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
       children: <Widget>[
         SectionHeader(
-          title: 'Dhyan',
+          title: 'Mindful Reset',
           subtitle: 'Reset the mind between deep blocks',
           icon: Icons.self_improvement_rounded,
           accent: t.accentMint,
@@ -60,7 +60,7 @@ class DhyanScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 mood == null
-                    ? 'How is your head today? Check in on the dashboard and Dhyan will adapt.'
+                    ? 'How is your head today? Check in on the dashboard and Mindful Reset will adapt.'
                     : 'You checked in as "${mood.moodId}". '
                         '${mood.score <= 2 ? 'Start with the 4-7-8 breath — two minutes is enough.' : 'A 10 minute body scan will sharpen the next block.'}',
                 textAlign: TextAlign.center,
@@ -69,8 +69,8 @@ class DhyanScreen extends StatelessWidget {
               const SizedBox(height: 16),
               GlowButton(
                 label: ekagra.isRunning && ekagra.kind == SessionKind.dhyan
-                    ? 'Pause Dhyan'
-                    : 'Start 10 minute Dhyan',
+                    ? 'Pause reset'
+                    : 'Start 10 minute reset',
                 icon: Icons.spa_rounded,
                 gradient: <Color>[t.accentMint, t.accentCyan],
                 onPressed: () async {
@@ -103,7 +103,7 @@ class DhyanScreen extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: StatTile(
-                label: 'Dhyan this month',
+                label: 'Mindful time this month',
                 value: AppDateUtils.durationLabel(
                   dhyanSessions
                       .where((FocusSession s) => s.day.daysUntil(DayKey.today()) >= -30)

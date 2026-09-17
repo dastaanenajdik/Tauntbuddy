@@ -46,7 +46,7 @@ class LeaderboardScreen extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
       children: <Widget>[
         SectionHeader(
-          title: 'Leaderboard',
+          title: 'Progress Board',
           subtitle: 'Study longer, climb higher',
           icon: Icons.emoji_events_rounded,
           accent: t.accentAmber,
@@ -218,7 +218,7 @@ class _BoardRow extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                '🔥 ${entry.streak}d',
+                '🔥 ${entry.streak.toString().padLeft(2, '0')}d',
                 style: TextStyle(color: t.textMuted, fontSize: 10.5),
               ),
             ],

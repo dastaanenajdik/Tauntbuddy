@@ -391,17 +391,17 @@ class _AppDrawer extends StatelessWidget {
   static const List<(String, String, IconData)> _entries = <(String, String, IconData)>[
     ('Home', AppRouter.home, Icons.auto_awesome_rounded),
     ('Dashboard', AppRouter.dashboard, Icons.space_dashboard_rounded),
-    ('Ekagra', AppRouter.ekagra, Icons.bolt_rounded),
+    ('Focus Flow', AppRouter.ekagra, Icons.bolt_rounded),
     ('Exam Planner', AppRouter.planner, Icons.event_note_rounded),
     ('Exam Hub', AppRouter.exams, Icons.workspace_premium_rounded),
-    ('KAVACH', AppRouter.kavach, Icons.shield_rounded),
-    ('Leaderboard', AppRouter.leaderboard, Icons.emoji_events_rounded),
+    ('Distraction Shield', AppRouter.kavach, Icons.shield_rounded),
+    ('Progress Board', AppRouter.leaderboard, Icons.emoji_events_rounded),
     ('Courses', AppRouter.courses, Icons.school_rounded),
-    ('Mehfil & Circles', AppRouter.circles, Icons.groups_rounded),
-    ('Dhyan', AppRouter.dhyan, Icons.self_improvement_rounded),
-    ('Timeline & Clock', AppRouter.timeline, Icons.schedule_rounded),
+    ('Focus Rooms', AppRouter.circles, Icons.groups_rounded),
+    ('Mindful Reset', AppRouter.dhyan, Icons.self_improvement_rounded),
+    ('Dayline', AppRouter.timeline, Icons.schedule_rounded),
     ("Today's Goals", AppRouter.goals, Icons.checklist_rounded),
-    ('Taunt Vault', AppRouter.taunts, Icons.campaign_rounded),
+    ('Motivation Vault', AppRouter.taunts, Icons.campaign_rounded),
   ];
 
   @override
@@ -664,7 +664,7 @@ class _TauntSheet extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: GlowButton(
-                    label: 'Open Ekagra',
+                    label: 'Open Focus Flow',
                     icon: Icons.bolt_rounded,
                     onPressed: () {
                       Navigator.of(context).pop();

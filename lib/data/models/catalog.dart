@@ -202,7 +202,7 @@ class LeaderboardEntry {
         handle: (json['handle'] as String?) ?? '@learner',
         focusMinutes: (json['focusMinutes'] as num?)?.toInt() ?? 0,
         streak: (json['streak'] as num?)?.toInt() ?? 0,
-        badge: (json['badge'] as String?) ?? 'Ekagra',
+        badge: (json['badge'] as String?) ?? 'Focus Flow',
       );
 }
 
@@ -398,8 +398,8 @@ class SeedCatalog {
     features: <FeatureCard>[
       FeatureCard(
         id: 'ekagra',
-        title: 'Ekagra',
-        tagline: 'Deep focus timer that measures your Ekagra Depth.',
+        title: 'Focus Flow',
+        tagline: 'Deep focus timer that measures your Focus Score.',
         icon: 'bolt',
         route: '/ekagra',
         accent: 'violet',
@@ -415,7 +415,7 @@ class SeedCatalog {
       ),
       FeatureCard(
         id: 'kavach',
-        title: 'KAVACH',
+        title: 'Distraction Shield',
         tagline: 'Focus shield against distractions.',
         icon: 'shield',
         route: '/kavach',
@@ -423,7 +423,7 @@ class SeedCatalog {
       ),
       FeatureCard(
         id: 'dhyan',
-        title: 'Dhyan',
+        title: 'Mindful Reset',
         tagline: 'Mindfulness timers and resets.',
         icon: 'self_improvement',
         route: '/dhyan',
@@ -433,7 +433,7 @@ class SeedCatalog {
     levels: <LevelDefinition>[
       LevelDefinition(level: 1, title: 'Soja Beta', minFocusMinutes: 0, accent: 'grey'),
       LevelDefinition(level: 2, title: 'Uth Ja Bhai', minFocusMinutes: 60, accent: 'violet'),
-      LevelDefinition(level: 3, title: 'Ekagra Mode', minFocusMinutes: 300, accent: 'cyan'),
+      LevelDefinition(level: 3, title: 'Flow Builder', minFocusMinutes: 300, accent: 'cyan'),
     ],
   );
 }

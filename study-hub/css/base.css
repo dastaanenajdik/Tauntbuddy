@@ -14,23 +14,13 @@ body {
   font-family: var(--font-body);
   font-size: 16.5px;
   line-height: 1.55;
-  /* Layered photographic backdrop — fixes the "plain white desktop" look.
-     Fixed on a dedicated pseudo layer (see ::before) for smooth scrolling. */
-  background-color: var(--bg);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Fixed backdrop layer: texture photo + warm vignette. transform:translateZ(0)
-   pins it to the compositor so scrolling never repaints it. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background:
-    linear-gradient(180deg, rgba(244, 238, 224, 0.82) 0%, rgba(239, 231, 216, 0.9) 55%, rgba(233, 222, 200, 0.95) 100%),
-    url("../assets/bg-texture.jpg") center / cover no-repeat;
-  transform: translateZ(0);
-}
+/* The page canvas is intentionally plain white. Hero/card photographs remain
+   real content, but no fixed image, gradient or blue tint sits behind text. */
 
 h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.12; letter-spacing: -0.01em; }
 h1 { font-size: clamp(26px, 4.6vw, 42px); }
@@ -62,8 +52,9 @@ input, textarea, select {
   text-decoration-color: transparent !important;
   -webkit-text-decoration-line: none !important;
   text-decoration-thickness: 0 !important;
+  text-decoration-skip-ink: none !important;
 }
-a, a:hover, a:active, a:visited u, ins, abbr {
+a, a:hover, a:active, a:visited, u, ins, abbr {
   text-decoration: none !important;
   border-bottom: 0 !important;   /* no border-based "underline" equivalents */
   box-shadow: none;              /* box reset applied where real shadows exist */

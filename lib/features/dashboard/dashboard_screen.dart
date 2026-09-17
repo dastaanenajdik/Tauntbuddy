@@ -370,7 +370,7 @@ class _StreakAndBadges extends StatelessWidget {
           const SizedBox(height: 10),
           if (unlocked.isEmpty)
             Text(
-              'Nothing yet. One 25 minute Ekagra block unlocks your first badge.',
+              'Nothing yet. One 25 minute focus block unlocks your first badge.',
               style: TextStyle(color: t.textMuted, fontSize: 11.5),
             )
           else
@@ -537,14 +537,14 @@ class _StartSessionCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  ekagra.isRunning ? 'Session running · ${ekagra.clock}' : 'Start an Ekagra block',
+                  ekagra.isRunning ? 'Session running · ${ekagra.clock}' : 'Start an focus block',
                   style: TextStyle(color: t.textPrimary, fontSize: 14.5, fontWeight: FontWeight.w800),
                 ),
                 const SizedBox(height: 5),
                 Text(
                   ekagra.isRunning
-                      ? 'Stay in the app. KAVACH is watching.'
-                      : '${ekagra.focusMinutes} minute Pomodoro · KAVACH optional',
+                      ? 'Stay in the app. Your Distraction Shield is active.'
+                      : '${ekagra.focusMinutes} minute Pomodoro · shield optional',
                   style: TextStyle(color: t.textMuted, fontSize: 11.5),
                 ),
                 const SizedBox(height: 10),

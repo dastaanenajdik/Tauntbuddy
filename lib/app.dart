@@ -76,13 +76,16 @@ class TauntBuddyApp extends StatelessWidget {
         ChangeNotifierProvider<ShellController>(create: (_) => ShellController()),
       ],
       child: Consumer<ThemeController>(
-        builder: (BuildContext context, ThemeController theme, _) {
+        builder: (BuildContext context, ThemeController _, _) {
           return MaterialApp(
             title: 'TauntBuddy',
             debugShowCheckedModeBanner: false,
-            themeMode: theme.mode,
+            // The product now has one crisp white visual baseline. Keeping both
+            // ThemeData slots light also prevents a persisted/system dark mode from
+            // flashing the old blue canvas during web startup.
+            themeMode: ThemeMode.light,
             theme: AppTheme.light(),
-            darkTheme: AppTheme.dark(),
+            darkTheme: AppTheme.light(),
             onGenerateRoute: AppRouter.onGenerateRoute,
             home: const _AppEntry(),
             builder: (BuildContext context, Widget? child) {

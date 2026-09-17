@@ -77,7 +77,7 @@ class AppState extends ChangeNotifier {
 
   bool get isPro => _settings.proUnlocked || _profile.isPro;
 
-  /// Today's "Ekagra Depth" in minutes.
+  /// Today's "Focus Score" in minutes.
   int get todayDepth => activity.depthOn(DayKey.today());
 
   int get todayFocusMinutes => activity.minutesOn(DayKey.today());

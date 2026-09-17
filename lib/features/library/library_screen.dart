@@ -56,7 +56,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           radius: 24,
           child: EmptyState(
             title: 'Shelf is empty',
-            message: 'Sync from the ifallertzia server in the Taunt Vault to load the course catalog.',
+            message: 'Sync from the data server in the Motivation Vault to load the course catalog.',
             icon: Icons.school_rounded,
           ),
         ),
@@ -125,7 +125,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             message: 'Bookmark the lines that hit hardest — they stay available offline.',
             icon: Icons.bookmark_border_rounded,
             action: GlowButton(
-              label: 'Open Taunt Vault',
+              label: 'Open Motivation Vault',
               icon: Icons.campaign_rounded,
               compact: true,
               expand: false,

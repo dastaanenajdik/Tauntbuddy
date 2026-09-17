@@ -64,7 +64,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
       children: <Widget>[
         SectionHeader(
-          title: 'Timeline & Clock',
+          title: 'Dayline',
           subtitle: DayKey.today().long,
           icon: Icons.schedule_rounded,
           accent: t.accentAmber,

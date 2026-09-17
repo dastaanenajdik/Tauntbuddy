@@ -176,7 +176,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             radius: 24,
             child: EmptyState(
               title: 'No sessions yet',
-              message: 'Finish one Ekagra block and this screen starts talking.',
+              message: 'Finish one focus block and this screen starts talking.',
               icon: Icons.insights_rounded,
             ),
           )

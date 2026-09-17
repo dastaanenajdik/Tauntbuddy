@@ -107,7 +107,7 @@ class NotificationService {
       await android.createNotificationChannel(
         const AndroidNotificationChannel(
           NotificationChannels.kavach,
-          'KAVACH shield',
+          'Distraction Shield',
           description: 'Shows while a focus shield session is running.',
           importance: Importance.low,
         ),

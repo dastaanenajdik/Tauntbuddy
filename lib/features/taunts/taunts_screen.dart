@@ -60,7 +60,7 @@ class _TauntsScreenState extends State<TauntsScreen> {
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
       children: <Widget>[
         SectionHeader(
-          title: 'Taunt Vault',
+          title: 'Motivation Vault',
           subtitle: '${app.taunts.count} taunts · ${app.taunts.packs.length} packs',
           icon: Icons.campaign_rounded,
           accent: t.accentMagenta,

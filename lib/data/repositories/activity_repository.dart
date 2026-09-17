@@ -48,7 +48,7 @@ class AnalyticsSnapshot {
   /// Share of sessions that ran to completion.
   double get completionRate => AppDateUtils.ratio(completedSessions, sessions);
 
-  /// Average Ekagra Depth (quality-weighted minutes) per day.
+  /// Average Focus Score (quality-weighted minutes) per day.
   double get avgDepthPerDay =>
       windowDays == 0 ? 0 : AppDateUtils.oneDecimal(depthScore / windowDays);
 
@@ -74,7 +74,7 @@ class AnalyticsSnapshot {
 }
 
 /// Single source of truth for everything the user *does* in TauntBuddy:
-/// focus sessions, Dhyan sessions, goals, moods, planner tasks and syllabus.
+/// focus sessions, mindful sessions, goals, moods, planner tasks and syllabus.
 ///
 /// Pure data + maths — no `notifyListeners()` here. The state layer wraps this
 /// so that analytics can also be unit tested against a fake storage.

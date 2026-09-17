@@ -23,7 +23,7 @@ class Quote {
       };
 
   static const List<Quote> fallback = <Quote>[
-    Quote(text: 'Ekagra ka matlab hai ek lakshya, ek samay, ek dhyan.', category: 'focus'),
+    Quote(text: 'One goal, one moment, one clear mind.', category: 'focus'),
     Quote(
       text: 'Kal karunga, ye sabse mehnga wada hai jo tu khud se karta hai.',
       category: 'procrastination',

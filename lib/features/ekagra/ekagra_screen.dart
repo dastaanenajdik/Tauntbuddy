@@ -17,7 +17,7 @@ import '../../state/kavach_controller.dart';
 
 /// Ekagra — the deep focus timer.
 ///
-/// Pomodoro rounds with subject tagging, KAVACH integration and Ekagra Depth
+/// Pomodoro rounds with subject tagging, KAVACH integration and Focus Score
 /// accounting (minutes × quality, where quality drops with every shield breach).
 class EkagraScreen extends StatelessWidget {
   const EkagraScreen({super.key});
@@ -38,7 +38,7 @@ class EkagraScreen extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
       children: <Widget>[
         SectionHeader(
-          title: 'Ekagra',
+          title: 'Focus Flow',
           subtitle: 'Deep focus that actually gets measured',
           icon: Icons.bolt_rounded,
           trailing: NeonChip(
@@ -118,7 +118,7 @@ class EkagraScreen extends StatelessWidget {
             radius: 24,
             padding: const EdgeInsets.all(6),
             child: EmptyState(
-              title: 'No Ekagra blocks yet',
+              title: 'No focus blocks yet',
               message: 'Start a 25 minute block. That is all it takes to open your '
                   'first badge and quiet the hamster.',
               icon: Icons.bolt_rounded,
@@ -156,7 +156,7 @@ class EkagraScreen extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  'Ekagra Depth = focused minutes × quality. Every KAVACH breach shaves '
+                  'Focus Score = focused minutes × quality. Every KAVACH breach shaves '
                   '12% off the quality, so staying in the app literally pays off.',
                   style: TextStyle(color: t.textMuted, fontSize: 11, height: 1.45),
                 ),
@@ -329,7 +329,7 @@ class _PresetRow extends StatelessWidget {
       ('25 min', 25, SessionKind.ekagra),
       ('50 min', 50, SessionKind.ekagra),
       ('90 min', 90, SessionKind.ekagra),
-      ('Dhyan 10', 10, SessionKind.dhyan),
+      ('Mindful 10', 10, SessionKind.dhyan),
     ];
 
     return GlassCard(
@@ -411,7 +411,7 @@ class _ShieldRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'KAVACH shield',
+                  'Distraction Shield',
                   style: TextStyle(color: t.textPrimary, fontSize: 13.5, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 3),

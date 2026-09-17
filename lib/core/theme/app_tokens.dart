@@ -124,12 +124,12 @@ class AppTokens extends ThemeExtension<AppTokens> {
   /// white cards and near-black ink.
   static const AppTokens light = AppTokens(
     isDark: false,
-    background: Color(0xFFF5F4FA),
-    backgroundAlt: Color(0xFFE9E5F6),
+    background: Color(0xFFFFFFFF),
+    backgroundAlt: Color(0xFFFFFFFF),
     surface: Color(0xFFFFFFFF),
-    surfaceHigh: Color(0xFFF0ECFA),
+    surfaceHigh: Color(0xFFF8F8FA),
     glassFill: Color(0xFFFFFFFF),
-    glassBorder: Color(0xFFD6CDEA),
+    glassBorder: Color(0xFFE4E1EA),
     glassHighlight: Color(0x33FFFFFF),
     textPrimary: Color(0xFF14111F),
     textMuted: Color(0xFF4B4660),
