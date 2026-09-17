@@ -95,7 +95,7 @@
     {
       "id": "taunts",
       "title": "Taunt Vault",
-      "tagline": "GitHub-synced taunts, favourites and instant test pings.",
+      "tagline": "ifallertzia-server synced taunts, favourites and instant test pings.",
       "icon": "campaign",
       "route": "/taunts",
       "accent": "magenta",

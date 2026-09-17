@@ -4,24 +4,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/taunt.dart';
-import '../services/github_source.dart';
+import '../services/ifallertzia_source.dart';
 import '../services/storage_service.dart';
 
-/// Owns the taunt dataset: bundled asset → optional GitHub sync → in-memory
-/// rotation memory.
+/// Owns the taunt dataset: bundled asset → optional ifallertzia server
+/// sync → in-memory rotation memory.
 ///
 /// The app must never be left without taunts, so there are three safety nets:
 /// 1. `assets/data/taunts.json` (the canonical dataset, validated by CI),
-/// 2. the last successful GitHub download cached in preferences,
+/// 2. the last successful ifallertzia server download cached in preferences,
 /// 3. [_emergencyPack] compiled into the binary.
 class TauntRepository {
   TauntRepository({
-    required GithubDatasetSource source,
+    required IfallertziaDatasetSource source,
     required StorageService storage,
   })  : _source = source,
         _storage = storage;
 
-  final GithubDatasetSource _source;
+  final IfallertziaDatasetSource _source;
   final StorageService _storage;
 
   TauntDataset _dataset = TauntDataset.empty;
@@ -134,8 +134,8 @@ class TauntRepository {
         : SyncResult.skipped('Using the bundled taunt pack (${_dataset.length} taunts).');
   }
 
-  /// Downloads the dataset from GitHub. Returns a human-readable result.
-  Future<SyncResult> syncFromGithub(String url) async {
+  /// Downloads the dataset from the ifallertzia server. Returns a human-readable result.
+  Future<SyncResult> syncFromIfallertzia(String url) async {
     final (TauntDataset?, SyncResult) result = await _source.fetchTaunts(url);
     final TauntDataset? remote = result.$1;
     _lastSync = result.$2;

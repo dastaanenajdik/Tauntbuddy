@@ -1,0 +1,208 @@
+/* ---------------------------------------------------------------------------
+   View-specific styles: Courses, Course detail (units), Planner (weeks/days),
+   Pomodoro.
+   --------------------------------------------------------------------------- */
+
+/* --- exam / course cards ---------------------------------------------------- */
+.exam-card .thumb {
+  height: 108px;
+  border-radius: 14px;
+  margin: -4px -4px 12px;
+  background:
+    var(--hero-scrim-strong),
+    url("../assets/bg-exams.jpg") center 62% / cover no-repeat,
+    var(--navy);
+  display: flex;
+  align-items: flex-end;
+  padding: 12px 14px;
+}
+.exam-card .thumb h3 { color: #ffffff; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5); }
+.exam-card .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.exam-card .progress { margin: 10px 0 4px; }
+
+.filterbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.filterbar .chip { cursor: pointer; transition: transform 0.15s ease, background 0.15s ease; }
+.filterbar .chip:hover { transform: translateY(-1px); }
+.filterbar .chip.sel { background: var(--navy); color: var(--on-navy); }
+
+/* --- course detail: subjects → units → chapters ------------------------------ */
+.subject-card h2 { margin-bottom: 2px; }
+.subject-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.subject-head .progress { flex: 1 1 100%; margin-top: 8px; }
+
+.unit {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px 12px 6px;
+  background: #fffdf9;
+}
+.unit-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.unit-head h3 { font-size: 16.5px; }
+.unit-head .unit-pct { font-variant-numeric: tabular-nums; }
+.unit .progress { margin: 8px 0 10px; }
+.unit-done-badge { display: none; }
+.unit.complete { border-color: #bfe0cd; background: #f7fcf9; }
+.unit.complete .unit-done-badge { display: inline-flex; }
+.unit .chapters { list-style: none; display: grid; gap: 6px; margin-bottom: 6px; }
+
+.chapter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--card-soft);
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.chapter-row:hover { border-color: var(--line); }
+.chapter-row.done { background: var(--ok-soft); }
+.chapter-row .c-name { flex: 1 1 auto; font-weight: 600; font-size: 15px; }
+.chapter-row.done .c-name { color: var(--ok-soft-ink); }
+.chapter-row .c-meta { color: var(--muted); font-size: 12.5px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* --- embedded pomodoro (course page) ----------------------------------------- */
+.mini-pomo { display: grid; gap: 10px; justify-items: center; text-align: center; }
+.mini-pomo .next-up { font-size: 13.5px; color: var(--on-navy-muted); }
+.mini-pomo .next-up strong { color: #ffffff; }
+
+/* --- planner ----------------------------------------------------------------- */
+.plan-hero .picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.plan-hero .picker .chip { font-size: 13px; }
+.plan-hero .picker .chip.sel { background: var(--gold); color: var(--on-gold); }
+
+.plan-summary { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 18px; }
+
+.week {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 12px;
+  overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}
+.week > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+}
+.week > summary::-webkit-details-marker { display: none; }
+.week > summary:hover { background: #fffaf0; }
+.week .w-caret {
+  width: 26px; height: 26px;
+  border-radius: 9px;
+  background: #efe6d3;
+  color: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px;
+  transition: transform 0.2s ease;
+}
+.week[open] .w-caret { transform: rotate(90deg); }
+.week .w-title { font-weight: 700; font-family: var(--font-display); }
+.week .w-sub { color: var(--muted); font-size: 12.5px; }
+.week .w-right { display: flex; align-items: center; gap: 10px; }
+.week .w-pct { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 13.5px; }
+.week .progress { width: 92px; }
+.week-body { padding: 4px 14px 14px; display: grid; gap: 10px; }
+
+.day {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fffdf9;
+  overflow: hidden;
+}
+.day > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 9px 12px;
+  background: #f6efe0;
+  font-size: 13.5px;
+}
+.day > header .d-num { font-weight: 800; font-family: var(--font-display); font-size: 14.5px; }
+.day > header .d-sub { color: var(--muted); font-size: 12.5px; }
+.day.alldone > header { background: var(--ok-soft); }
+.day .tasks { list-style: none; display: grid; gap: 6px; padding: 8px; }
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--card-soft);
+  transition: background 0.15s ease;
+}
+.task.done { background: var(--ok-soft); }
+.task .t-main { flex: 1 1 auto; min-width: 0; }
+.task .t-title { font-weight: 650; font-size: 14.5px; }
+.task .t-crumb { color: var(--muted); font-size: 12.5px; }
+.task.done .t-title { color: var(--ok-soft-ink); }
+
+.pomochip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--on-navy);
+  font-size: 12.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.pomochip:hover { transform: translateY(-1px); filter: brightness(1.12); }
+.pomochip.filled { background: var(--ok); color: var(--on-ok); }
+
+/* --- pomodoro page ------------------------------------------------------------- */
+.pomo-wrap { display: grid; gap: 14px; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: start; }
+.pomo-stage { text-align: center; padding: clamp(18px, 4vw, 34px) 16px; }
+.pomo-ctx { font-size: 14px; color: var(--on-navy-muted); min-height: 20px; }
+.timer {
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(56px, 11vw, 96px);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  line-height: 1.05;
+  margin: 6px 0 2px;
+}
+.timer.running { animation: breathe 2.6s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.015); } }
+.pomo-mode { color: var(--on-navy-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; }
+.pomo-controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+.pomo-modes { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+.pomo-modes .btn[aria-pressed="true"] { outline: 3px solid var(--gold); outline-offset: 2px; }
+.pomo-taskline { margin-top: 14px; font-size: 13.5px; color: var(--on-navy-muted); }
+.pomo-taskline strong { color: #ffffff; }
+
+.session-log { list-style: none; display: grid; gap: 8px; margin-top: 10px; }
+.session-log li {
+  display: flex; justify-content: space-between; gap: 10px;
+  background: var(--card-soft); border: 1px solid var(--line);
+  padding: 9px 12px; border-radius: 12px; font-size: 13.5px;
+}
+.session-log .when { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 860px) {
+  .pomo-wrap { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .chapter-row, .task { flex-wrap: wrap; }
+  .week > summary { grid-template-columns: auto 1fr; }
+  .week .w-right { grid-column: 1 / -1; }
+  .week .progress { flex: 1; width: auto; }
+}

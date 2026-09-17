@@ -1,0 +1,178 @@
+/* ---------------------------------------------------------------------------
+   Shared components: cards, buttons, chips, progress, task rows, toasts.
+   --------------------------------------------------------------------------- */
+
+.grid { display: grid; gap: 14px; }
+.grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  content-visibility: auto;      /* off-screen cards skip layout/paint */
+  contain-intrinsic-size: auto 220px;
+}
+.card.clickable { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.card.clickable:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+.card.navy   { background: var(--navy);   color: var(--on-navy);   border-color: transparent; }
+.card.teal   { background: var(--teal);   color: var(--on-teal);   border-color: transparent; }
+.card.accent { background: var(--accent); color: var(--on-accent); border-color: transparent; }
+.card.navy h3, .card.teal h3, .card.accent h3 { color: inherit; }
+.card.navy .muted   { color: var(--on-navy-muted); }
+.card.teal .muted   { color: var(--on-teal-muted); }
+.card.accent .muted { color: #f6dcc6; }
+
+.muted { color: var(--muted); }
+
+/* --- buttons -------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--on-navy);
+  font-weight: 600;
+  font-size: 14.5px;
+  transition: transform 0.16s ease, background 0.16s ease, filter 0.16s ease;
+  box-shadow: none;
+  user-select: none;
+}
+.btn:hover { transform: translateY(-1px); filter: brightness(1.07); }
+.btn:active { transform: translateY(0); }
+.btn.gold  { background: var(--gold);  color: var(--on-gold); }
+.btn.ghost { background: #efe6d3;      color: var(--ink); }
+.btn.ok    { background: var(--ok);    color: var(--on-ok); }
+.btn.blank { background: rgba(255, 255, 255, 0.16); color: #ffffff; }
+.btn.small { padding: 7px 11px; font-size: 13px; }
+.btn[disabled] { opacity: 0.55; cursor: default; transform: none; }
+
+/* --- chips & badges -------------------------------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: #efe6d3;
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: none;
+}
+.chip.on-dark { background: rgba(255, 255, 255, 0.16); color: #ffffff; }
+.chip.gold { background: var(--gold); color: var(--on-gold); }
+.chip.ok { background: var(--ok-soft); color: var(--ok-soft-ink); }
+
+.kindchip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.kind-learn    { background: #e3ecfa; color: #1d3f77; }
+.kind-practice { background: #f0e6fb; color: #5b2d90; }
+.kind-revision { background: #fdeedd; color: #8a4a0d; }
+.kind-review   { background: #dcf3ea; color: #0d5744; }
+.kind-mock     { background: #fbdede; color: #8f2118; }
+
+/* --- progress -------------------------------------------------------------- */
+.progress {
+  height: 9px;
+  background: #e9ddc6;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress > span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--ok);
+  border-radius: 99px;
+  transition: width 0.45s ease;
+}
+.progress.on-dark { background: rgba(255, 255, 255, 0.24); }
+.progress.on-dark > span { background: var(--gold); }
+
+/* --- generic list + check rows --------------------------------------------- */
+.list { list-style: none; display: grid; gap: 8px; }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px;
+  background: var(--card-soft);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.check.done { background: var(--ok-soft); border-color: #bfe0cd; }
+
+.tick {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 2px solid #b9a988;
+  background: #ffffff;
+  color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+.tick:hover { border-color: var(--ok); transform: scale(1.06); }
+.check.done .tick, .tick[aria-pressed="true"] { background: var(--ok); border-color: var(--ok); color: var(--on-ok); }
+
+/* --- stats strip ----------------------------------------------------------- */
+.stats { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin: 14px 0; }
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+.stat .n { font-family: var(--font-display); font-size: 26px; font-weight: 700; }
+.stat .l { color: var(--muted); font-size: 13px; }
+
+/* --- toast ------------------------------------------------------------------ */
+.toast-root {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 80;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  pointer-events: none;
+  width: min(92vw, 480px);
+}
+.toast {
+  background: var(--navy);
+  color: var(--on-navy);
+  padding: 11px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  animation: toastIn 0.25s ease both;
+}
+.toast.leaving { animation: toastOut 0.3s ease both; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(12px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes toastOut { to { opacity: 0; transform: translateY(10px) scale(0.97); } }

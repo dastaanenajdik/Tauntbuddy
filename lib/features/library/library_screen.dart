@@ -56,7 +56,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           radius: 24,
           child: EmptyState(
             title: 'Shelf is empty',
-            message: 'Sync the dataset from the Taunt Vault to load the course catalog.',
+            message: 'Sync from the ifallertzia server in the Taunt Vault to load the course catalog.',
             icon: Icons.school_rounded,
           ),
         ),
@@ -178,7 +178,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Dataset status',
+              'ifallertzia server status',
               style: TextStyle(color: t.textPrimary, fontSize: 14, fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 10),
@@ -189,7 +189,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             _ResourceRow(label: 'Badges', value: '${app.catalog.badges.length}'),
             _ResourceRow(
               label: 'Source',
-              value: app.taunts.dataset.source == TauntSource.remote ? 'GitHub raw' : 'Bundled asset',
+              value: app.taunts.dataset.source == TauntSource.remote ? 'ifallertzia server' : 'Bundled asset',
             ),
             const SizedBox(height: 12),
             Text(
@@ -234,7 +234,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             const SizedBox(height: 8),
             Text(
               '1. CI validates assets/data/taunts.json on every PR.\n'
-              '2. The app fetches the same file from raw.githubusercontent.com.\n'
+              '2. The app fetches the same file from the ifallertzia server.\n'
               '3. The reminder engine schedules 1–6 daily taunts with the OS.\n'
               '4. Offline? The bundled pack and your last sync keep it running.',
               style: TextStyle(color: t.textMuted, fontSize: 11.5, height: 1.6),

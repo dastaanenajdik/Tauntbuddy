@@ -11,10 +11,10 @@ import '../../core/widgets/hamster_mascot.dart';
 import '../../core/widgets/ui_kit.dart';
 import '../../data/models/app_settings.dart';
 import '../../data/models/taunt.dart';
-import '../../data/services/github_source.dart';
+import '../../data/services/ifallertzia_source.dart';
 import '../../state/app_state.dart';
 
-/// Taunt Vault — the GitHub-synced taunt engine, made visible.
+/// Taunt Vault — the ifallertzia-server synced taunt engine, made visible.
 ///
 /// Users can see where the taunts come from, sync a fresh dataset, tune how
 /// brutal the hamster is, fire a test notification and favourite lines.
@@ -137,7 +137,7 @@ class _TauntsScreenState extends State<TauntsScreen> {
             radius: 24,
             child: EmptyState(
               title: 'No taunts match',
-              message: 'Clear the filters, or sync a fresh dataset from GitHub.',
+              message: 'Clear the filters, or sync a fresh dataset from the ifallertzia server.',
               icon: Icons.search_off_rounded,
             ),
           )
@@ -199,7 +199,7 @@ class _SyncCard extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  'GitHub taunt sync',
+                  'ifallertzia server taunt sync',
                   style: TextStyle(color: t.textPrimary, fontSize: 15, fontWeight: FontWeight.w800),
                 ),
               ),
@@ -395,7 +395,7 @@ class _TauntCard extends StatelessWidget {
               ),
               const SizedBox(width: 6),
               NeonChip(
-                label: taunt.source == TauntSource.remote ? 'GitHub' : 'Bundled',
+                label: taunt.source == TauntSource.remote ? 'ifallertzia' : 'Bundled',
                 dense: true,
                 color: taunt.source == TauntSource.remote ? t.accentMint : t.accentGrey,
               ),

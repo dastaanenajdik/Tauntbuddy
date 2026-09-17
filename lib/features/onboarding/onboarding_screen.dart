@@ -204,7 +204,7 @@ class _WelcomePage extends StatelessWidget {
             alignment: WrapAlignment.center,
             children: <Widget>[
               NeonChip(label: 'Web + Mobile', icon: Icons.devices_rounded, color: t.accentCyan),
-              NeonChip(label: 'GitHub synced taunts', icon: Icons.cloud_sync_rounded, color: t.accentViolet),
+              NeonChip(label: 'ifallertzia server taunts', icon: Icons.cloud_sync_rounded, color: t.accentViolet),
               NeonChip(label: 'Offline first', icon: Icons.wifi_off_rounded, color: t.accentMint),
             ],
           ),

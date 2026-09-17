@@ -7,19 +7,19 @@ import '../models/catalog.dart';
 import '../models/exam.dart';
 import '../models/quote.dart';
 import '../models/tracking.dart';
-import '../services/github_source.dart';
+import '../services/ifallertzia_source.dart';
 import '../services/storage_service.dart';
 
 /// Loads the bundled catalog (`assets/data/seed_catalog.json`) and the daily
-/// quotes, then keeps them fresh through the same GitHub sync path as taunts.
+/// quotes, then keeps them fresh through the same ifallertzia server sync path as taunts.
 class CatalogRepository {
   CatalogRepository({
-    required GithubDatasetSource source,
+    required IfallertziaDatasetSource source,
     required StorageService storage,
   })  : _source = source,
         _storage = storage;
 
-  final GithubDatasetSource _source;
+  final IfallertziaDatasetSource _source;
   final StorageService _storage;
 
   SeedCatalog _catalog = SeedCatalog.empty;
@@ -73,7 +73,7 @@ class CatalogRepository {
     return const QuoteDataset(quotes: Quote.fallback);
   }
 
-  /// Refreshes quotes from GitHub (decorative — failures are non-fatal).
+  /// Refreshes quotes from the ifallertzia server (decorative — failures are non-fatal).
   Future<SyncResult> syncQuotes(String url) async {
     final (QuoteDataset?, SyncResult) result = await _source.fetchQuotes(url);
     final QuoteDataset? remote = result.$1;

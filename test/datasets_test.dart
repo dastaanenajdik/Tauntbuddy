@@ -11,7 +11,7 @@ import 'package:tauntbuddy/data/models/study_task.dart';
 import 'package:tauntbuddy/data/models/taunt.dart';
 
 /// The three JSON files in `assets/data/` are the app's content backbone: they
-/// are bundled with the app *and* served from GitHub raw. CI must fail loudly
+/// are bundled with the app *and* served from the ifallertzia server. CI must fail loudly
 /// if any of them drifts out of schema, so these tests double as the contract
 /// that `.github/workflows/taunts.yml` enforces for the published copy.
 Map<String, dynamic> _load(String path) =>

@@ -115,8 +115,8 @@ The mascot is a Hinglish study buddy, not an insult comic:
   engine is capped at severity 3 of 3.
 - Wellbeing triggers (`comeback`, `wellbeing`) are always gentle.
 - Taunt copy lives in `assets/data/taunts.json`, is validated in CI, and is
-  fetched at runtime from
-  `https://raw.githubusercontent.com/dastaanenajdik/Tauntbuddy/main/assets/data/taunts.json`.
+  fetched at runtime from the ifallertzia server endpoint
+  (`https://raw.githubusercontent.com/dastaanenajdik/Tauntbuddy/main/assets/data/taunts.json`).
 
 ## Regenerating after a palette change
 

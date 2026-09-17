@@ -38,13 +38,13 @@ class Validators {
     return null;
   }
 
-  /// Accepts `github.com/user/repo`, a full URL, or an owner/repo path and
-  /// normalises it into a raw.githubusercontent.com URL for the taunt sync.
+  /// Accepts a full URL or an owner/repo path for the ifallertzia dataset
+  /// server and normalises it into a raw URL for the taunt sync.
   static String? tauntRepoUrl(String? value) {
     final String input = (value ?? '').trim();
     if (input.isEmpty) return null;
     if (!input.startsWith('http') && !input.contains('github')) {
-      return 'Use a github.com or raw.githubusercontent.com URL';
+      return 'Paste the ifallertzia server dataset URL.';
     }
     return null;
   }

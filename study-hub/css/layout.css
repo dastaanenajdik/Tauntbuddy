@@ -1,0 +1,107 @@
+/* ---------------------------------------------------------------------------
+   App shell: topbar, running-timer strip, section hero bands, footer.
+   --------------------------------------------------------------------------- */
+
+.app { max-width: 1180px; margin: 0 auto; padding: 18px 16px 96px; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--navy);
+  color: var(--on-navy);
+  padding: 14px 16px;
+  border-radius: 22px;
+  box-shadow: var(--shadow-lg);
+  position: sticky;
+  top: 10px;
+  z-index: 30;
+}
+
+.brand { font-weight: 700; letter-spacing: 0.02em; font-size: 17px; display: block; box-shadow: none; }
+.brand small { display: block; font-weight: 400; color: var(--on-navy-muted); font-size: 12px; letter-spacing: 0.01em; }
+
+.nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.nav a {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--on-navy);
+  padding: 8px 13px;
+  border-radius: 999px;
+  font-size: 14px;
+  transition: background 0.18s ease, transform 0.18s ease;
+  box-shadow: none;
+}
+.nav a:hover { background: rgba(255, 255, 255, 0.22); transform: translateY(-1px); }
+.nav a.active { background: var(--gold); color: var(--on-gold); font-weight: 700; }
+
+/* Live running-session pill — visible only while a Pomodoro is running. */
+.timestrip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ok);
+  color: var(--on-ok);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-size: 13.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.18s ease;
+}
+.timestrip:hover { transform: translateY(-1px); }
+.timestrip[hidden] { display: none; }
+.timestrip .dot {
+  width: 8px; height: 8px; border-radius: 99px; background: #8ff0c2;
+  animation: pulse 1.4s ease infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+main.view { margin-top: 18px; }
+
+/* ---------------------------------------------------------------------------
+   Hero bands: photographic backgrounds per section with a dark scrim so the
+   white headline text always clears contrast, on desktop and mobile alike.
+   --------------------------------------------------------------------------- */
+.band {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  padding: clamp(22px, 5vw, 54px) clamp(18px, 4vw, 44px);
+  color: #ffffff;
+  margin-bottom: 18px;
+  background-color: #10151f;
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow-lg);
+}
+/* scrim lives on ::before — one layer, composited once */
+.band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hero-scrim);
+  z-index: 0;
+}
+.band > * { position: relative; z-index: 1; }
+.band h1 { color: #ffffff; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45); }
+.band .lede { color: #e8edf4; max-width: 640px; margin-top: 6px; }
+.band-home     { background-image: url("../assets/bg-home.jpg"); }
+.band-courses  { background-image: url("../assets/bg-courses.jpg"); }
+.band-planner  { background-image: url("../assets/bg-planner.jpg"); }
+.band-pomodoro { background-image: url("../assets/bg-pomodoro.jpg"); }
+.band-exam     { background-image: url("../assets/bg-exams.jpg"); }
+
+.band-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.band .progress { margin-top: 16px; max-width: 460px; }
+.band .band-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+footer.note { margin-top: 26px; color: var(--muted); font-size: 13px; text-align: center; }
+
+@media (max-width: 720px) {
+  .app { padding: 12px 10px 80px; }
+  .topbar { flex-direction: column; align-items: stretch; position: static; }
+  .nav a { flex: 1 1 auto; text-align: center; }
+  .timestrip { align-self: flex-start; }
+}
