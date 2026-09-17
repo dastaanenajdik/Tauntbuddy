@@ -27,11 +27,16 @@ class AppTheme {
       brightness: tokens.isDark ? Brightness.dark : Brightness.light,
     ).copyWith(
       primary: tokens.primary,
+      onPrimary: Colors.white,
       secondary: tokens.accentCyan,
+      onSecondary: Colors.white,
       tertiary: tokens.accentMagenta,
+      onTertiary: Colors.white,
       surface: tokens.surface,
       onSurface: tokens.textPrimary,
+      onSurfaceVariant: tokens.textMuted,
       error: tokens.danger,
+      onError: Colors.white,
     );
 
     final TextTheme text = _textTheme(tokens);
@@ -47,6 +52,38 @@ class AppTheme {
       primaryTextTheme: text,
       dividerColor: tokens.glassBorder,
       iconTheme: IconThemeData(color: tokens.textPrimary, size: 22),
+      // Keep framework-generated controls aligned with the app's explicit
+      // contrast tokens. In particular, Material text buttons must not inherit
+      // an accidental link decoration from a platform or parent theme.
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: tokens.primary,
+          textStyle: const TextStyle(
+            decoration: TextDecoration.none,
+            decorationColor: Colors.transparent,
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: tokens.primary,
+          side: BorderSide(color: tokens.primary),
+          textStyle: const TextStyle(decoration: TextDecoration.none),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: tokens.primaryDeep,
+          textStyle: const TextStyle(decoration: TextDecoration.none),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: TextStyle(color: tokens.textMuted),
+        hintStyle: TextStyle(color: tokens.textMuted),
+        prefixIconColor: tokens.textMuted,
+        suffixIconColor: tokens.textMuted,
+      ),
       // Solid component chrome: no washed-out tints, no hairline "underline"
       // separators, and readable ink on every overlay the framework paints.
       snackBarTheme: SnackBarThemeData(

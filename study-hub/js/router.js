@@ -48,6 +48,12 @@ function dispatch() {
 
     try { cleanup?.(); } catch { /* never let one view block navigation */ }
     cleanup = r.handler(rootEl, params, query) || null;
+    // Keep the landing page's visual treatment untouched while giving every
+    // routed detail page one reliable styling hook. This also covers nested
+    // routes such as course/:id and planner/:exam without maintaining a list.
+    rootEl.classList.toggle("view-home", path === "/");
+    rootEl.classList.toggle("view-inner", path !== "/");
+    rootEl.dataset.route = path;
     setActiveNav(path);
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
     return;
