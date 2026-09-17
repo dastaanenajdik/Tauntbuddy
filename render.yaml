@@ -1,0 +1,19 @@
+# Render blueprint — publishes TauntBuddy as a static site.
+# Dashboard → New + → Blueprint → pick this repo: Render reads this file and
+# creates the static site preconfigured. No secrets needed.
+#
+# Live routes after the build (see tools/build_web_deploy.sh):
+#   /             Flutter web app (hash-routed SPA, no rewrites required)
+#   /classic.html legacy single-file page
+#   /study-hub/   Study Hub / Exam Hub with the photographic backgrounds
+#   /build-info.txt  commit + build timestamp, for verifying the live revision
+services:
+  - type: web
+    name: tauntbuddy-web
+    runtime: static
+    buildCommand: bash tools/build_web_deploy.sh
+    staticPublishPath: build/web
+    # Flutter web and the Study Hub both route on the client (`#/...`), so no
+    # rewrite rules are needed — every URL maps straight to a static file.
+    # Force HTTPS on the site.
+    httpsOnly: true
