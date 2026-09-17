@@ -2,9 +2,10 @@
 
 **Your judgemental study buddy.** A cross-platform (Web + Mobile) Flutter app that
 keeps you in deep focus with an agentic, GitHub-fed taunt engine, a Pomodoro-based
-Ekagra timer, the KAVACH distraction shield, an exam planner, mindfulness timers,
-study circles and a gamified badge system — all wrapped in a Dark Neon /
-Glassmorphism interface with an animated hamster mascot as the living brand mark.
+Ekagra timer, the KAVACH distraction shield, an **Exam Hub** covering 26 Indian
+competitive exams, an exam planner, mindfulness timers, study circles and a
+gamified badge system — all wrapped in a **Solid Neon** interface with an animated
+hamster mascot as the living brand mark.
 
 > _"Kyuki kal karunga se degree nahi milti."_
 
@@ -36,29 +37,39 @@ Glassmorphism interface with an animated hamster mascot as the living brand mark
 | 🏠 **Home** | Exact greeting headline, level/XP hero card, quick-access feature grid and the full feature list. |
 | 📊 **Dashboard** | Daily inspiration quote, Today's Mood check-in, Today's Goals tracker (`0/0 done`), active streak counter, unlocked badges, and a monthly snapshot with **Consistency %**, **Completion rate** and **Average focus depth per day**. |
 | ⚡ **Ekagra** | Pomodoro / deep-focus timer that records **Ekagra Depth** per day (quality-weighted focus minutes), configurable focus/short-break/round counts, session history. |
-| 🎯 **Exam Planner** *(PRO)* | Syllabus tracking with units left per subject, days-to-exam countdown, `units/day to finish`, timeline templates and today's planner tasks. |
+| 🎯 **Exam Planner** *(PRO)* | Syllabus tracking with units left per subject, days-to-exam countdown, `units/day to finish`, timeline templates (including live exam blueprints) and today's planner tasks. |
+| 🎓 **Exam Hub** | 26 Indian exams — UPSC CSE/ESE, BPSC, State PCS, SSC CGL/CHSL, RRB, IBPS/SBI/RBI, NDA/CDS, CA, CLAT, CAT, JEE, NEET, GATE, CUET, UGC NET, CTET — each with the official **exam pattern**, a paper-wise **syllabus**, the **annual cycle timeline** and eligibility. One tap turns any exam into planner subjects with a real exam date. |
 | 🛡️ **KAVACH** | Focus shield: integrity score, arming/disarming, profile-based strictness, native Android foreground shield + overlay chip, and a breach log. |
 | 🏅 **Leaderboard & Badges** | Local rank merged into the global board plus a badge shelf driven by real in-app metrics. |
 | 📚 **Courses** | Curated study tracks with category filters, per-lesson progress and one-tap "start an Ekagra block" hand-off. |
 | 👥 **Mehfil & Study Circle** | Social study rooms; joining one starts a real local session so the room is honest about what it can promise. |
 | 🧘 **Dhyan** | Mindfulness/meditation timer with mood-aware copy, technique list and monthly Dhyan minutes. |
 | 🕒 **Timeline & Clock** | Live clock, the day as blocks (past/now/next), and tap-a-block-to-plan-a-task. |
-| 🔍 **Search** | Global search across features, courses, circles, taunts and planner tasks. |
+| 🔍 **Search** | Global search across features, exams, courses, circles, taunts and planner tasks. |
 | 📈 **Analytics** | 7/14/30-day windows: consistency ring, completion rate, average depth per day, focus bar chart, mood curve and the session log. |
 | 📣 **Taunt Vault** | The GitHub-synced taunt engine made visible: sync status, intensity control, search/filter by trigger, favourites, copy, and "send this taunt now". |
 | 👤 **Profile & Settings** | Account details (device-local), editable profile + avatar, and settings for theme, notifications, study config, KAVACH, dataset sync and about. |
 
 ## Design language
 
-- Canvas `#0C0B10` (alt `#121212`), glass surfaces `#14121B` at 6–14 % opacity.
-- Electric violet accents `#9D4EDD` / `#8A2BE2` with soft neon glow `#B388FF`;
-  magenta `#F72585`, cyan `#4CC9F0`, mint `#3DDC97`, amber `#FFB703` as
-  supporting accents.
-- **Bold white headers** (`w800`, negative letter-spacing) over **muted grey
-  subtext**, heavily rounded cards (18–28 px radius) with 1 px subtle borders.
+**Solid Neon**: bright violet accents on opaque panels. Nothing is washed out and
+nothing is decorated with a rule — text sits on solid surfaces and the UI never
+uses an underline or a strikethrough.
+
+- Dark canvas `#131120` (alt `#1B1830`) with solid surfaces `#1B1830` /
+  `#262242` — every panel is **100 % opaque**, borders `#3B3462`.
+- Light canvas `#F5F4FA` (alt `#E9E5F6`) on white surfaces, borders `#D6CDEA`.
+- Violet primary `#A855F7` / deep `#7C3AED` / glow `#C4A2FF` (dark) and
+  `#6D28D9` / `#5B21B6` / `#8B5CF6` (light), with magenta `#FF4FA3`, cyan
+  `#56CFF1`, mint `#3FE0B0`, amber `#FFC94D` as supporting accents.
+- **Bold headers** (`w800`, negative letter-spacing) in `#FFFFFF` / `#14111F`
+  over muted copy `#BDB8D4` / `#4B4660`; heavily rounded cards (18–28 px radius).
+- Contrast is a tested contract, not a vibe: body text clears **17:1** and muted
+  copy clears **8.9:1** on both themes (WCAG AAA needs 7:1). Enforced by
+  `test/brand_smoke_test.dart`.
 - Dark / Light / System theme selector, available from **both** Settings and the
   side menu.
-- Navigation: glass drawer (12 destinations) + bottom nav bar
+- Navigation: drawer (13 destinations, Exam Hub included) + bottom nav bar
   (Home · Dashboard · Library · Analytics · Settings) with fade-through
   transitions, plus a floating taunt button and a running-session strip.
 - The hamster mascot is drawn with a `CustomPainter` — no mascot image assets —
@@ -79,7 +90,7 @@ lib/
 │   ├── utils/              # date maths, validators, icon mapper
 │   └── widgets/            # glass kit, mascot, ambient background, ui_kit, form fields
 ├── data/
-│   ├── models/             # Taunt, UserProfile, AppSettings, FocusSession, tracking, Quote, catalog
+│   ├── models/             # Taunt, UserProfile, AppSettings, FocusSession, tracking, Quote, catalog, exam
 │   ├── repositories/       # taunt / activity / catalog repositories (persistence + maths)
 │   └── services/           # storage, GitHub source, notifications, reminders, KAVACH channel
 ├── state/                  # AppState, ActivityController, EkagraController, KavachController, ShellController
@@ -188,7 +199,7 @@ Dart lifecycle detection.
 | --- | --- |
 | `assets/data/taunts.json` | Taunt packs, triggers, severity + category |
 | `assets/data/quotes.json` | Daily inspiration quotes |
-| `assets/data/seed_catalog.json` | Features, badges, levels, courses, circles, leaderboard, moods, Dhyan techniques, planner templates, KAVACH profiles, timeline blocks |
+| `assets/data/seed_catalog.json` | Features, badges, levels, courses, circles, leaderboard, moods, Dhyan techniques, planner templates, KAVACH profiles, timeline blocks and the 26 **exam blueprints** (pattern, syllabus, cycle) |
 
 Validate by hand with the same script CI uses:
 
@@ -200,7 +211,7 @@ python3 .github/scripts/validate_taunts.py assets/data
 
 | Workflow | Trigger | What it does |
 | --- | --- | --- |
-| [`ci.yml`](.github/workflows/ci.yml) | push (main, `arena/**`), PRs | format report, `flutter analyze`, `flutter test --coverage`, then release **APK + AAB** and **web** builds uploaded as artefacts |
+| [`ci.yml`](.github/workflows/ci.yml) | push (main, `arena/**`), PRs | dataset validation, format report, `flutter analyze`, `flutter test --coverage`, then release **APK + AAB** and **web** builds uploaded as artefacts |
 | [`taunts.yml`](.github/workflows/taunts.yml) | dataset changes, nightly 03:20 IST, manual | validates the bundled JSON, health-checks the **published** raw copy, opens an issue when the live dataset breaks, and mirrors validated data to a `dataset-snapshot` branch |
 | [`release.yml`](.github/workflows/release.yml) | `v*` tags, manual | re-verifies, rebuilds Android + Web artefacts and publishes a GitHub Release |
 
@@ -240,3 +251,7 @@ anything else sensitive are opt-in and explained before they are requested.
 ## License
 
 MIT © 2026 TauntBuddy — see [LICENSE](LICENSE).
+
+---
+
+made with ❤️ by **Siddharth ifallertzia** — _kyuki kal karunga se degree nahi milti._

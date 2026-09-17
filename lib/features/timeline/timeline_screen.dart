@@ -178,10 +178,9 @@ class _TimelineScreenState extends State<TimelineScreen> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: tasks[i].done ? t.textMuted : t.textPrimary,
+                              color: tasks[i].done ? t.accentMint : t.textPrimary,
                               fontSize: 13,
-                              fontWeight: FontWeight.w600,
-                              decoration: tasks[i].done ? TextDecoration.lineThrough : null,
+                              fontWeight: tasks[i].done ? FontWeight.w700 : FontWeight.w600,
                             ),
                           ),
                         ),
@@ -192,11 +191,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
                       ],
                     ),
                   ),
-                  if (i != tasks.length - 1)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      child: NeonDivider(opacity: 0.1),
-                    ),
                 ],
               ],
             ),

@@ -272,9 +272,9 @@ class _FeatureCardTile extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: accent.withValues(alpha: 0.16),
+                  color: accent.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: accent.withValues(alpha: 0.35)),
+                  border: Border.all(color: accent.withValues(alpha: 0.62)),
                 ),
                 child: Icon(iconFor(feature.icon), size: 18, color: accent),
               ),
@@ -336,7 +336,7 @@ class _FeatureList extends StatelessWidget {
                         width: 34,
                         height: 34,
                         decoration: BoxDecoration(
-                          color: t.accent(accentFromKey(features[i].accent)).withValues(alpha: 0.14),
+                          color: t.accent(accentFromKey(features[i].accent)).withValues(alpha: 0.22),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Icon(
@@ -382,11 +382,6 @@ class _FeatureList extends StatelessWidget {
                 ),
               ),
             ),
-            if (i != features.length - 1)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: NeonDivider(opacity: 0.12),
-              ),
           ],
         ],
       ),

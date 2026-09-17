@@ -25,10 +25,11 @@ class _Rgb {
   final double r, g, b, a;
 }
 
-const _Rgb kBackground = _Rgb(0x0C / 255, 0x0B / 255, 0x10 / 255);
-const _Rgb kViolet = _Rgb(0x9D / 255, 0x4E / 255, 0xDD / 255);
-const _Rgb kMagenta = _Rgb(0xF7 / 255, 0x25 / 255, 0x85 / 255);
-const _Rgb kGlow = _Rgb(0xB3 / 255, 0x88 / 255, 0xFF / 255);
+// Solid Neon v2 — keep in sync with AppTokens.dark and docs/BRANDING.md.
+const _Rgb kBackground = _Rgb(0x13 / 255, 0x11 / 255, 0x20 / 255);
+const _Rgb kViolet = _Rgb(0xA8 / 255, 0x55 / 255, 0xF7 / 255);
+const _Rgb kMagenta = _Rgb(0xFF / 255, 0x4F / 255, 0xA3 / 255);
+const _Rgb kGlow = _Rgb(0xC4 / 255, 0xA2 / 255, 0xFF / 255);
 const _Rgb kFur = _Rgb(0xF2 / 255, 0xDC / 255, 0xB8 / 255);
 const _Rgb kFurDark = _Rgb(0xE7 / 255, 0xC7 / 255, 0x9C / 255);
 const _Rgb kMuzzle = _Rgb(0xFF / 255, 0xFA / 255, 0xF2 / 255);

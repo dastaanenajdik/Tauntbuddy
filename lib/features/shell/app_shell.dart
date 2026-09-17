@@ -142,7 +142,9 @@ class _ShellTopBar extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        shell.searchQuery.isEmpty ? 'Search features, courses, taunts...' : shell.searchQuery,
+                        shell.searchQuery.isEmpty
+                            ? 'Search exams, features, courses, taunts...'
+                            : shell.searchQuery,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: t.textMuted, fontSize: 12.5),
@@ -270,7 +272,7 @@ class _ShellBottomNav extends StatelessWidget {
         child: Container(
           height: 66,
           decoration: BoxDecoration(
-            color: t.isDark ? const Color(0xE614121B) : const Color(0xF2FFFFFF),
+            color: t.isDark ? const Color(0xFF1B1830) : const Color(0xFFFFFFFF),
             border: Border.all(color: t.glassBorder),
             borderRadius: BorderRadius.circular(26),
           ),
@@ -324,7 +326,7 @@ class _NavItem extends StatelessWidget {
             duration: const Duration(milliseconds: 220),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
-              color: selected ? t.primary.withValues(alpha: 0.16) : Colors.transparent,
+              color: selected ? t.primary.withValues(alpha: 0.26) : Colors.transparent,
               borderRadius: BorderRadius.circular(12),
               boxShadow: selected
                   ? <BoxShadow>[
@@ -391,6 +393,7 @@ class _AppDrawer extends StatelessWidget {
     ('Dashboard', AppRouter.dashboard, Icons.space_dashboard_rounded),
     ('Ekagra', AppRouter.ekagra, Icons.bolt_rounded),
     ('Exam Planner', AppRouter.planner, Icons.event_note_rounded),
+    ('Exam Hub', AppRouter.exams, Icons.workspace_premium_rounded),
     ('KAVACH', AppRouter.kavach, Icons.shield_rounded),
     ('Leaderboard', AppRouter.leaderboard, Icons.emoji_events_rounded),
     ('Courses', AppRouter.courses, Icons.school_rounded),
@@ -472,9 +475,7 @@ class _AppDrawer extends StatelessWidget {
                           },
                         ),
                       ),
-                    const SizedBox(height: 6),
-                    const NeonDivider(),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 12),
                     _DrawerTile(
                       label: 'Profile',
                       icon: Icons.person_rounded,

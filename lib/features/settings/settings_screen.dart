@@ -87,7 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   await app.updateSettings(settings.copyWith(notificationsEnabled: value));
                 },
               ),
-              const NeonDivider(opacity: 0.12),
+              const SizedBox(height: 6),
               if (!app.notificationsGranted)
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
@@ -120,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (double value) =>
                     app.updateSettings(settings.copyWith(dailyReminderHour: value.round())),
               ),
-              const NeonDivider(opacity: 0.12),
+              const SizedBox(height: 6),
               _SwitchRow(
                 title: 'Sound',
                 subtitle: 'Play a sound with each taunt',
@@ -430,10 +430,55 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: 16),
+              const _CreditRow(),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+/// The maker credit that closes the About card.
+class _CreditRow extends StatelessWidget {
+  const _CreditRow();
+
+  @override
+  Widget build(BuildContext context) {
+    final AppTokens t = context.tokens;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+      decoration: BoxDecoration(
+        color: t.surfaceHigh,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: t.glassBorder),
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            'made with \u2764\uFE0F by Siddharth ifallertzia',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: t.textPrimary,
+              fontSize: 13,
+              fontWeight: FontWeight.w800,
+              height: 1.4,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'TauntBuddy · kyuki kal karunga se degree nahi milti',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: t.textMuted,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -474,7 +519,7 @@ class _SwitchRow extends StatelessWidget {
           Switch(
             value: value,
             onChanged: onChanged,
-            activeTrackColor: t.primary.withValues(alpha: 0.5),
+            activeTrackColor: t.primary,
           ),
         ],
       ),

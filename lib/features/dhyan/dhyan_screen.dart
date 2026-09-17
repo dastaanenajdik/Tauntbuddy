@@ -150,7 +150,7 @@ class DhyanScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: t.accent(accentFromKey(technique.accent)).withValues(alpha: 0.16),
+                      color: t.accent(accentFromKey(technique.accent)).withValues(alpha: 0.22),
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Icon(

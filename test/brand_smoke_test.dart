@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tauntbuddy/core/theme/app_theme.dart';
@@ -38,14 +40,37 @@ void main() {
     });
   });
 
-  group('Dark Neon tokens', () {
+  group('Solid Neon tokens', () {
     test('brand colours match the design spec', () {
       const AppTokens dark = AppTokens.dark;
-      expect(dark.background, const Color(0xFF0C0B10));
-      expect(dark.primary, const Color(0xFF9D4EDD));
-      expect(dark.primaryDeep, const Color(0xFF8A2BE2));
-      expect(dark.textPrimary, const Color(0xFFF6F4FF));
-      expect(dark.textMuted, const Color(0xFF9A95AD));
+      expect(dark.background, const Color(0xFF131120));
+      expect(dark.primary, const Color(0xFFA855F7));
+      expect(dark.primaryDeep, const Color(0xFF7C3AED));
+      expect(dark.textPrimary, const Color(0xFFFFFFFF));
+      expect(dark.textMuted, const Color(0xFFBDB8D4));
+    });
+
+    test('cards, borders and type are solid — nothing is washed out', () {
+      for (final AppTokens tokens in <AppTokens>[AppTokens.dark, AppTokens.light]) {
+        expect(tokens.glassFill.a, closeTo(1, 0.001), reason: 'card fills must be opaque');
+        expect(tokens.surface.a, closeTo(1, 0.001));
+        expect(tokens.glassBorder.a, closeTo(1, 0.001),
+            reason: 'hairlines are solid colours, not translucent white');
+        expect(tokens.textPrimary.a, closeTo(1, 0.001));
+        expect(tokens.textMuted.a, closeTo(1, 0.001),
+            reason: 'secondary text is never faded');
+      }
+    });
+
+    test('text keeps a professional contrast ratio', () {
+      expect(contrastRatio(AppTokens.dark.textPrimary, AppTokens.dark.background),
+          greaterThanOrEqualTo(12));
+      expect(contrastRatio(AppTokens.dark.textMuted, AppTokens.dark.glassFill),
+          greaterThanOrEqualTo(7));
+      expect(contrastRatio(AppTokens.light.textPrimary, AppTokens.light.glassFill),
+          greaterThanOrEqualTo(12));
+      expect(contrastRatio(AppTokens.light.textMuted, AppTokens.light.glassFill),
+          greaterThanOrEqualTo(7));
     });
 
     test('accent keys resolve for every catalog accent', () {
@@ -166,4 +191,21 @@ void main() {
       expect(tester.takeException(), isNull);
     });
   });
+}
+
+/// WCAG 2.1 relative contrast — the number behind "not dim".
+double relativeLuminance(Color color) {
+  double channel(double value) =>
+      value <= 0.03928 ? value / 12.92 : math.pow((value + 0.055) / 1.055, 2.4).toDouble();
+  return 0.2126 * channel(color.r) +
+      0.7152 * channel(color.g) +
+      0.0722 * channel(color.b);
+}
+
+double contrastRatio(Color foreground, Color background) {
+  final double a = relativeLuminance(foreground);
+  final double b = relativeLuminance(background);
+  final double lighter = a > b ? a : b;
+  final double darker = a > b ? b : a;
+  return (lighter + 0.05) / (darker + 0.05);
 }

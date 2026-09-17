@@ -220,7 +220,7 @@ class _SyncCard extends StatelessWidget {
             app.settings.tauntRepoUrl,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: t.accentCyan.withValues(alpha: 0.8), fontSize: 10),
+            style: TextStyle(color: t.accentCyan, fontSize: 10, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 14),
           Row(

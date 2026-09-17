@@ -28,8 +28,8 @@ AppAccent accentFromKey(String? key) {
   }
 }
 
-/// The design tokens that give TauntBuddy its signature look: a deep, almost
-/// black canvas, frosted glass panels and electric violet highlights.
+/// The design tokens that give TauntBuddy its signature look: a deep violet
+/// canvas, solid opaque panels with crisp hairline borders and bright accents.
 ///
 /// Exposed as a [ThemeExtension] so the light/dark/system switch is a single
 /// `MaterialApp.themeMode` change and every widget reacts instantly.
@@ -87,71 +87,77 @@ class AppTokens extends ThemeExtension<AppTokens> {
   final Color shadow;
   final Color gridLine;
 
-  /// Modern dark neon palette — the default TauntBuddy mood.
+  /// Solid dark palette — deep canvas, opaque cards, high-contrast type.
+  ///
+  /// Everything here is intentionally *opaque*: cards are real surfaces (not
+  /// translucent washes), borders are visible hairlines and even the secondary
+  /// text keeps a 8:1+ contrast ratio against the card fill. That is what makes
+  /// the UI read as a finished product instead of a dim wireframe.
   static const AppTokens dark = AppTokens(
     isDark: true,
-    background: Color(0xFF0C0B10),
-    backgroundAlt: Color(0xFF141021),
-    surface: Color(0xFF14121B),
-    surfaceHigh: Color(0xFF1C1A27),
-    glassFill: Color(0x14FFFFFF),
-    glassBorder: Color(0x1FFFFFFF),
-    glassHighlight: Color(0x0AFFFFFF),
-    textPrimary: Color(0xFFF6F4FF),
-    textMuted: Color(0xFF9A95AD),
-    primary: Color(0xFF9D4EDD),
-    primaryDeep: Color(0xFF8A2BE2),
-    glow: Color(0xFFB388FF),
-    accentViolet: Color(0xFF9D4EDD),
-    accentCyan: Color(0xFF4CC9F0),
-    accentMagenta: Color(0xFFF72585),
-    accentMint: Color(0xFF43E5B8),
-    accentAmber: Color(0xFFFFC857),
-    accentGrey: Color(0xFF7C7893),
-    success: Color(0xFF38D39F),
-    warning: Color(0xFFFFB020),
-    danger: Color(0xFFFF4D6D),
-    shadow: Color(0x99000000),
-    gridLine: Color(0x14FFFFFF),
+    background: Color(0xFF131120),
+    backgroundAlt: Color(0xFF1B1830),
+    surface: Color(0xFF1B1830),
+    surfaceHigh: Color(0xFF262242),
+    glassFill: Color(0xFF1B1830),
+    glassBorder: Color(0xFF3B3462),
+    glassHighlight: Color(0x0DFFFFFF),
+    textPrimary: Color(0xFFFFFFFF),
+    textMuted: Color(0xFFBDB8D4),
+    primary: Color(0xFFA855F7),
+    primaryDeep: Color(0xFF7C3AED),
+    glow: Color(0xFFC4A2FF),
+    accentViolet: Color(0xFFB07CFF),
+    accentCyan: Color(0xFF56CFF1),
+    accentMagenta: Color(0xFFFF4FA3),
+    accentMint: Color(0xFF3FE0B0),
+    accentAmber: Color(0xFFFFC94D),
+    accentGrey: Color(0xFFABA6BE),
+    success: Color(0xFF34D399),
+    warning: Color(0xFFFBBF24),
+    danger: Color(0xFFFB5C7A),
+    shadow: Color(0x66000000),
+    gridLine: Color(0x0AFFFFFF),
   );
 
-  /// Light mode keeps the same neon accents on a soft porcelain canvas.
+  /// Light mode keeps the same accents on a crisp porcelain canvas with solid
+  /// white cards and near-black ink.
   static const AppTokens light = AppTokens(
     isDark: false,
-    background: Color(0xFFF7F5FC),
-    backgroundAlt: Color(0xFFEDE8FA),
+    background: Color(0xFFF5F4FA),
+    backgroundAlt: Color(0xFFE9E5F6),
     surface: Color(0xFFFFFFFF),
-    surfaceHigh: Color(0xFFF2EEFB),
-    glassFill: Color(0xB3FFFFFF),
-    glassBorder: Color(0x1A5B2C8F),
-    glassHighlight: Color(0x66FFFFFF),
-    textPrimary: Color(0xFF17131F),
-    textMuted: Color(0xFF6D6880),
-    primary: Color(0xFF7B2FF7),
-    primaryDeep: Color(0xFF5B18CC),
-    glow: Color(0xFFB98BFF),
-    accentViolet: Color(0xFF7B2FF7),
-    accentCyan: Color(0xFF0E9BD8),
-    accentMagenta: Color(0xFFD81B60),
-    accentMint: Color(0xFF0F9E7A),
-    accentAmber: Color(0xFFB7791F),
-    accentGrey: Color(0xFF8B86A0),
-    success: Color(0xFF0F9E7A),
-    warning: Color(0xFFC77700),
-    danger: Color(0xFFD32F4B),
-    shadow: Color(0x1F2A1B4D),
-    gridLine: Color(0x14000000),
+    surfaceHigh: Color(0xFFF0ECFA),
+    glassFill: Color(0xFFFFFFFF),
+    glassBorder: Color(0xFFD6CDEA),
+    glassHighlight: Color(0x33FFFFFF),
+    textPrimary: Color(0xFF14111F),
+    textMuted: Color(0xFF4B4660),
+    primary: Color(0xFF6D28D9),
+    primaryDeep: Color(0xFF5B21B6),
+    glow: Color(0xFF8B5CF6),
+    accentViolet: Color(0xFF6D28D9),
+    accentCyan: Color(0xFF0E7490),
+    accentMagenta: Color(0xFFBE185D),
+    accentMint: Color(0xFF047857),
+    accentAmber: Color(0xFFB45309),
+    accentGrey: Color(0xFF585369),
+    success: Color(0xFF047857),
+    warning: Color(0xFFB45309),
+    danger: Color(0xFFBE123C),
+    shadow: Color(0x1A2A1B4D),
+    gridLine: Color(0x0D000000),
   );
 
   /// Page background gradient used behind every screen.
   List<Color> get backgroundGradient => isDark
-      ? const <Color>[Color(0xFF0C0B10), Color(0xFF120E1C), Color(0xFF0C0B10)]
-      : const <Color>[Color(0xFFF9F8FE), Color(0xFFEFE9FC), Color(0xFFF9F8FE)];
+      ? const <Color>[Color(0xFF131120), Color(0xFF1C1832), Color(0xFF131120)]
+      : const <Color>[Color(0xFFF8F7FC), Color(0xFFEDE9FA), Color(0xFFF8F7FC)];
 
   /// Violet → magenta gradient used for hero text and primary buttons.
   List<Color> get brandGradient => isDark
-      ? const <Color>[Color(0xFFB388FF), Color(0xFFF72585)]
-      : const <Color>[Color(0xFF7B2FF7), Color(0xFFD81B60)];
+      ? const <Color>[Color(0xFFB07CFF), Color(0xFFFF4FA3)]
+      : const <Color>[Color(0xFF6D28D9), Color(0xFFBE185D)];
 
   /// Soft glow used for the mascot halo and neon borders.
   Color glowWith(double opacity) => glow.withValues(alpha: opacity);

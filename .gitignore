@@ -51,3 +51,7 @@ linux/flutter/ephemeral/
 Thumbs.db
 *.swp
 *~
+
+# Python (dataset validator helpers)
+__pycache__/
+*.pyc

@@ -346,7 +346,7 @@ class _EditProfileSheetState extends State<_EditProfileSheet> {
                     child: Container(
                       padding: const EdgeInsets.all(9),
                       decoration: BoxDecoration(
-                        color: _emoji == emoji ? t.primary.withValues(alpha: 0.25) : t.glassFill,
+                        color: _emoji == emoji ? t.primary.withValues(alpha: 0.32) : t.surfaceHigh,
                         borderRadius: BorderRadius.circular(13),
                         border: Border.all(
                           color: _emoji == emoji ? t.primary : t.glassBorder,

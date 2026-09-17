@@ -102,11 +102,6 @@ class GoalsScreen extends StatelessWidget {
                     },
                     onDelete: () => activity.deleteGoal(goals[i].id),
                   ),
-                  if (i != goals.length - 1)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      child: NeonDivider(opacity: 0.12),
-                    ),
                 ],
               ],
             ),
@@ -264,9 +259,9 @@ class _GoalTile extends StatelessWidget {
               width: 24,
               height: 24,
               decoration: BoxDecoration(
-                color: done ? accent.withValues(alpha: 0.28) : Colors.transparent,
+                color: done ? accent.withValues(alpha: 0.35) : Colors.transparent,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: done ? accent : t.textMuted.withValues(alpha: 0.5)),
+                border: Border.all(color: done ? accent : t.textMuted, width: 1.4),
               ),
               child: done ? Icon(Icons.check_rounded, size: 15, color: accent) : null,
             ),
@@ -278,10 +273,9 @@ class _GoalTile extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      color: done ? t.textMuted : t.textPrimary,
+                      color: done ? accent : t.textPrimary,
                       fontSize: 13.5,
-                      fontWeight: FontWeight.w600,
-                      decoration: done ? TextDecoration.lineThrough : null,
+                      fontWeight: done ? FontWeight.w700 : FontWeight.w600,
                     ),
                   ),
                   const SizedBox(height: 3),

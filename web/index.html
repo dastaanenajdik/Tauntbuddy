@@ -7,7 +7,7 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="TauntBuddy — an agentic AI study companion with a judgemental hamster mascot, Ekagra deep-focus timers, KAVACH distraction shield and GitHub-synced taunts.">
-  <meta name="theme-color" content="#0C0B10">
+  <meta name="theme-color" content="#131120">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="TauntBuddy">
@@ -20,20 +20,20 @@
 
   <style>
     :root {
-      --tb-bg: #0c0b10;
-      --tb-bg-2: #141021;
-      --tb-primary: #9d4edd;
-      --tb-glow: #b388ff;
-      --tb-text: #f6f4ff;
-      --tb-muted: #9a95ad;
+      --tb-bg: #131120;
+      --tb-bg-2: #1b1830;
+      --tb-primary: #a855f7;
+      --tb-glow: #c4a2ff;
+      --tb-text: #ffffff;
+      --tb-muted: #bdb8d4;
     }
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       background:
-        radial-gradient(circle at 20% 15%, rgba(157, 78, 221, 0.28), transparent 45%),
-        radial-gradient(circle at 80% 85%, rgba(76, 201, 240, 0.18), transparent 45%),
+        radial-gradient(circle at 20% 15%, rgba(168, 85, 247, 0.34), transparent 46%),
+        radial-gradient(circle at 80% 85%, rgba(86, 207, 241, 0.24), transparent 46%),
         linear-gradient(160deg, var(--tb-bg) 0%, var(--tb-bg-2) 55%, var(--tb-bg) 100%);
       color: var(--tb-text);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -66,17 +66,18 @@
       0%, 100% { transform: translateY(0) scale(1); }
       50% { transform: translateY(-6px) scale(1.03); }
     }
+    a { text-decoration: none; }
     .brand {
       font-size: 34px;
       font-weight: 800;
       letter-spacing: -1px;
-      background: linear-gradient(120deg, #b388ff, #f72585);
+      background: linear-gradient(120deg, #c4a2ff, #ff4fa3);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
-    .tagline { font-size: 13px; color: var(--tb-muted); font-style: italic; }
-    .loading { font-size: 12px; color: var(--tb-muted); letter-spacing: 0.4px; }
+    .tagline { font-size: 13.5px; color: #ded9f0; font-weight: 600; }
+    .loading { font-size: 12.5px; color: var(--tb-muted); font-weight: 600; letter-spacing: 0.4px; }
     .dots span {
       display: inline-block;
       width: 7px; height: 7px; margin: 0 3px;
@@ -88,7 +89,7 @@
     .dots span:nth-child(3) { animation-delay: 0.3s; }
     @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-7px); } }
     .fallback { max-width: 520px; text-align: center; padding: 0 24px; line-height: 1.6; }
-    .fallback a { color: var(--tb-glow); }
+    .fallback a { color: var(--tb-glow); text-decoration: none; font-weight: 700; }
   </style>
 </head>
 <body>

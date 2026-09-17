@@ -66,6 +66,26 @@ IconData iconFor(String key, {IconData fallback = Icons.auto_awesome_rounded}) {
       return Icons.local_library_rounded;
     case 'notifications':
       return Icons.notifications_active_rounded;
+    case 'engineering':
+      return Icons.engineering_rounded;
+    case 'flag':
+      return Icons.flag_rounded;
+    case 'account_balance':
+      return Icons.account_balance_rounded;
+    case 'badge':
+      return Icons.badge_rounded;
+    case 'train':
+      return Icons.train_rounded;
+    case 'finance':
+      return Icons.account_balance_wallet_rounded;
+    case 'gavel':
+      return Icons.gavel_rounded;
+    case 'functions':
+      return Icons.functions_rounded;
+    case 'biotech':
+      return Icons.biotech_rounded;
+    case 'description':
+      return Icons.description_rounded;
     default:
       return fallback;
   }
