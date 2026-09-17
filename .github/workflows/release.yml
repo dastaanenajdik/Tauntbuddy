@@ -138,6 +138,26 @@ jobs:
       - name: Show what will be published
         run: find release-artefacts -type f | sort
 
+      # upload-artifact keeps the directory structure below the least common
+      # ancestor of the uploaded paths — so the APK lands under
+      # android-artefacts/flutter-apk/ and the AAB under
+      # android-artefacts/bundle/release/, NOT flat. Referencing the flat
+      # paths used to make action-gh-release silently skip both Android files,
+      # publishing a release with only the web zip (as happened on v1.0.1's
+      # first run). Guard first so a layout drift can never ship quietly again.
+      - name: Verify every release file exists
+        run: |
+          set -euo pipefail
+          for f in \
+            release-artefacts/android-artefacts/flutter-apk/app-release.apk \
+            release-artefacts/android-artefacts/bundle/release/app-release.aab \
+            release-artefacts/web-artefacts/tauntbuddy-web.zip; do
+            if [[ ! -f "$f" ]]; then
+              echo "::error::missing release file: $f (see 'Show what will be published' above)"
+              exit 1
+            fi
+          done
+
       - name: Create / update the release
         uses: softprops/action-gh-release@v2
         with:
@@ -146,6 +166,6 @@ jobs:
           generate_release_notes: true
           draft: false
           files: |
-            release-artefacts/android-artefacts/app-release.apk
-            release-artefacts/android-artefacts/app-release.aab
+            release-artefacts/android-artefacts/flutter-apk/app-release.apk
+            release-artefacts/android-artefacts/bundle/release/app-release.aab
             release-artefacts/web-artefacts/tauntbuddy-web.zip
