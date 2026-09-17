@@ -255,7 +255,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
         // ----------------------------------------------------------- kavach --
         SectionHeader(
-          title: 'KAVACH shield',
+          title: 'Distraction Shield',
           subtitle: 'Distraction guard',
           icon: Icons.shield_rounded,
           accent: t.accentMagenta,
@@ -421,7 +421,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: GhostButton(
-                      label: 'Taunt Vault',
+                      label: 'Motivation Vault',
                       icon: Icons.campaign_rounded,
                       expand: true,
                       compact: false,

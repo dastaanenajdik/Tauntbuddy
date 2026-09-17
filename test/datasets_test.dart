@@ -206,7 +206,7 @@ void main() {
       }
     });
 
-    test('courses, circles and leaderboard are usable', () {
+    test('courses and honest community seed data are usable', () {
       for (final Course course in catalog.courses) {
         expect(course.lessons, greaterThan(0));
         expect(course.hours, greaterThan(0));
@@ -214,11 +214,13 @@ void main() {
         expect(course.progress, inInclusiveRange(0, 1));
       }
       for (final StudyCircle circle in catalog.circles) {
-        expect(circle.members, greaterThan(0));
+        // Seed rooms have no verified remote presence yet; never fabricate it.
+        expect(circle.members, greaterThanOrEqualTo(0));
         expect(circle.name, isNotEmpty);
       }
       for (final LeaderboardEntry entry in catalog.leaderboard) {
-        expect(entry.focusMinutes, greaterThan(0));
+        // Community totals stay at zero until a real backend supplies them.
+        expect(entry.focusMinutes, greaterThanOrEqualTo(0));
         expect(entry.name, isNotEmpty);
       }
     });

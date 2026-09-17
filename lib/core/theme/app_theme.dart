@@ -110,6 +110,9 @@ class AppTheme {
           height: height,
           letterSpacing: spacing,
           color: tokens.textPrimary,
+          decoration: TextDecoration.none,
+          decorationColor: Colors.transparent,
+          decorationThickness: 0,
           fontFamilyFallback: stack,
         );
 

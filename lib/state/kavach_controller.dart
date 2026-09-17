@@ -19,7 +19,7 @@ class KavachController extends ChangeNotifier with WidgetsBindingObserver {
   bool _nativeSupported = false;
   bool _overlayGranted = false;
   String _profileId = 'kavach-strict';
-  String _label = 'Ekagra block';
+  String _label = 'focus block';
   int _targetMinutes = 25;
   DateTime? _startedAt;
   bool _strict = true;

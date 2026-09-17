@@ -49,7 +49,7 @@ class KavachScreen extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
       children: <Widget>[
         SectionHeader(
-          title: 'KAVACH',
+          title: 'Distraction Shield',
           subtitle: 'Your distraction shield',
           icon: Icons.shield_rounded,
           accent: t.accentMagenta,
@@ -130,7 +130,7 @@ class KavachScreen extends StatelessWidget {
               if (!ekagra.isRunning && !kavach.isActive) ...<Widget>[
                 const SizedBox(height: 10),
                 GhostButton(
-                  label: 'Start Ekagra with shield armed',
+                  label: 'Start Focus Flow with shield armed',
                   icon: Icons.bolt_rounded,
                   expand: true,
                   compact: false,

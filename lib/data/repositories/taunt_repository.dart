@@ -64,7 +64,7 @@ class TauntRepository {
     ),
     Taunt(
       id: 'tb-emergency-003',
-      text: 'Ekagra depth 0 minute. Hamster bhi tujhse zyada focused hai. 🐹',
+      text: 'Focus score 0 minute. Hamster bhi tujhse zyada focused hai. 🐹',
       category: 'focus',
       trigger: TauntTrigger.sessionEnd,
       severity: 2,

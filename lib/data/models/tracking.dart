@@ -83,7 +83,7 @@ class DailyGoal {
   /// study / revision / wellbeing / admin
   final String category;
 
-  /// Optional focus target that links the goal to Ekagra minutes.
+  /// Optional focus target that links the goal to focus minutes.
   final int targetMinutes;
 
   DailyGoal copyWith({String? title, bool? done, String? accent, String? category, int? targetMinutes}) {
@@ -122,7 +122,7 @@ class DailyGoal {
   static List<DailyGoal> starter({DayKey? day}) {
     final DayKey target = day ?? DayKey.today();
     return <DailyGoal>[
-      DailyGoal(id: 'starter-1', title: 'One 25 minute Ekagra block', day: target),
+      DailyGoal(id: 'starter-1', title: 'One 25 minute focus block', day: target),
       DailyGoal(
         id: 'starter-2',
         title: 'Revise yesterday\'s notes',
@@ -132,7 +132,7 @@ class DailyGoal {
       ),
       DailyGoal(
         id: 'starter-3',
-        title: '10 minute Dhyan reset',
+        title: '10 minute mindful reset',
         day: target,
         accent: 'mint',
         category: 'wellbeing',

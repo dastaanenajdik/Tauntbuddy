@@ -192,7 +192,7 @@ class _WelcomePage extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'Ekagra focus timers, a KAVACH distraction shield, exam planning, Dhyan '
+            'Focus Flow timers, a Distraction Shield, exam planning, Mindful Reset '
             'resets — and a hamster who will absolutely roast you if you slack off.',
             textAlign: TextAlign.center,
             style: TextStyle(color: t.textMuted, fontSize: 13, height: 1.6),
@@ -363,7 +363,7 @@ class _FinishPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Arm KAVACH with every session',
+                        'Arm Distraction Shield with every session',
                         style: TextStyle(color: t.textPrimary, fontWeight: FontWeight.w700, fontSize: 13.5),
                       ),
                       const SizedBox(height: 3),

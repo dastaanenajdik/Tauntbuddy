@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           app.profile.examTarget.trim().isEmpty
-              ? 'One Ekagra block at a time. The hamster is watching.'
+              ? 'One focus block at a time. The hamster is watching.'
               : '${app.profile.examTarget.trim()} mode on. The hamster is watching.',
           style: TextStyle(color: t.textMuted, fontSize: 13.5, height: 1.5),
         ),
@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: StatTile(
-                label: 'Ekagra depth',
+                label: 'Focus score',
                 value: '${depth}m',
                 caption: 'Focused today',
                 icon: Icons.bolt_rounded,
@@ -195,7 +195,7 @@ class _HeroCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '${AppDateUtils.durationLabel(totalMinutes)} of lifetime Ekagra',
+                  '${AppDateUtils.durationLabel(totalMinutes)} of lifetime focus',
                   style: TextStyle(color: t.textMuted, fontSize: 12),
                 ),
                 const SizedBox(height: 8),

@@ -117,10 +117,10 @@ class GoalsScreen extends StatelessWidget {
           runSpacing: 8,
           children: <Widget>[
             for (final String title in <String>[
-              'One 25 minute Ekagra block',
+              'One 25 minute focus block',
               'Revise yesterday\'s notes',
               'Solve 2 previous year questions',
-              '10 minute Dhyan reset',
+              '10 minute mindful reset',
               'No phone for the first hour',
             ])
               NeonChip(

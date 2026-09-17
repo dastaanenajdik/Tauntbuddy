@@ -4,8 +4,8 @@
   "features": [
     {
       "id": "ekagra",
-      "title": "Ekagra",
-      "tagline": "Pomodoro + deep focus timer that measures your Ekagra Depth.",
+      "title": "Focus Flow",
+      "tagline": "Pomodoro + deep focus timer that measures your Focus Score.",
       "icon": "bolt",
       "route": "/ekagra",
       "accent": "violet",
@@ -31,7 +31,7 @@
     },
     {
       "id": "kavach",
-      "title": "KAVACH",
+      "title": "Distraction Shield",
       "tagline": "Focus shield that locks distractions out of your study block.",
       "icon": "shield",
       "route": "/kavach",
@@ -40,7 +40,7 @@
     },
     {
       "id": "leaderboard",
-      "title": "Leaderboard & Badges",
+      "title": "Progress Board & Badges",
       "tagline": "Rank against the circle, unlock milestone badges.",
       "icon": "trophy",
       "route": "/leaderboard",
@@ -58,7 +58,7 @@
     },
     {
       "id": "circles",
-      "title": "Mehfil & Study Circle",
+      "title": "Focus Rooms",
       "tagline": "Study rooms, co-working sessions and peer accountability.",
       "icon": "groups",
       "route": "/circles",
@@ -67,7 +67,7 @@
     },
     {
       "id": "dhyan",
-      "title": "Dhyan",
+      "title": "Mindful Reset",
       "tagline": "Mindfulness timers, breathwork and mood-aware resets.",
       "icon": "self_improvement",
       "route": "/dhyan",
@@ -76,7 +76,7 @@
     },
     {
       "id": "timeline",
-      "title": "Timeline & Clock",
+      "title": "Dayline",
       "tagline": "See the day as blocks, keep a live clock on your desk.",
       "icon": "schedule",
       "route": "/timeline",
@@ -94,7 +94,7 @@
     },
     {
       "id": "taunts",
-      "title": "Taunt Vault",
+      "title": "Motivation Vault",
       "tagline": "ifallertzia-server synced taunts, favourites and instant test pings.",
       "icon": "campaign",
       "route": "/taunts",
@@ -123,7 +123,7 @@
   "badges": [
     {
       "id": "first_blood",
-      "title": "First Ekagra",
+      "title": "First Focus Flow",
       "description": "Complete your very first focus session.",
       "icon": "bolt",
       "tier": "bronze",
@@ -132,7 +132,7 @@
     },
     {
       "id": "ekagra_novice",
-      "title": "Ekagra Novice",
+      "title": "Focus Flow Novice",
       "description": "Bank 10 focused hours in total.",
       "icon": "hourglass",
       "tier": "bronze",
@@ -168,7 +168,7 @@
     },
     {
       "id": "streak_30",
-      "title": "Month Of Ekagra",
+      "title": "Month Of Focus Flow",
       "description": "Keep a 30 day study streak alive.",
       "icon": "whatshot",
       "tier": "gold",
@@ -177,8 +177,8 @@
     },
     {
       "id": "kavach_keeper",
-      "title": "Kavach Keeper",
-      "description": "Complete 10 sessions with KAVACH shield active.",
+      "title": "Shield Keeper",
+      "description": "Complete 10 sessions with Distraction Shield shield active.",
       "icon": "shield",
       "tier": "silver",
       "metric": "kavach_sessions",
@@ -245,7 +245,7 @@
     },
     {
       "level": 3,
-      "title": "Ekagra Mode",
+      "title": "Focus Flow Mode",
       "minFocusMinutes": 300,
       "accent": "cyan"
     },
@@ -257,7 +257,7 @@
     },
     {
       "level": 5,
-      "title": "Ekagra Yogi",
+      "title": "Focus Flow Yogi",
       "minFocusMinutes": 1800,
       "accent": "amber"
     }
@@ -273,7 +273,7 @@
       "rating": 4.8,
       "progress": 0.35,
       "accent": "violet",
-      "description": "Arrays to graphs with a 25 minute Ekagra block before every problem set."
+      "description": "Arrays to graphs with a 25 minute Focus Flow block before every problem set."
     },
     {
       "id": "quant-aptitude",
@@ -314,7 +314,7 @@
     {
       "id": "english-comm",
       "title": "Communication Lab",
-      "provider": "Mehfil Studio",
+      "provider": "Focus Room Studio",
       "category": "Soft Skills",
       "lessons": 18,
       "hours": 7,
@@ -339,48 +339,48 @@
   "circles": [
     {
       "id": "mehfil-night-shift",
-      "name": "Mehfil · Night Shift",
+      "name": "Focus Room · Night Shift",
       "subject": "Silent co-working",
-      "members": 128,
-      "activity": "live",
+      "members": 0,
+      "activity": "ready",
       "accent": "violet",
       "description": "Cameras off, mics off, 9 PM to midnight. Just people studying together."
     },
     {
       "id": "circle-dsa-dhamaka",
-      "name": "Study Circle · DSA Dhamaka",
+      "name": "Focus Room · DSA Dhamaka",
       "subject": "Placement prep",
-      "members": 64,
-      "activity": "starting soon",
+      "members": 0,
+      "activity": "ready",
       "accent": "cyan",
       "description": "Daily 2 problems, weekly mock interview, one accountability partner each."
     },
     {
       "id": "circle-sem-survivors",
-      "name": "Study Circle · Sem Survivors",
+      "name": "Focus Room · Sem Survivors",
       "subject": "Semester exams",
-      "members": 212,
-      "activity": "live",
+      "members": 0,
+      "activity": "ready",
       "accent": "magenta",
       "description": "Subject-wise channels, PYQ swaps and last-week panic support group."
     },
     {
       "id": "mehfil-morning-club",
-      "name": "Mehfil · 5 AM Club",
+      "name": "Focus Room · 5 AM Club",
       "subject": "Morning routine",
-      "members": 87,
-      "activity": "opens 5:00 AM",
+      "members": 0,
+      "activity": "ready",
       "accent": "amber",
-      "description": "Wake-up roll call, 25 minute Ekagra and a no-excuse attendance board."
+      "description": "Wake-up roll call, 25 minute Focus Flow and a no-excuse attendance board."
     },
     {
       "id": "circle-upsc-ekagra",
-      "name": "Study Circle · Ekagra Yogi",
+      "name": "Focus Room · Focus Flow Yogi",
       "subject": "Long form study",
-      "members": 45,
-      "activity": "live",
+      "members": 0,
+      "activity": "ready",
       "accent": "mint",
-      "description": "90 minute deep blocks, Dhyan breaks and weekly answer writing reviews."
+      "description": "90 minute deep blocks, Mindful Reset breaks and weekly answer writing reviews."
     }
   ],
   "leaderboard": [
@@ -388,97 +388,97 @@
       "rank": 1,
       "name": "Ananya S.",
       "handle": "@ekagraananya",
-      "focusMinutes": 2840,
-      "streak": 46,
-      "badge": "Ekagra Yogi"
+      "focusMinutes": 0,
+      "streak": 0,
+      "badge": "Focus Flow Yogi"
     },
     {
       "rank": 2,
       "name": "Rohit K.",
       "handle": "@deepworkrohit",
-      "focusMinutes": 2615,
-      "streak": 38,
+      "focusMinutes": 0,
+      "streak": 0,
       "badge": "Deep Worker"
     },
     {
       "rank": 3,
       "name": "Ishita M.",
       "handle": "@ishita.revises",
-      "focusMinutes": 2470,
-      "streak": 33,
+      "focusMinutes": 0,
+      "streak": 0,
       "badge": "Century Club"
     },
     {
       "rank": 4,
       "name": "Aryan P.",
       "handle": "@aryanpyq",
-      "focusMinutes": 2135,
-      "streak": 27,
-      "badge": "Kavach Keeper"
+      "focusMinutes": 0,
+      "streak": 0,
+      "badge": "Shield Keeper"
     },
     {
       "rank": 5,
       "name": "Sneha B.",
       "handle": "@sneha_still",
-      "focusMinutes": 1980,
-      "streak": 25,
+      "focusMinutes": 0,
+      "streak": 0,
       "badge": "Still Mind"
     },
     {
       "rank": 6,
       "name": "Kabir A.",
       "handle": "@kabir5am",
-      "focusMinutes": 1875,
-      "streak": 22,
+      "focusMinutes": 0,
+      "streak": 0,
       "badge": "Early Bird"
     },
     {
       "rank": 7,
       "name": "Meera J.",
       "handle": "@meerapadhai",
-      "focusMinutes": 1690,
-      "streak": 19,
+      "focusMinutes": 0,
+      "streak": 0,
       "badge": "One Week Warrior"
     },
     {
       "rank": 8,
       "name": "Dev R.",
       "handle": "@devdoesdsa",
-      "focusMinutes": 1520,
-      "streak": 17,
+      "focusMinutes": 0,
+      "streak": 0,
       "badge": "Goal Getter"
     },
     {
       "rank": 9,
       "name": "Tanvi N.",
       "handle": "@tanvi.timeline",
-      "focusMinutes": 1345,
-      "streak": 14,
-      "badge": "Ekagra Novice"
+      "focusMinutes": 0,
+      "streak": 0,
+      "badge": "Focus Flow Novice"
     },
     {
       "rank": 10,
       "name": "Yash V.",
       "handle": "@yashnightowl",
-      "focusMinutes": 1120,
-      "streak": 11,
+      "focusMinutes": 0,
+      "streak": 0,
       "badge": "Night Owl"
     },
     {
       "rank": 11,
       "name": "Priya D.",
       "handle": "@priyadhyan",
-      "focusMinutes": 940,
-      "streak": 9,
+      "focusMinutes": 0,
+      "streak": 0,
       "badge": "Self Aware"
     },
     {
       "rank": 12,
       "name": "Rehan Q.",
       "handle": "@rehanrevision",
-      "focusMinutes": 715,
-      "streak": 6,
-      "badge": "Month Of Ekagra"
+      "focusMinutes": 0,
+      "streak": 0,
+      "badge": "Month Of Focus Flow"
     }
   ],
   "moods": [
@@ -6423,7 +6423,7 @@
   "timeline_blocks": [
     {
       "id": "block-fajr",
-      "title": "Morning Ekagra",
+      "title": "Morning Focus Flow",
       "kind": "focus",
       "start": "05:30",
       "end": "07:00",
@@ -6447,7 +6447,7 @@
     },
     {
       "id": "block-mehfil",
-      "title": "Mehfil Co-Working",
+      "title": "Focus Room Co-Working",
       "kind": "social",
       "start": "18:30",
       "end": "19:30",
@@ -6455,7 +6455,7 @@
     },
     {
       "id": "block-dhyan",
-      "title": "Dhyan Reset",
+      "title": "Mindful Reset Reset",
       "kind": "wellbeing",
       "start": "20:00",
       "end": "20:20",

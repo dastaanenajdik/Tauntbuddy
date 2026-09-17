@@ -1,6 +1,6 @@
 import '../../core/utils/app_date_utils.dart';
 
-/// Ekagra focus vs Dhyan mindfulness — both are timed sessions but they feed
+/// focused work vs Dhyan mindfulness — both are timed sessions but they feed
 /// different analytics lanes.
 enum SessionKind { ekagra, dhyan }
 
@@ -10,7 +10,7 @@ SessionKind sessionKindFromKey(String? key) =>
 extension SessionKindX on SessionKind {
   String get key => this == SessionKind.dhyan ? 'dhyan' : 'ekagra';
 
-  String get label => this == SessionKind.dhyan ? 'Dhyan' : 'Ekagra';
+  String get label => this == SessionKind.dhyan ? 'Mindful Reset' : 'Focus Flow';
 
   String get emoji => this == SessionKind.dhyan ? '🧘' : '🎯';
 }
@@ -19,7 +19,7 @@ extension SessionKindX on SessionKind {
 ///
 /// `depthScore` is TauntBuddy's own metric: minutes actually spent focused,
 /// weighted by how few times the KAVACH shield was broken. It powers
-/// "Ekagra Depth" on the dashboard and the analytics drill-down.
+/// "Focus Score" on the dashboard and the analytics drill-down.
 class FocusSession {
   const FocusSession({
     required this.id,
@@ -53,7 +53,7 @@ class FocusSession {
     return ((base - penalty).clamp(0, 1)).toDouble();
   }
 
-  /// Ekagra Depth for this session = minutes x quality, rounded.
+  /// Focus Score for this session = minutes x quality, rounded.
   int get depthScore => (actualMinutes * quality).round();
 
   FocusSession copyWith({

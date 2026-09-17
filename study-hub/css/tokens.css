@@ -5,11 +5,11 @@
    --------------------------------------------------------------------------- */
 
 :root {
-  /* surfaces (light warm paper) */
-  --bg: #efe7d8;
-  --card: #fffdf7;
-  --card-soft: #faf5ea;
-  --line: #e3d7c2;
+  /* surfaces: a clean white page with neutral, high-contrast cards */
+  --bg: #ffffff;
+  --card: #ffffff;
+  --card-soft: #fafafa;
+  --line: #e4e4e7;
 
   /* text on light surfaces */
   --ink: #1a140d;          /* 15.9:1 on --card */
@@ -53,6 +53,6 @@
   --hero-scrim: linear-gradient(100deg, rgba(12, 20, 34, 0.88) 8%, rgba(12, 20, 34, 0.70) 52%, rgba(12, 20, 34, 0.45) 100%);
   --hero-scrim-strong: linear-gradient(180deg, rgba(12, 20, 34, 0.68), rgba(12, 20, 34, 0.86));
 
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "Source Serif 4", Georgia, serif;
+  --font-display: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }

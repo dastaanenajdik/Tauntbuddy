@@ -173,7 +173,7 @@ class _SearchScreenState extends State<SearchScreen> {
               for (final StudyCircle circle in circles)
                 _ResultTile(
                   title: circle.name,
-                  subtitle: '${circle.members} members · ${circle.subject}',
+                  subtitle: '${circle.members.toString().padLeft(2, '0')} members · ${circle.subject}',
                   icon: Icons.diversity_3_rounded,
                   onTap: () => AppRouter.go(context, AppRouter.circles),
                 ),

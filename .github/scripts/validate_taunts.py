@@ -321,13 +321,17 @@ def validate_catalog(root: Path, data: dict) -> None:
 
     for index, circle in enumerate(data.get("circles") or []):
         where = f"{name}:circles[{index}]"
-        if not isinstance(circle, dict) or int(circle.get("members", 0)) <= 0:
-            fail(where, "members must be positive")
+        if not isinstance(circle, dict):
+            fail(where, "circle must be an object")
+        elif int(circle.get("members", 0)) < 0:
+            fail(where, "members cannot be negative")
 
     for index, entry in enumerate(data.get("leaderboard") or []):
         where = f"{name}:leaderboard[{index}]"
-        if not isinstance(entry, dict) or int(entry.get("focusMinutes", 0)) <= 0:
-            fail(where, "focusMinutes must be positive")
+        if not isinstance(entry, dict):
+            fail(where, "leaderboard entry must be an object")
+        elif int(entry.get("focusMinutes", 0)) < 0:
+            fail(where, "focusMinutes cannot be negative")
 
     moods = data.get("moods") or []
     if len(moods) < 4:

@@ -9,11 +9,11 @@ import '../data/repositories/activity_repository.dart';
 import '../data/services/notification_service.dart';
 import 'kavach_controller.dart';
 
-/// What the Ekagra timer is doing right now.
+/// What the focus timer is doing right now.
 enum EkagraPhase { idle, running, paused, breakTime, finished }
 
 /// The deep-focus engine behind **Ekagra**: Pomodoro rounds, break handling,
-/// KAVACH integration and Ekagra Depth accounting.
+/// KAVACH integration and Focus Score accounting.
 ///
 /// A single [Timer.periodic] drives everything; the controller is deliberately
 /// independent of the widget tree so the countdown keeps running while the user
@@ -153,7 +153,7 @@ class EkagraController extends ChangeNotifier {
     if (armShield && _settings.kavachAutoStart) {
       await _kavach.activate(
         profileId: _settings.kavachStrict ? 'kavach-strict' : 'kavach-soft',
-        label: _subject.isEmpty ? 'Ekagra block' : '$_subject · Ekagra',
+        label: _subject.isEmpty ? 'focus block' : '$_subject · Focus Flow',
         minutes: _focusMinutes,
         strict: _settings.kavachStrict,
       );
@@ -242,7 +242,7 @@ class EkagraController extends ChangeNotifier {
     // Notify the user that a round wrapped up (the hamster is proud).
     await _notifications.showTaunt(
       id: 7000 + _currentRound,
-      title: 'Ekagra round $_currentRound complete 🎯',
+      title: 'Focus round $_currentRound complete 🎯',
       body: session == null
           ? 'Break time. Stretch, hydrate, come back sharper.'
           : '${session.actualMinutes} minutes banked · depth ${session.depthScore}. '

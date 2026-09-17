@@ -7,8 +7,9 @@ import { EXAMS, flattenTopics } from "../../../data/exams.js";
 import * as store from "../../store.js";
 import { el, esc, progressBar, pomoHref } from "../../ui.js";
 
+const metric = (value) => String(value ?? 0).padStart(2, "0");
+
 function render(root) {
-  const state = store.getState();
   const stats = store.totals();
 
   const cards = EXAMS.map((e) => {
@@ -48,10 +49,10 @@ function render(root) {
     </section>
 
     <section class="stats fade-in" aria-label="Your study stats">
-      <div class="stat"><div class="n" data-stat="sessions">${stats.sessions}</div><div class="l">Pomodoro sessions</div></div>
-      <div class="stat"><div class="n" data-stat="hours">${stats.focusHours}</div><div class="l">Focused hours logged</div></div>
-      <div class="stat"><div class="n" data-stat="chapters">${stats.chaptersDone}</div><div class="l">Chapters completed</div></div>
-      <div class="stat"><div class="n" data-stat="tasks">${stats.tasksDone}</div><div class="l">Planner tasks done</div></div>
+      <div class="stat"><div class="n" data-stat="sessions">${metric(stats.sessions)}</div><div class="l">Pomodoro sessions</div></div>
+      <div class="stat"><div class="n" data-stat="hours">${metric(stats.focusHours)}</div><div class="l">Focused hours logged</div></div>
+      <div class="stat"><div class="n" data-stat="chapters">${metric(stats.chaptersDone)}</div><div class="l">Chapters completed</div></div>
+      <div class="stat"><div class="n" data-stat="tasks">${metric(stats.tasksDone)}</div><div class="l">Planner tasks done</div></div>
     </section>
 
     <section aria-label="Exam hub">
@@ -72,10 +73,10 @@ function refreshDynamic(root) {
     const n = root.querySelector(`[data-stat="${k}"]`);
     if (n) n.textContent = v;
   };
-  set("sessions", stats.sessions);
-  set("hours", stats.focusHours);
-  set("chapters", stats.chaptersDone);
-  set("tasks", stats.tasksDone);
+  set("sessions", metric(stats.sessions));
+  set("hours", metric(stats.focusHours));
+  set("chapters", metric(stats.chaptersDone));
+  set("tasks", metric(stats.tasksDone));
 
   EXAMS.forEach((e) => {
     const p = store.examProgress(flattenTopics(e), e.id);

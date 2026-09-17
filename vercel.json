@@ -2,5 +2,35 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "bash tools/build_web_deploy.sh",
   "outputDirectory": "build/web",
-  "installCommand": "echo 'Skipping npm install: TauntBuddy builds with Flutter (see tools/build_web_deploy.sh).'"
+  "installCommand": "echo 'Skipping npm install: TauntBuddy builds with Flutter (see tools/build_web_deploy.sh).'",
+  "redirects": [
+    {
+      "source": "/study-hub",
+      "destination": "/study-hub/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/study-hub/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/study-hub/(.*).js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/study-hub/(.*).css",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    }
+  ]
 }

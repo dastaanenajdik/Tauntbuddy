@@ -55,3 +55,6 @@ Thumbs.db
 # Python (dataset validator helpers)
 __pycache__/
 *.pyc
+
+# --- JavaScript test dependencies ---
+node_modules/
