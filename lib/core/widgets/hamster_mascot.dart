@@ -579,7 +579,7 @@ class _HamsterPainter extends CustomPainter {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: tokens.isDark
-              ? const <Color>[Color(0xFF3A3350), Color(0xFF241E36)]
+              ? const <Color>[Color(0xFF423A63), Color(0xFF262242)]
               : const <Color>[Color(0xFFFFFFFF), Color(0xFFEDE6FB)],
         ).createShader(rect),
     );

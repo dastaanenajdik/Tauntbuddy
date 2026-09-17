@@ -79,7 +79,7 @@ class GlassField extends StatelessWidget {
                     isDense: true,
                     contentPadding: const EdgeInsets.symmetric(vertical: 14),
                     hintText: hint,
-                    hintStyle: TextStyle(color: t.textMuted.withValues(alpha: 0.7), fontSize: 13),
+                    hintStyle: TextStyle(color: t.textMuted, fontSize: 13),
                   ),
                 ),
               ),
@@ -134,10 +134,11 @@ class SegmentedNeonPicker extends StatelessWidget {
                   duration: const Duration(milliseconds: 200),
                   padding: const EdgeInsets.symmetric(vertical: 9),
                   decoration: BoxDecoration(
-                    color: i == selectedIndex ? color.withValues(alpha: 0.22) : Colors.transparent,
+                    color: i == selectedIndex ? color.withValues(alpha: 0.28) : Colors.transparent,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: i == selectedIndex ? color.withValues(alpha: 0.5) : Colors.transparent,
+                      color: i == selectedIndex ? color : Colors.transparent,
+                      width: 1.2,
                     ),
                   ),
                   child: Center(

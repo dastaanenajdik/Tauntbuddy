@@ -316,7 +316,7 @@ class _PermissionPage extends StatelessWidget {
                 Switch(
                   value: enabled,
                   onChanged: onChanged,
-                  activeTrackColor: t.accentMint.withValues(alpha: 0.45),
+                  activeTrackColor: t.accentMint,
                 ),
               ],
             ),
@@ -377,7 +377,7 @@ class _FinishPage extends StatelessWidget {
                 Switch(
                   value: armKavach,
                   onChanged: onArmKavach,
-                  activeTrackColor: t.accentMagenta.withValues(alpha: 0.45),
+                  activeTrackColor: t.accentMagenta,
                 ),
               ],
             ),

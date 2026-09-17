@@ -78,7 +78,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: t.accent(accentFromKey(course.accent)).withValues(alpha: 0.16),
+                    color: t.accent(accentFromKey(course.accent)).withValues(alpha: 0.22),
                     borderRadius: BorderRadius.circular(13),
                   ),
                   child: Icon(

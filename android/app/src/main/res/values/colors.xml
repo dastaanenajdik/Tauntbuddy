@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Dark Neon palette: #0C0B10 canvas, #9D4EDD / #8A2BE2 accents. -->
-    <color name="tauntbuddy_background">#0C0B10</color>
-    <color name="tauntbuddy_surface">#14121B</color>
-    <color name="tauntbuddy_primary">#9D4EDD</color>
-    <color name="tauntbuddy_glow">#B388FF</color>
-    <color name="ic_launcher_background">#0C0B10</color>
+    <!-- Solid Neon v2: #131120 canvas, #A855F7 / #7C3AED accents. -->
+    <color name="tauntbuddy_background">#131120</color>
+    <color name="tauntbuddy_surface">#1B1830</color>
+    <color name="tauntbuddy_primary">#A855F7</color>
+    <color name="tauntbuddy_glow">#C4A2FF</color>
+    <color name="ic_launcher_background">#131120</color>
 </resources>

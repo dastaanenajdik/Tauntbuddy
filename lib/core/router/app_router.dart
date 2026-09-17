@@ -7,6 +7,7 @@ import '../../features/courses/courses_screen.dart';
 import '../../features/dashboard/dashboard_screen.dart';
 import '../../features/dhyan/dhyan_screen.dart';
 import '../../features/ekagra/ekagra_screen.dart';
+import '../../features/exams/exams_screen.dart';
 import '../../features/goals/goals_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/kavach/kavach_screen.dart';
@@ -38,6 +39,7 @@ class AppRouter {
   static const String dashboard = '/dashboard';
   static const String ekagra = '/ekagra';
   static const String planner = '/planner';
+  static const String exams = '/exams';
   static const String kavach = '/kavach';
   static const String leaderboard = '/leaderboard';
   static const String courses = '/courses';
@@ -60,6 +62,7 @@ class AppRouter {
     dashboard: (BuildContext context) => const DashboardScreen(),
     ekagra: (BuildContext context) => const EkagraScreen(),
     planner: (BuildContext context) => const PlannerScreen(),
+    exams: (BuildContext context) => const ExamsScreen(),
     kavach: (BuildContext context) => const KavachScreen(),
     leaderboard: (BuildContext context) => const LeaderboardScreen(),
     courses: (BuildContext context) => const CoursesScreen(),

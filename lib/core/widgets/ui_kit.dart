@@ -139,9 +139,9 @@ class GhostButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: compact ? 14 : 20),
         width: expand ? double.infinity : null,
         decoration: BoxDecoration(
-          color: c.withValues(alpha: t.isDark ? 0.06 : 0.04),
+          color: c.withValues(alpha: t.isDark ? 0.16 : 0.09),
           borderRadius: BorderRadius.circular(compact ? 13 : 16),
-          border: Border.all(color: c.withValues(alpha: 0.28)),
+          border: Border.all(color: c.withValues(alpha: 0.62)),
         ),
         child: Row(
           mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
@@ -197,9 +197,9 @@ class SectionHeader extends StatelessWidget {
               margin: const EdgeInsets.only(right: 10),
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: c.withValues(alpha: 0.14),
+                color: c.withValues(alpha: 0.22),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: c.withValues(alpha: 0.3)),
+                border: Border.all(color: c.withValues(alpha: 0.6)),
               ),
               child: Icon(icon, size: 15, color: c),
             ),
@@ -262,9 +262,9 @@ class StatTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
         decoration: BoxDecoration(
-          color: c.withValues(alpha: t.isDark ? 0.09 : 0.06),
+          color: c.withValues(alpha: t.isDark ? 0.17 : 0.1),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: c.withValues(alpha: 0.24)),
+          border: Border.all(color: c.withValues(alpha: 0.52)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -458,7 +458,7 @@ class NeonProgressBar extends StatelessWidget {
         builder: (BuildContext context, double value, _) {
           return Container(
             height: height,
-            color: track ?? t.glassBorder,
+            color: track ?? t.surfaceHigh,
             child: FractionallySizedBox(
               alignment: Alignment.centerLeft,
               widthFactor: value == 0 ? 0.001 : value,
@@ -605,8 +605,8 @@ class EmptyState extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: c.withValues(alpha: 0.12),
-              border: Border.all(color: c.withValues(alpha: 0.3)),
+              color: c.withValues(alpha: 0.2),
+              border: Border.all(color: c.withValues(alpha: 0.6)),
             ),
             child: Icon(icon, size: 30, color: c),
           ),
@@ -624,31 +624,6 @@ class EmptyState extends StatelessWidget {
           ),
           if (action != null) ...<Widget>[const SizedBox(height: 20), action!],
         ],
-      ),
-    );
-  }
-}
-
-/// Hairline gradient divider used between dashboard modules.
-class NeonDivider extends StatelessWidget {
-  const NeonDivider({super.key, this.height = 1, this.opacity = 0.18});
-
-  final double height;
-  final double opacity;
-
-  @override
-  Widget build(BuildContext context) {
-    final AppTokens t = context.tokens;
-    return Container(
-      height: height,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: <Color>[
-            Colors.transparent,
-            t.primary.withValues(alpha: opacity),
-            Colors.transparent,
-          ],
-        ),
       ),
     );
   }

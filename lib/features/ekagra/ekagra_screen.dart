@@ -142,11 +142,6 @@ class EkagraScreen extends StatelessWidget {
                     session: todays[i],
                     onDelete: () => activity.deleteSession(todays[i].id),
                   ),
-                  if (i != todays.length - 1)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      child: NeonDivider(opacity: 0.12),
-                    ),
                 ],
               ],
             ),
@@ -453,7 +448,7 @@ class _SessionTile extends StatelessWidget {
             width: 34,
             height: 34,
             decoration: BoxDecoration(
-              color: t.primary.withValues(alpha: 0.14),
+              color: t.primary.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Center(child: Text(session.kind.emoji, style: const TextStyle(fontSize: 15))),

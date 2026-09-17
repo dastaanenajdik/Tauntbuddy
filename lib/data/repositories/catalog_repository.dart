@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/catalog.dart';
+import '../models/exam.dart';
 import '../models/quote.dart';
 import '../models/tracking.dart';
 import '../services/github_source.dart';
@@ -101,6 +102,25 @@ class CatalogRepository {
   List<PlannerTemplate> get plannerTemplates => _catalog.plannerTemplates;
   List<KavachProfile> get kavachProfiles => _catalog.kavachProfiles;
   List<TimelineBlock> get timelineBlocks => _catalog.timelineBlocks;
+  List<ExamBlueprint> get exams =>
+      _catalog.exams.isEmpty ? ExamBlueprint.fallback : _catalog.exams;
+
+  /// Lookup used by the Exams hub and by deep links from search.
+  ExamBlueprint? examById(String id) {
+    for (final ExamBlueprint exam in exams) {
+      if (exam.id == id || exam.code.toLowerCase() == id.toLowerCase()) return exam;
+    }
+    return null;
+  }
+
+  /// Distinct exam categories, in dataset order, for the filter chips.
+  List<String> get examCategories {
+    final List<String> categories = <String>[];
+    for (final ExamBlueprint exam in exams) {
+      if (!categories.contains(exam.category)) categories.add(exam.category);
+    }
+    return categories;
+  }
 
   FeatureCard? featureById(String id) {
     for (final FeatureCard feature in features) {

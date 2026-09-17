@@ -195,7 +195,7 @@ class NotificationService {
         importance: importance,
         priority: priority,
         playSound: sound,
-        color: const Color(0xFF9D4EDD),
+        color: const Color(0xFFA855F7),
         category: AndroidNotificationCategory.reminder,
       ),
       iOS: const DarwinNotificationDetails(

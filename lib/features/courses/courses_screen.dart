@@ -121,9 +121,9 @@ class _CourseCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(11),
                 decoration: BoxDecoration(
-                  color: accent.withValues(alpha: 0.16),
+                  color: accent.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: accent.withValues(alpha: 0.32)),
+                  border: Border.all(color: accent.withValues(alpha: 0.6)),
                 ),
                 child: Icon(Icons.school_rounded, size: 18, color: accent),
               ),

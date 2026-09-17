@@ -4,16 +4,17 @@ import 'package:provider/provider.dart';
 import '../../core/router/app_router.dart';
 import '../../core/theme/app_tokens.dart';
 import '../../core/utils/icon_mapper.dart';
-import '../../core/widgets/ambient_background.dart';
 import '../../core/widgets/form_fields.dart';
 import '../../core/widgets/glass.dart';
 import '../../core/widgets/ui_kit.dart';
 import '../../data/models/catalog.dart';
+import '../../data/models/exam.dart';
 import '../../data/models/study_task.dart';
 import '../../data/models/taunt.dart';
 import '../../state/activity_controller.dart';
 import '../../state/app_state.dart';
 import '../../state/shell_controller.dart';
+import '../exams/exams_screen.dart';
 
 /// Global search across features, courses, circles, taunts and planner tasks.
 class SearchScreen extends StatefulWidget {
@@ -52,6 +53,17 @@ class _SearchScreenState extends State<SearchScreen> {
         .where((Course c) => query.isNotEmpty && c.title.toLowerCase().contains(query))
         .toList(growable: false);
 
+    final List<ExamBlueprint> exams = query.isEmpty
+        ? <ExamBlueprint>[]
+        : app.catalog.exams
+            .where((ExamBlueprint exam) =>
+                exam.code.toLowerCase().contains(query) ||
+                exam.name.toLowerCase().contains(query) ||
+                exam.category.toLowerCase().contains(query) ||
+                exam.body.toLowerCase().contains(query))
+            .take(8)
+            .toList(growable: false);
+
     final List<StudyCircle> circles = app.catalog.circles
         .where((StudyCircle c) => query.isNotEmpty && c.name.toLowerCase().contains(query))
         .toList(growable: false);
@@ -84,7 +96,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: GlassField(
                   controller: _controller,
                   label: 'Search TauntBuddy',
-                  hint: 'kavach, dsa, reels, goals...',
+                  hint: 'UPSC, BPSC, CA, CLAT, CUET, kavach...',
                   prefixIcon: Icons.search_rounded,
                   onChanged: (String value) {
                     setState(() => _query = value);
@@ -129,6 +141,21 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
+            if (exams.isNotEmpty) ...<Widget>[
+              const SizedBox(height: 14),
+              SectionHeader(
+                title: 'Exams',
+                subtitle: '${exams.length}',
+                icon: Icons.workspace_premium_rounded,
+              ),
+              for (final ExamBlueprint exam in exams)
+                _ResultTile(
+                  title: '${exam.code} · ${exam.name}',
+                  subtitle: '${exam.category} · ${exam.body}',
+                  icon: iconFor(exam.icon),
+                  onTap: () => openExamDetail(context, exam),
+                ),
+            ],
             if (courses.isNotEmpty) ...<Widget>[
               const SizedBox(height: 14),
               SectionHeader(title: 'Courses', subtitle: '${courses.length}', icon: Icons.school_rounded),
@@ -176,12 +203,17 @@ class _SearchScreenState extends State<SearchScreen> {
                   onTap: () => AppRouter.go(context, AppRouter.planner),
                 ),
             ],
-            if (features.isEmpty && courses.isEmpty && circles.isEmpty && taunts.isEmpty && tasks.isEmpty)
+            if (features.isEmpty &&
+                exams.isEmpty &&
+                courses.isEmpty &&
+                circles.isEmpty &&
+                taunts.isEmpty &&
+                tasks.isEmpty)
               GlassCard(
                 radius: 24,
                 child: EmptyState(
                   title: 'Nothing found',
-                  message: 'Try "kavach", "dhyan", "reels", "exam" or a course name.',
+                  message: 'Try "upsc", "bpsc", "ca", "clat", "cuet", "kavach" or a course name.',
                   icon: Icons.search_off_rounded,
                 ),
               ),
@@ -259,22 +291,6 @@ class _ResultTile extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-/// Ambient wrapper so pushed screens (search, and anything else without the
-/// shell chrome) keep the TauntBuddy canvas behind them.
-class GlassScaffold extends StatelessWidget {
-  const GlassScaffold({super.key, required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: AmbientBackground(child: SafeArea(child: child)),
     );
   }
 }

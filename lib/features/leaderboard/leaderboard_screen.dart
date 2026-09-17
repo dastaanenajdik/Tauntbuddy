@@ -103,11 +103,6 @@ class LeaderboardScreen extends StatelessWidget {
             children: <Widget>[
               for (int i = 0; i < merged.length; i++) ...<Widget>[
                 _BoardRow(entry: merged[i], index: i + 1, isMe: merged[i].rank == 0),
-                if (i != merged.length - 1)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 14),
-                    child: NeonDivider(opacity: 0.1),
-                  ),
               ],
             ],
           ),
@@ -163,7 +158,7 @@ class _BoardRow extends StatelessWidget {
                 : t.textMuted;
 
     return Container(
-      color: isMe ? t.primary.withValues(alpha: 0.08) : Colors.transparent,
+      color: isMe ? t.primary.withValues(alpha: 0.18) : Colors.transparent,
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
       child: Row(
         children: <Widget>[
@@ -178,9 +173,9 @@ class _BoardRow extends StatelessWidget {
             width: 34,
             height: 34,
             decoration: BoxDecoration(
-              color: medal.withValues(alpha: 0.16),
+              color: medal.withValues(alpha: 0.24),
               shape: BoxShape.circle,
-              border: Border.all(color: medal.withValues(alpha: 0.4)),
+              border: Border.all(color: medal.withValues(alpha: 0.7)),
             ),
             child: Center(
               child: Text(
@@ -265,7 +260,7 @@ class _BadgeTile extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: (unlocked ? tier : t.accentGrey).withValues(alpha: 0.16),
+                  color: (unlocked ? tier : t.accentGrey).withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(13),
                 ),
                 child: Icon(

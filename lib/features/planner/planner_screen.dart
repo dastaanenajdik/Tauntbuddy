@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/router/app_router.dart';
 import '../../core/theme/app_tokens.dart';
 import '../../core/utils/app_date_utils.dart';
 import '../../core/widgets/emoji_burst.dart';
@@ -9,6 +10,7 @@ import '../../core/widgets/glass.dart';
 import '../../core/widgets/hamster_mascot.dart';
 import '../../core/widgets/ui_kit.dart';
 import '../../data/models/catalog.dart';
+import '../../data/models/exam.dart';
 import '../../data/models/study_task.dart';
 import '../../state/activity_controller.dart';
 import '../../state/app_state.dart';
@@ -111,6 +113,11 @@ class PlannerScreen extends StatelessWidget {
           title: 'Templates',
           subtitle: 'Prebuilt plans from the dataset',
           icon: Icons.auto_awesome_rounded,
+          trailing: GhostButton(
+            label: 'Exam Hub',
+            icon: Icons.workspace_premium_rounded,
+            onPressed: () => AppRouter.go(context, AppRouter.exams),
+          ),
         ),
         Wrap(
           spacing: 8,
@@ -121,6 +128,14 @@ class PlannerScreen extends StatelessWidget {
                 label: '${template.title} · ${template.daysOut}d',
                 icon: Icons.playlist_add_rounded,
                 dense: true,
+                onTap: () => _applyTemplate(context, activity, template),
+              ),
+            for (final PlannerTemplate template in _examTemplates(app))
+              NeonChip(
+                label: '${template.exam} · ${template.daysOut}d',
+                icon: Icons.workspace_premium_rounded,
+                dense: true,
+                color: context.tokens.accentAmber,
                 onTap: () => _applyTemplate(context, activity, template),
               ),
           ],
@@ -170,17 +185,23 @@ class PlannerScreen extends StatelessWidget {
                     },
                     onDelete: () => activity.deleteTask(todayTasks[i].id),
                   ),
-                  if (i != todayTasks.length - 1)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      child: NeonDivider(opacity: 0.12),
-                    ),
                 ],
               ],
             ),
           ),
       ],
     );
+  }
+
+  /// The exams with the nearest cycle become one-tap planner templates straight
+  /// from the Exam Hub dataset (amber chips, sorted by days out).
+  List<PlannerTemplate> _examTemplates(AppState app) {
+    final DateTime now = DateTime.now();
+    final List<PlannerTemplate> templates = app.catalog.exams
+        .map((ExamBlueprint exam) => exam.toPlannerTemplate(now))
+        .toList(growable: true)
+      ..sort((PlannerTemplate a, PlannerTemplate b) => a.daysOut.compareTo(b.daysOut));
+    return templates.take(6).toList(growable: false);
   }
 
   Future<void> _applyFirstTemplate(
@@ -386,10 +407,11 @@ class _TaskTile extends StatelessWidget {
               width: 24,
               height: 24,
               decoration: BoxDecoration(
-                color: task.done ? t.accentMint.withValues(alpha: 0.25) : Colors.transparent,
+                color: task.done ? t.accentMint.withValues(alpha: 0.32) : Colors.transparent,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: task.done ? t.accentMint : t.textMuted.withValues(alpha: 0.5),
+                  color: task.done ? t.accentMint : t.textMuted,
+                  width: 1.4,
                 ),
               ),
               child: task.done ? Icon(Icons.check_rounded, size: 15, color: t.accentMint) : null,
@@ -405,10 +427,9 @@ class _TaskTile extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: task.done ? t.textMuted : t.textPrimary,
+                    color: task.done ? t.accentMint : t.textPrimary,
                     fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    decoration: task.done ? TextDecoration.lineThrough : null,
+                    fontWeight: task.done ? FontWeight.w700 : FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 3),

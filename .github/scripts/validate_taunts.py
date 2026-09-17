@@ -53,6 +53,28 @@ BADGE_METRICS = {
 
 ACCENTS = {"violet", "cyan", "magenta", "mint", "amber", "grey"}
 
+# Must stay in sync with lib/data/models/exam.dart.
+MILESTONE_KINDS = {
+    "notification",
+    "application",
+    "admit",
+    "exam",
+    "result",
+    "interview",
+    "counselling",
+    "training",
+}
+
+MIN_EXAMS = 20
+
+REQUIRED_EXAM_IDS = {
+    "upsc-cse",
+    "bpsc",
+    "ca",
+    "clat-ug",
+    "cuet-ug",
+}
+
 REQUIRED_TRIGGERS = {
     "morning",
     "afternoon",
@@ -341,9 +363,106 @@ def validate_catalog(root: Path, data: dict) -> None:
             if end <= start:
                 fail(where, f"end ({end}) must be after start ({start})")
 
+    # An older published copy may not carry the exams block yet: that is a
+    # warning (the app falls back to its bundled blueprints), while a present
+    # but broken block is a hard failure.
+    exams = data.get("exams")
+    if exams is None:
+        warn(name, "no exams block — the Exam Hub falls back to its bundled blueprints")
+        exams = []
+    elif not isinstance(exams, list) or not exams:
+        fail(name, "the exams block must be a non-empty list of exam blueprints")
+        exams = []
+    elif len(exams) < MIN_EXAMS:
+        fail(name, f"at least {MIN_EXAMS} exam blueprints are required, found {len(exams)}")
+    seen_exams: set[str] = set()
+    for index, exam in enumerate(exams):
+        where = f"{name}:exams[{index}]"
+        if not isinstance(exam, dict):
+            fail(where, "exam must be an object")
+            continue
+        exam_id = exam.get("id")
+        if not isinstance(exam_id, str) or not ID_RE.match(exam_id):
+            fail(where, f"id must match {ID_RE.pattern}, found {exam_id!r}")
+        elif exam_id in seen_exams:
+            fail(where, f"duplicate exam id {exam_id!r}")
+        else:
+            seen_exams.add(exam_id)
+        for field in ("code", "name", "body", "category", "about", "eligibility"):
+            if not str(exam.get(field, "")).strip():
+                fail(where, f"{field} is required")
+        if exam.get("accent") not in ACCENTS:
+            fail(where, f"unknown accent {exam.get('accent')!r}")
+        daily = exam.get("dailyHours")
+        if not isinstance(daily, (int, float)) or not 0 < float(daily) <= 16:
+            fail(where, f"dailyHours must be between 0 and 16, found {daily!r}")
+
+        stages = exam.get("stages")
+        if not isinstance(stages, list) or not stages:
+            fail(where, "stages (the exam pattern) must not be empty")
+            stages = []
+        for stage_index, stage in enumerate(stages):
+            stage_where = f"{where}.stages[{stage_index}]"
+            if not isinstance(stage, dict):
+                fail(stage_where, "stage must be an object")
+                continue
+            for field in ("name", "type", "mode", "negative", "merit"):
+                if not str(stage.get(field, "")).strip():
+                    fail(stage_where, f"{field} is required")
+            marks = stage.get("marks")
+            if not isinstance(marks, (int, float)) or float(marks) < 0:
+                fail(stage_where, f"marks must be a non-negative number, found {marks!r}")
+
+        syllabus = exam.get("syllabus")
+        if not isinstance(syllabus, list) or not syllabus:
+            fail(where, "syllabus must not be empty")
+            syllabus = []
+        for paper_index, paper in enumerate(syllabus):
+            paper_where = f"{where}.syllabus[{paper_index}]"
+            if not isinstance(paper, dict):
+                fail(paper_where, "syllabus paper must be an object")
+                continue
+            if not str(paper.get("subject", "")).strip():
+                fail(paper_where, "subject is required")
+            topics = paper.get("topics") or []
+            if not isinstance(topics, list) or len(topics) < 2:
+                fail(paper_where, "a syllabus paper needs at least 2 topics")
+            elif len(topics) > 20:
+                warn(paper_where, f"{len(topics)} topics will be clamped to 20 planner units")
+
+        timeline = exam.get("timeline")
+        if not isinstance(timeline, list) or not timeline:
+            fail(where, "timeline must not be empty")
+            timeline = []
+        kinds: set[str] = set()
+        for step_index, step in enumerate(timeline):
+            step_where = f"{where}.timeline[{step_index}]"
+            if not isinstance(step, dict):
+                fail(step_where, "milestone must be an object")
+                continue
+            if not str(step.get("label", "")).strip():
+                fail(step_where, "label is required")
+            if not str(step.get("window", "")).strip():
+                fail(step_where, "window is required")
+            month = step.get("month")
+            if not isinstance(month, int) or not 1 <= month <= 12:
+                fail(step_where, f"month must be an integer 1-12, found {month!r}")
+            kind = step.get("kind")
+            if kind not in MILESTONE_KINDS:
+                fail(step_where, f"unknown kind {kind!r}")
+            else:
+                kinds.add(kind)
+        if timeline and "exam" not in kinds:
+            fail(where, "timeline needs at least one 'exam' milestone")
+
+    missing = sorted(REQUIRED_EXAM_IDS - seen_exams)
+    if exams and missing:
+        fail(name, f"required exam blueprints are missing: {', '.join(missing)}")
+
+    exam_summary = f" · {len(exams)} exams" if exams else ""
     print(
         f"  seed_catalog.json {len(features)} features · {len(badges)} badges · "
-        f"{len(levels)} levels · {len(courses)} courses"
+        f"{len(levels)} levels · {len(courses)} courses{exam_summary}"
     )
 
 

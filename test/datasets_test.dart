@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tauntbuddy/core/utils/icon_mapper.dart';
 import 'package:tauntbuddy/data/models/catalog.dart';
+import 'package:tauntbuddy/data/models/exam.dart';
 import 'package:tauntbuddy/data/models/quote.dart';
+import 'package:tauntbuddy/data/models/study_task.dart';
 import 'package:tauntbuddy/data/models/taunt.dart';
 
 /// The three JSON files in `assets/data/` are the app's content backbone: they
@@ -243,10 +247,89 @@ void main() {
       }
     });
 
+    test('the exam hub ships the exams the product promises', () {
+      final Set<String> ids =
+          catalog.exams.map((ExamBlueprint exam) => exam.id).toSet();
+      expect(ids.length, catalog.exams.length, reason: 'duplicate exam ids');
+      expect(catalog.exams.length, greaterThanOrEqualTo(20));
+
+      const List<String> required = <String>[
+        'upsc-cse', // UPSC — all subjects, pattern and cycle
+        'bpsc', // Bihar state PSC
+        'ca', // Chartered Accountancy
+        'clat-ug', // law entrance
+        'cuet-ug', // university entrance
+        'ssc-cgl',
+        'ibps-po',
+        'neet-ug',
+        'jee-main',
+        'gate',
+      ];
+      for (final String id in required) {
+        expect(ids, contains(id), reason: '$id is missing from the exam dataset');
+      }
+    });
+
+    test('every exam carries a pattern, a syllabus and a timeline', () {
+      for (final ExamBlueprint exam in catalog.exams) {
+        expect(exam.code, isNotEmpty, reason: '${exam.id} has no code');
+        expect(exam.body, isNotEmpty, reason: '${exam.id} has no conducting body');
+        expect(exam.about, isNotEmpty, reason: '${exam.id} has no overview');
+        expect(exam.stages, isNotEmpty, reason: '${exam.id} has no exam pattern');
+        expect(exam.syllabus, isNotEmpty, reason: '${exam.id} has no syllabus');
+        expect(exam.timeline.length, greaterThanOrEqualTo(3),
+            reason: '${exam.id} needs a full cycle');
+        expect(
+          const <String>{'violet', 'cyan', 'magenta', 'mint', 'amber', 'grey'},
+          contains(exam.accent),
+          reason: '${exam.id} uses an unknown accent key',
+        );
+        expect(iconFor(exam.icon), isNot(Icons.auto_awesome_rounded),
+            reason: '${exam.id} uses an icon key the mapper does not know');
+
+        for (final ExamStage stage in exam.stages) {
+          expect(stage.name, isNotEmpty);
+          expect(stage.type, isNotEmpty);
+          expect(stage.negative, isNotEmpty,
+              reason: '${exam.id}/${stage.name} must state the penalty');
+        }
+        for (final ExamSyllabusPaper paper in exam.syllabus) {
+          expect(paper.subject, isNotEmpty);
+          expect(paper.topics.length, greaterThanOrEqualTo(2),
+              reason: '${exam.id}/${paper.subject} needs real topics');
+          expect(paper.plannerUnits, lessThanOrEqualTo(20),
+              reason: 'planner cards cap out at 20 units');
+        }
+        for (final ExamMilestone milestone in exam.timeline) {
+          expect(milestone.month, inInclusiveRange(1, 12));
+          expect(milestone.window, isNotEmpty,
+              reason: '${exam.id}/${milestone.label} needs a window');
+        }
+      }
+    });
+
+    test('exam blueprints turn into usable planner templates', () {
+      final DateTime now = DateTime(2026, 9, 17);
+      for (final ExamBlueprint exam in catalog.exams) {
+        final PlannerTemplate template = exam.toPlannerTemplate(now);
+        expect(template.subjects, isNotEmpty);
+        expect(template.daysOut, greaterThan(0));
+        expect(template.daysOut, lessThanOrEqualTo(730));
+        for (final SyllabusSubject subject in template.subjects) {
+          expect(subject.totalUnits, greaterThan(0));
+          expect(subject.examDate, isNotNull);
+          expect(subject.examDate!.isAfter(now), isTrue,
+              reason: '${exam.id} was planned into the past');
+        }
+        expect(exam.nextMilestoneLabel(now), contains('days out'));
+      }
+    });
+
     test('missing sections degrade to empty lists instead of throwing', () {
       final SeedCatalog bare = SeedCatalog.fromJson(<String, dynamic>{});
       expect(bare.features, isEmpty);
       expect(bare.badges, isEmpty);
+      expect(bare.exams, isEmpty);
       expect(SeedCatalog.fallback.features, isNotEmpty);
     });
   });

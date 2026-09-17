@@ -236,11 +236,6 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       ],
                     ),
                   ),
-                  if (i != recent.length - 1)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      child: NeonDivider(opacity: 0.1),
-                    ),
                 ],
               ],
             ),

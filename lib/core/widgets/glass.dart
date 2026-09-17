@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import '../theme/app_tokens.dart';
+import 'ambient_background.dart';
 
 /// Frosted glass panel — the primary building block of the TauntBuddy UI.
 ///
@@ -17,7 +18,7 @@ class GlassCard extends StatelessWidget {
     this.margin = EdgeInsets.zero,
     this.radius = 28,
     this.glowColor,
-    this.glowStrength = 0.22,
+    this.glowStrength = 0.16,
     this.borderColor,
     this.onTap,
     this.fillColor,
@@ -82,9 +83,9 @@ class GlassCard extends StatelessWidget {
             offset: const Offset(0, 10),
           ),
           BoxShadow(
-            color: t.shadow.withValues(alpha: t.isDark ? 0.45 : 0.12),
-            blurRadius: 24,
-            offset: const Offset(0, 12),
+            color: t.shadow.withValues(alpha: t.isDark ? 0.55 : 0.18),
+            blurRadius: 22,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -133,12 +134,9 @@ class NeonChip extends StatelessWidget {
         vertical: dense ? 4.5 : 7,
       ),
       decoration: BoxDecoration(
-        color: c.withValues(alpha: t.isDark ? 0.16 : 0.12),
+        color: c.withValues(alpha: t.isDark ? 0.24 : 0.18),
         borderRadius: BorderRadius.circular(dense ? 10 : 14),
-        border: Border.all(color: c.withValues(alpha: 0.42), width: 1),
-        boxShadow: <BoxShadow>[
-          BoxShadow(color: c.withValues(alpha: 0.22), blurRadius: 14, spreadRadius: -4),
-        ],
+        border: Border.all(color: c.withValues(alpha: 0.78), width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -154,7 +152,7 @@ class NeonChip extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              color: t.isDark ? c : Color.alphaBlend(c.withValues(alpha: 0.72), t.textPrimary),
+              color: t.isDark ? c : Color.alphaBlend(c.withValues(alpha: 0.88), t.textPrimary),
               fontSize: dense ? 10.5 : 12,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.3,
@@ -232,6 +230,22 @@ class GradientText extends StatelessWidget {
         textAlign: textAlign,
         style: (style ?? const TextStyle()).copyWith(color: Colors.white),
       ),
+    );
+  }
+}
+
+/// Ambient wrapper so pushed screens (search, exam details, anything outside
+/// the shell chrome) keep the TauntBuddy canvas behind them.
+class GlassScaffold extends StatelessWidget {
+  const GlassScaffold({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: AmbientBackground(child: SafeArea(child: child)),
     );
   }
 }

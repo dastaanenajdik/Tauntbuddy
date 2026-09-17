@@ -1,34 +1,55 @@
 # TauntBuddy · Branding
 
-Dark Neon / Glassmorphism, with a judgemental hamster as the face of the app.
+**Solid Neon** — violet energy on opaque, high-contrast surfaces, with a
+judgemental hamster as the face of the app.
 
 ## Palette
 
+Dark (default):
+
 | Token | Hex | Used for |
 | --- | --- | --- |
-| Canvas | `#0C0B10` | App background, splash, store art |
-| Canvas (alt) | `#121212` | Light-on-dark fallback backgrounds |
-| Surface | `#14121B` | Glass cards, sheets, nav rail |
-| Primary | `#9D4EDD` | Buttons, sliders, active nav |
-| Primary deep | `#8A2BE2` | Gradients beside Primary |
-| Glow | `#B388FF` | Neon halos, focus rings, mascot halo |
-| Magenta | `#F72585` | Streaks, brand gradient tail, taunt severity 3 |
-| Cyan | `#4CC9F0` | Analytics accents, sync affordances |
-| Mint | `#3DDC97` | Success, completion, gentle taunts |
-| Amber | `#FFB703` | Warnings, PRO, streak flames |
-| Text | `#F6F4FF` | Headlines (bold, high contrast) |
-| Muted | `#9A95AD` | Subtitles and captions |
+| Canvas | `#131120` | App background, splash, store art |
+| Canvas (alt) | `#1B1830` | Layered backgrounds, ambient wash |
+| Surface | `#1B1830` | Cards, sheets, drawer, nav rail (100 % opaque) |
+| Surface high | `#262242` | Nested panels, chips, elevated rows |
+| Border | `#3B3462` | The 1 px hairline that gives cards their shape |
+| Primary | `#A855F7` | Buttons, sliders, active nav |
+| Primary deep | `#7C3AED` | Gradients beside Primary |
+| Glow | `#C4A2FF` | Neon halos, focus rings, mascot halo |
+| Magenta | `#FF4FA3` | Streaks, brand gradient tail, taunt severity 3 |
+| Cyan | `#56CFF1` | Analytics accents, sync affordances |
+| Mint | `#3FE0B0` | Success, completion, gentle taunts |
+| Amber | `#FFC94D` | Warnings, PRO, streak flames, exam countdowns |
+| Grey | `#ABA6BE` | Neutral chips, disabled-but-legible states |
+| Text | `#FFFFFF` | Headlines (bold, high contrast) |
+| Muted | `#BDB8D4` | Subtitles and captions |
+
+Light mirrors the same hues: canvas `#F5F4FA` / alt `#E9E5F6`, white surfaces
+with `#F0ECFA` raised panels, borders `#D6CDEA`, primary `#6D28D9` (deep
+`#5B21B6`, glow `#8B5CF6`), accents `#BE185D` / `#0E7490` / `#047857` /
+`#B45309`, text `#14111F` on muted `#4B4660`.
 
 Rules of thumb:
 
-- Headlines are **bold white**, never tinted; subtext stays muted grey.
-- Accents always carry a **soft glow** (`Glow` at 10–35% behind the element).
-- Cards are **heavily rounded** (radius 18–28) with a 1 px subtle border
-  (`glassBorder`) and a translucent fill (`glassFill`) — never a heavy shadow.
-- The brand gradient runs `#B388FF → #F72585` (used by `GradientText`).
+- Headlines are **bold white** (dark) or near-black (light), never tinted;
+  subtext stays muted but still clears **7:1** — body copy clears **12:1**.
+- Every surface is **opaque**. `glassFill` is a solid colour, not a translucent
+  wash; depth comes from `surface` → `surfaceHigh` plus a crisp border, never
+  from blur or a heavy shadow.
+- **No decorative rules and no text decoration.** The old `NeonDivider` hairline
+  widget has been removed entirely, and `underline` / `lineThrough` are not used
+  anywhere in the UI — links and tappable text are distinguished by colour and
+  weight, and groups are separated by spacing.
+- Accents carry a **soft glow** (`Glow` at 10–35 % behind the element).
+- Cards are **heavily rounded** (radius 18–28) with a 1 px border
+  (`glassBorder`).
+- The brand gradient runs `#B07CFF → #FF4FA3` (dark) and `#6D28D9 → #BE185D`
+  (light); `GradientText` picks the right pair automatically.
 
-Light mode mirrors the same hues with a near-white canvas; it is a first-class
-theme, not an inverted hack.
+Light mode is a first-class theme, not an inverted hack, and both palettes are
+asserted by `test/brand_smoke_test.dart` (exact hexes, zero-alpha-free surfaces
+and WCAG contrast floors).
 
 ## Mascot
 
@@ -75,7 +96,7 @@ works in CI without extra packages.
 
 Adaptive icons are declared in
 `android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml` with
-`@color/ic_launcher_background` (`#0C0B10`); the Android 12 splash uses
+`@color/ic_launcher_background` (`#131120`); the Android 12 splash uses
 `@mipmap/ic_launcher_foreground` through `values-v31/styles.xml`.
 
 ## Typography
@@ -84,7 +105,7 @@ No fonts are bundled — the app uses the platform default (`Roboto` on Android,
 `San Francisco` on Apple platforms, `Segoe UI` on Windows). Headlines run at
 `FontWeight.w800` with `letterSpacing: -0.6`, body copy at `w400–w600`. The app
 clamps the platform text scale to **0.9–1.25** so accessibility settings work
-without breaking the glass layouts.
+without breaking the card layouts.
 
 ## Voice & tone
 
@@ -100,6 +121,13 @@ The mascot is a Hinglish study buddy, not an insult comic:
 ## Regenerating after a palette change
 
 1. Update this file and `lib/core/theme/app_tokens.dart` together.
-2. Update the `_Rgb` constants in `tools/generate_branding_assets.dart`.
+2. Update the `_Rgb` constants in `tools/generate_branding_assets.dart`
+   (`kBackground`, `kViolet`, `kMagenta`, `kGlow` already carry Solid Neon v2).
 3. Run the generator (Android icons, web icons and `assets/branding/` all move).
+   The committed bitmaps still predate v2 — regenerate them the next time the
+   Dart SDK is available; the shift is subtle (canvas `#0C0B10 → #131120`).
 4. `flutter test` + the CI `web` job re-validate the manifest icons.
+
+---
+
+made with ❤️ by **Siddharth ifallertzia** — _kyuki kal karunga se degree nahi milti._

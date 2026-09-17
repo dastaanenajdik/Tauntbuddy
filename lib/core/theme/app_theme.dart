@@ -12,7 +12,7 @@ class AppTheme {
   const AppTheme._();
 
   /// Versioned palette name, surfaced in Settings → About.
-  static const String paletteName = 'Neon Glass v1';
+  static const String paletteName = 'Solid Neon v2';
 
   static ThemeData dark() => build(AppTokens.dark);
   static ThemeData light() => build(AppTokens.light);
@@ -47,6 +47,39 @@ class AppTheme {
       primaryTextTheme: text,
       dividerColor: tokens.glassBorder,
       iconTheme: IconThemeData(color: tokens.textPrimary, size: 22),
+      // Solid component chrome: no washed-out tints, no hairline "underline"
+      // separators, and readable ink on every overlay the framework paints.
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: tokens.surfaceHigh,
+        contentTextStyle: TextStyle(
+          color: tokens.textPrimary,
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+        ),
+        actionTextColor: tokens.glow,
+        behavior: SnackBarBehavior.floating,
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ),
+      dividerTheme: DividerThemeData(
+        color: tokens.glassBorder,
+        thickness: 1,
+        space: 1,
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: tokens.primary,
+        linearTrackColor: tokens.surfaceHigh,
+      ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: tokens.primary,
+        selectionColor: tokens.primary.withValues(alpha: 0.38),
+        selectionHandleColor: tokens.primary,
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+      ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: <TargetPlatform, PageTransitionsBuilder>{
           TargetPlatform.android: _FadeThroughTransitionsBuilder(),

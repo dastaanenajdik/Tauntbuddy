@@ -1,3 +1,4 @@
+import 'exam.dart';
 import 'study_task.dart';
 import 'tracking.dart';
 
@@ -348,6 +349,7 @@ class SeedCatalog {
     this.plannerTemplates = const <PlannerTemplate>[],
     this.kavachProfiles = const <KavachProfile>[],
     this.timelineBlocks = const <TimelineBlock>[],
+    this.exams = const <ExamBlueprint>[],
   });
 
   final List<FeatureCard> features;
@@ -361,6 +363,9 @@ class SeedCatalog {
   final List<PlannerTemplate> plannerTemplates;
   final List<KavachProfile> kavachProfiles;
   final List<TimelineBlock> timelineBlocks;
+
+  /// Indian exam blueprints: pattern, syllabus and the annual cycle.
+  final List<ExamBlueprint> exams;
 
   static const SeedCatalog empty = SeedCatalog();
 
@@ -383,6 +388,7 @@ class SeedCatalog {
       plannerTemplates: emptyCatalog._list(json, 'planner_templates', PlannerTemplate.fromJson),
       kavachProfiles: emptyCatalog._list(json, 'kavach_profiles', KavachProfile.fromJson),
       timelineBlocks: emptyCatalog._list(json, 'timeline_blocks', TimelineBlock.fromJson),
+      exams: emptyCatalog._list(json, 'exams', ExamBlueprint.fromJson),
     );
   }
 
