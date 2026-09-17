@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "language": "hinglish",
+  "updatedAt": "2026-09-16",
+  "maintainers": ["dastaanenajdik"],
+  "defaults": {
+    "titlePrefix": "TauntBuddy",
+    "channelId": "tauntbuddy_taunts",
+    "sound": "default"
+  },
+  "packs": [
+    {
+      "id": "core-roasts",
+      "title": "Core Roasts",
+      "description": "The classic TauntBuddy judgement. Everyday procrastination, called out.",
+      "language": "hinglish",
+      "taunts": [
+        {
+          "id": "tb-core-001",
+          "text": "Assignment pending hai aur tu Instagram pe active. Wah, priorities! 😭",
+          "category": "procrastination",
+          "trigger": "idle",
+          "severity": 2,
+          "tags": ["assignment", "social"]
+        },
+        {
+          "id": "tb-core-002",
+          "text": "Deadline kal hai. Tera 'kal karunga' finally kab aayega? 💀",
+          "category": "procrastination",
+          "trigger": "goal_missed",
+          "severity": 3,
+          "tags": ["deadline", "goals"]
+        },
+        {
+          "id": "tb-core-003",
+          "text": "75% attendance chahiye... teri attendance dekh ke ab mujhe bhi bunk karna hai! 😂",
+          "category": "attendance",
+          "trigger": "morning",
+          "severity": 2,
+          "tags": ["college", "attendance"]
+        },
+        {
+          "id": "tb-core-004",
+          "text": "Kal ke test ki padhai kar raha hai, ya topper ke notes ko emotional support de raha hai?",
+          "category": "studying",
+          "trigger": "evening",
+          "severity": 2,
+          "tags": ["exam", "notes"]
+        },
+        {
+          "id": "tb-core-005",
+          "text": "Reels scroll karne me jitna time gaya, utna padhai me lagta to aaj college tu chala raha hota! 💀",
+          "category": "screen",
+          "trigger": "idle",
+          "severity": 3,
+          "tags": ["reels", "screen-time"]
+        },
+        {
+          "id": "tb-core-006",
+          "text": "Ek paragraph padh ke paanch minute ka break? Bold move! ☕",
+          "category": "focus",
+          "trigger": "break_over",
+          "severity": 1,
+          "tags": ["break", "focus"]
+        },
+        {
+          "id": "tb-core-007",
+          "text": "Record ke hisaab se tu excuses me zyada consistent hai, padhai me nahi!",
+          "category": "consistency",
+          "trigger": "streak_lost",
+          "severity": 3,
+          "tags": ["streak", "excuses"]
+        },
+        {
+          "id": "tb-core-008",
+          "text": "Ekagra depth 0 minute. Hamster bhi tujhse zyada focused hai. 🐹",
+          "category": "focus",
+          "trigger": "session_end",
+          "severity": 2,
+          "tags": ["ekagra", "focus"]
+        }
+      ]
+    },
+    {
+      "id": "morning-squad",
+      "title": "Subah Ki Judgement",
+      "description": "For the 6 AM crowd that hits snooze eleven times.",
+      "language": "hinglish",
+      "taunts": [
+        {
+          "id": "tb-morning-001",
+          "text": "Good morning! Snooze button tumhara sabse loyal friend hai na? ⏰",
+          "category": "routine",
+          "trigger": "morning",
+          "severity": 1,
+          "tags": ["wake-up", "habit"]
+        },
+        {
+          "id": "tb-morning-002",
+          "text": "Subah utha aur pehla kaam phone. Focus ka kya scene hai? 🌅",
+          "category": "routine",
+          "trigger": "morning",
+          "severity": 2,
+          "tags": ["phone", "morning"]
+        },
+        {
+          "id": "tb-morning-003",
+          "text": "Revision ka plan bana tha. Plan file me pada hai, tu bed me. Sab theek hai. 😴",
+          "category": "procrastination",
+          "trigger": "morning",
+          "severity": 2,
+          "tags": ["plan", "revision"]
+        },
+        {
+          "id": "tb-morning-004",
+          "text": "Aaj ka pehla Ekagra block shuru kar. Warna main notification bhejta rahunga, aur main bore nahi hota. 🔔",
+          "category": "focus",
+          "trigger": "morning",
+          "severity": 1,
+          "tags": ["ekagra", "nudge"]
+        },
+        {
+          "id": "tb-morning-005",
+          "text": "Chai bhi ban gayi, notes bhi khule hain... bas tu hi missing hai. ☕📖",
+          "category": "studying",
+          "trigger": "morning",
+          "severity": 1,
+          "tags": ["chai", "notes"]
+        }
+      ]
+    },
+    {
+      "id": "streak-guard",
+      "title": "Streak Guard",
+      "description": "Fires when a streak is about to die. No mercy.",
+      "language": "hinglish",
+      "taunts": [
+        {
+          "id": "tb-streak-001",
+          "text": "Streak marne wali hai. Ek session bacha le, hero ban ja. 🔥",
+          "category": "streak",
+          "trigger": "streak_lost",
+          "severity": 3,
+          "tags": ["streak", "rescue"]
+        },
+        {
+          "id": "tb-streak-002",
+          "text": "12 din ki mehnat ek din ke 'aaj mood nahi hai' se delete? Seriously? 🗑️",
+          "category": "streak",
+          "trigger": "streak_lost",
+          "severity": 3,
+          "tags": ["streak", "discipline"]
+        },
+        {
+          "id": "tb-streak-003",
+          "text": "Streak tootne se pehle 15 minute ka Ekagra. Bas 15. Mujhe surprise kar. ⏳",
+          "category": "streak",
+          "trigger": "idle",
+          "severity": 2,
+          "tags": ["streak", "quick-win"]
+        },
+        {
+          "id": "tb-streak-004",
+          "text": "Badge shelf pe dhool jam rahi hai. Naya unlocked badge kab? 🏅",
+          "category": "gamification",
+          "trigger": "milestone",
+          "severity": 1,
+          "tags": ["badges", "milestone"]
+        }
+      ]
+    },
+    {
+      "id": "exam-mode",
+      "title": "Exam Mode (PRO)",
+      "description": "High severity taunts for exam week. Planner sync recommended.",
+      "language": "hinglish",
+      "taunts": [
+        {
+          "id": "tb-exam-001",
+          "text": "Exam countdown chal raha hai. Syllabus 40%, confidence 4%. Maths kar. 🧮",
+          "category": "exam",
+          "trigger": "exam_soon",
+          "severity": 3,
+          "tags": ["exam", "planner"]
+        },
+        {
+          "id": "tb-exam-002",
+          "text": "Unit 3 abhi bhi 'pending' hai. Exam bhi pending rakh de? 📅",
+          "category": "exam",
+          "trigger": "exam_soon",
+          "severity": 3,
+          "tags": ["syllabus", "planner"]
+        },
+        {
+          "id": "tb-exam-003",
+          "text": "Previous year paper khola bhi ya sirf download karke shaan se rakh diya? 📄",
+          "category": "exam",
+          "trigger": "evening",
+          "severity": 2,
+          "tags": ["pyq", "revision"]
+        },
+        {
+          "id": "tb-exam-004",
+          "text": "Ek exam ki revision 3 din me? Haan, panic bhi ek skill hai. 😅",
+          "category": "exam",
+          "trigger": "night",
+          "severity": 2,
+          "tags": ["panic", "revision"]
+        },
+        {
+          "id": "tb-exam-005",
+          "text": "Mehfil me sab padh rahe hain, tu meme bhej raha hai. Study Circle me aaja. 👥",
+          "category": "social",
+          "trigger": "afternoon",
+          "severity": 2,
+          "tags": ["mehfil", "study-circle"]
+        }
+      ]
+    },
+    {
+      "id": "kavach-shield",
+      "title": "KAVACH Shield",
+      "description": "Fires when the focus shield is broken or bypassed.",
+      "language": "hinglish",
+      "taunts": [
+        {
+          "id": "tb-kavach-001",
+          "text": "KAVACH on tha, phir bhi tu 8 baar app switch kar chuka hai. Kya kar raha hai bhai? 🛡️",
+          "category": "kavach",
+          "trigger": "kavach_break",
+          "severity": 3,
+          "tags": ["kavach", "distraction"]
+        },
+        {
+          "id": "tb-kavach-002",
+          "text": "Notification ne tujhe hara diya. KAVACH strict mode khol. 🚫",
+          "category": "kavach",
+          "trigger": "kavach_break",
+          "severity": 2,
+          "tags": ["kavach", "notifications"]
+        },
+        {
+          "id": "tb-kavach-003",
+          "text": "Distraction shield tootne se pehle focus block khatam kar. Focus is a flex. 💪",
+          "category": "kavach",
+          "trigger": "idle",
+          "severity": 2,
+          "tags": ["kavach", "focus"]
+        }
+      ]
+    },
+    {
+      "id": "wellbeing",
+      "title": "Dhyan & Well-being",
+      "description": "Soft taunts because burnout helps nobody. Even the hamster agrees.",
+      "language": "hinglish",
+      "taunts": [
+        {
+          "id": "tb-dhyan-001",
+          "text": "10 minute ka Dhyan kar. Dimaag bhi restart maangta hai, phone nahi. 🧘",
+          "category": "wellbeing",
+          "trigger": "evening",
+          "severity": 1,
+          "tags": ["dhyan", "mindfulness"]
+        },
+        {
+          "id": "tb-dhyan-002",
+          "text": "Ankhon me screen, dimaag me chaos. Dhyan timer chala. 👁️",
+          "category": "wellbeing",
+          "trigger": "night",
+          "severity": 1,
+          "tags": ["sleep", "dhyan"]
+        },
+        {
+          "id": "tb-dhyan-003",
+          "text": "3 AM pe padhai impressive nahi hai, next day ki productivity barbaad hai. Soja. 🌙",
+          "category": "wellbeing",
+          "trigger": "night",
+          "severity": 2,
+          "tags": ["sleep", "routine"]
+        }
+      ]
+    },
+    {
+      "id": "comeback-crew",
+      "title": "Comeback Crew",
+      "description": "When you return after a long break, the hamster starts the streak with you.",
+      "language": "hinglish",
+      "taunts": [
+        {
+          "id": "tb-comeback-001",
+          "text": "Wapas aa gaya? Achha. Ab 25 minute ka Ekagra lagao aur streak restart. 🚀",
+          "category": "comeback",
+          "trigger": "comeback",
+          "severity": 1,
+          "tags": ["comeback", "fresh-start"]
+        },
+        {
+          "id": "tb-comeback-002",
+          "text": "Break long tha. Ab bahana khatam, Ekagra shuru. ⏱️",
+          "category": "comeback",
+          "trigger": "comeback",
+          "severity": 2,
+          "tags": ["comeback", "ekagra"]
+        },
+        {
+          "id": "tb-comeback-003",
+          "text": "Ek din miss hua? Insaan hai tu, robot nahi. Do din miss mat kar. 🤝",
+          "category": "comeback",
+          "trigger": "comeback",
+          "severity": 1,
+          "tags": ["streak", "kindness"]
+        }
+      ]
+    }
+  ]
+}
