@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#131120",
   "theme_color": "#131120",
-  "description": "Agentic AI study companion: Ekagra focus timers, KAVACH distraction shield, exam planner and GitHub-synced taunts from a judgemental hamster mascot.",
+  "description": "Agentic AI study companion: Ekagra focus timers, KAVACH distraction shield, exam planner and ifallertzia-server synced taunts from a judgemental hamster mascot.",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "categories": ["education", "productivity"],

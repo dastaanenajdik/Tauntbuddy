@@ -299,8 +299,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: <Widget>[
               GlassField(
                 controller: _repo,
-                label: 'Taunt dataset URL',
-                hint: 'https://raw.githubusercontent.com/...',
+                label: 'ifallertzia server URL',
+                hint: 'ifallertzia server dataset URL',
                 onSubmitted: (String value) => app.updateSettings(
                   settings.copyWith(tauntRepoUrl: value.trim()),
                 ),

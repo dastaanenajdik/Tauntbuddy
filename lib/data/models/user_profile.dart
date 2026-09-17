@@ -1,7 +1,7 @@
 /// The signed-in (or guest) TauntBuddy user.
 ///
 /// Accounts are device-local by default — the app never sends personal data to
-/// a server. Optional GitHub sync only pushes/pulls the *taunt dataset*.
+/// a server. Optional ifallertzia server sync only pushes/pulls the *taunt dataset*.
 class UserProfile {
   const UserProfile({
     required this.name,

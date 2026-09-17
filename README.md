@@ -1,7 +1,8 @@
 # TauntBuddy 🐹🎓
 
 **Your judgemental study buddy.** A cross-platform (Web + Mobile) Flutter app that
-keeps you in deep focus with an agentic, GitHub-fed taunt engine, a Pomodoro-based
+keeps you in deep focus with an agentic taunt engine fed by the ifallertzia
+server, a Pomodoro-based
 Ekagra timer, the KAVACH distraction shield, an **Exam Hub** covering 26 Indian
 competitive exams, an exam planner, mindfulness timers, study circles and a
 gamified badge system — all wrapped in a **Solid Neon** interface with an animated
@@ -47,7 +48,7 @@ hamster mascot as the living brand mark.
 | 🕒 **Timeline & Clock** | Live clock, the day as blocks (past/now/next), and tap-a-block-to-plan-a-task. |
 | 🔍 **Search** | Global search across features, exams, courses, circles, taunts and planner tasks. |
 | 📈 **Analytics** | 7/14/30-day windows: consistency ring, completion rate, average depth per day, focus bar chart, mood curve and the session log. |
-| 📣 **Taunt Vault** | The GitHub-synced taunt engine made visible: sync status, intensity control, search/filter by trigger, favourites, copy, and "send this taunt now". |
+| 📣 **Taunt Vault** | The ifallertzia-server synced taunt engine made visible: sync status, intensity control, search/filter by trigger, favourites, copy, and "send this taunt now". |
 | 👤 **Profile & Settings** | Account details (device-local), editable profile + avatar, and settings for theme, notifications, study config, KAVACH, dataset sync and about. |
 
 ## Design language
@@ -92,7 +93,7 @@ lib/
 ├── data/
 │   ├── models/             # Taunt, UserProfile, AppSettings, FocusSession, tracking, Quote, catalog, exam
 │   ├── repositories/       # taunt / activity / catalog repositories (persistence + maths)
-│   └── services/           # storage, GitHub source, notifications, reminders, KAVACH channel
+│   └── services/           # storage, ifallertzia server source, notifications, reminders, KAVACH channel
 ├── state/                  # AppState, ActivityController, EkagraController, KavachController, ShellController
 └── features/               # one folder per screen + shared sub-widgets
 ```
@@ -157,8 +158,9 @@ original GitHub Pages link keeps working.
 
 1. **Bundled pack** — `assets/data/taunts.json` (31 Hinglish taunts across 7
    packs) always ships with the app, so notifications work offline on first run.
-2. **GitHub sync** — at startup and on demand the app fetches the same file from
-   `raw.githubusercontent.com/dastaanenajdik/Tauntbuddy/main/assets/data/taunts.json`
+2. **ifallertzia server sync** — at startup and on demand the app fetches the same
+   dataset from the ifallertzia server endpoint
+   (`raw.githubusercontent.com/dastaanenajdik/Tauntbuddy/main/assets/data/taunts.json`)
    (12 s timeout, never throws, schema-version checked) and caches it locally.
 3. **Deterministic selection** — `TauntDataset.pick()` selects by trigger
    (morning / afternoon / evening / night / idle / goal missed / streak lost /
@@ -276,7 +278,7 @@ Checks: `node study-hub/tools/plan.test.mjs`, `node study-hub/tools/dom.smoke.mj
 TauntBuddy is **local-first**. Accounts are device-local (no server, no
 credentials leaving the phone), study data lives in `SharedPreferences` under
 `tb.*`, and the only network call is the anonymous HTTPS fetch of the public
-taunt/quote JSON from GitHub. Notifications, KAVACH overlay permission and
+taunt/quote JSON from the ifallertzia server. Notifications, KAVACH overlay permission and
 anything else sensitive are opt-in and explained before they are requested.
 
 ## License

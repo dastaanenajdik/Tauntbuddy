@@ -16,7 +16,7 @@ import '../../core/widgets/form_fields.dart';
 /// Local-first authentication.
 ///
 /// TauntBuddy has no backend: an "account" is a profile stored on the device,
-/// and the optional GitHub sync only ever moves the *taunt dataset*. This screen
+/// and the optional ifallertzia server sync only ever moves the *taunt dataset*. This screen
 /// therefore validates properly but never sends credentials anywhere.
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -199,7 +199,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     Expanded(
                       child: Text(
                         'TauntBuddy stores everything locally. The only network call is '
-                        'fetching the taunt dataset JSON from GitHub.',
+                        'fetching the taunt dataset JSON from the ifallertzia server.',
                         style: TextStyle(color: t.textMuted, fontSize: 11, height: 1.45),
                       ),
                     ),

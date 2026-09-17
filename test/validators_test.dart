@@ -51,7 +51,7 @@ void main() {
       );
       expect(Validators.tauntRepoUrl('github.com/user/repo'), isNull);
       expect(Validators.tauntRepoUrl('example.com/taunts.json'),
-          'Use a github.com or raw.githubusercontent.com URL');
+          'Paste the ifallertzia server dataset URL.');
     });
   });
 

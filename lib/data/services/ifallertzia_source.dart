@@ -29,14 +29,15 @@ class SyncResult {
       SyncResult(status: SyncStatus.skipped, message: message);
 }
 
-/// Downloads the taunt / quote datasets from a hosted JSON file on GitHub.
+/// Downloads the taunt / quote datasets from the ifallertzia server (a hosted
+/// JSON file).
 ///
 /// Design rules:
 /// * never throw — the repository always has a bundled fallback dataset,
 /// * always time out (a hanging request must not freeze onboarding),
 /// * validate the schema version before the data is allowed into the app.
-class GithubDatasetSource {
-  GithubDatasetSource({http.Client? client, this.timeout = const Duration(seconds: 12)})
+class IfallertziaDatasetSource {
+  IfallertziaDatasetSource({http.Client? client, this.timeout = const Duration(seconds: 12)})
       : _client = client ?? http.Client();
 
   final http.Client _client;
@@ -49,8 +50,8 @@ class GithubDatasetSource {
   static const String defaultQuotesUrl =
       'https://raw.githubusercontent.com/dastaanenajdik/Tauntbuddy/main/assets/data/quotes.json';
 
-  /// The repository also serves the dataset via the GitHub REST API which
-  /// works for private repositories when a token is supplied by the user.
+  /// The ifallertzia server also serves the dataset via a REST API which
+  /// works for private sources when a token is supplied by the user.
   static const String supportedSchemaNote = 'taunts.json schemaVersion 1';
 
   Future<Map<String, dynamic>?> _getJson(String url) async {
@@ -87,7 +88,7 @@ class GithubDatasetSource {
         null,
         SyncResult(
           status: SyncStatus.offline,
-          message: 'Could not reach GitHub. Using the bundled taunt pack.',
+          message: 'Could not reach the ifallertzia server. Using the bundled taunt pack.',
           at: DateTime.now(),
         ),
       );
@@ -121,7 +122,7 @@ class GithubDatasetSource {
       dataset,
       SyncResult(
         status: SyncStatus.ok,
-        message: 'Synced ${dataset.length} taunts from GitHub.',
+        message: 'Synced ${dataset.length} taunts from the ifallertzia server.',
         count: dataset.length,
         at: DateTime.now(),
       ),

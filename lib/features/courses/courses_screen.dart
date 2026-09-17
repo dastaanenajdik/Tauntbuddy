@@ -64,7 +64,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
             radius: 24,
             child: EmptyState(
               title: 'No courses in this category',
-              message: 'Try another filter — or sync the dataset from the Taunt Vault.',
+              message: 'Try another filter — or sync from the ifallertzia server in the Taunt Vault.',
               icon: Icons.school_rounded,
             ),
           )

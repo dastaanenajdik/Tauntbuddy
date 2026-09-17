@@ -635,7 +635,7 @@ class _TauntSheet extends StatelessWidget {
                           NeonChip(label: taunt.packTitle, dense: true, color: t.accentCyan),
                           const SizedBox(width: 6),
                           NeonChip(
-                            label: taunt.source == TauntSource.remote ? 'GitHub' : 'Bundled',
+                            label: taunt.source == TauntSource.remote ? 'ifallertzia' : 'Bundled',
                             dense: true,
                             color: t.accentMint,
                             icon: taunt.source == TauntSource.remote

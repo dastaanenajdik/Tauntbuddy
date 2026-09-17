@@ -64,7 +64,7 @@ class AppSettings {
   final bool analyticsOptIn;
   final bool keepScreenOn;
 
-  /// GitHub raw URL used to refresh the taunt dataset.
+  /// ifallertzia server URL used to refresh the taunt dataset.
   final String tauntRepoUrl;
   final DateTime? lastSyncAt;
   final int lastSyncCount;

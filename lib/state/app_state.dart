@@ -14,7 +14,7 @@ import '../data/models/user_profile.dart';
 import '../data/repositories/activity_repository.dart';
 import '../data/repositories/catalog_repository.dart';
 import '../data/repositories/taunt_repository.dart';
-import '../data/services/github_source.dart';
+import '../data/services/ifallertzia_source.dart';
 import '../data/services/kavach_service.dart';
 import '../data/services/notification_service.dart';
 import '../data/services/reminder_scheduler.dart';
@@ -30,18 +30,18 @@ class AppState extends ChangeNotifier {
   AppState({
     required StorageService storage,
     StorageService? storageOverride,
-    GithubDatasetSource? source,
+    IfallertziaDatasetSource? source,
     NotificationService? notifications,
     KavachService kavachService = const KavachService(),
     ThemeController? themeController,
   })  : _storage = storageOverride ?? storage,
-        _source = source ?? GithubDatasetSource(),
+        _source = source ?? IfallertziaDatasetSource(),
         _notifications = notifications ?? NotificationService(),
         _kavachService = kavachService,
         _themeController = themeController;
 
   final StorageService _storage;
-  final GithubDatasetSource _source;
+  final IfallertziaDatasetSource _source;
   final NotificationService _notifications;
   final KavachService _kavachService;
   ThemeController? _themeController;
@@ -234,7 +234,7 @@ class AppState extends ChangeNotifier {
   }
 
   Future<SyncResult> syncTaunts({bool refreshSchedule = true}) async {
-    final SyncResult result = await taunts.syncFromGithub(_settings.tauntRepoUrl);
+    final SyncResult result = await taunts.syncFromIfallertzia(_settings.tauntRepoUrl);
     final AppSettings next = _settings.copyWith(
       lastSyncAt: result.at ?? DateTime.now(),
       lastSyncCount: taunts.count,
@@ -247,8 +247,8 @@ class AppState extends ChangeNotifier {
 
   Future<void> syncQuietly() async {
     try {
-      await taunts.syncFromGithub(_settings.tauntRepoUrl);
-      _lastQuoteSync = await catalog.syncQuotes(GithubDatasetSource.defaultQuotesUrl);
+      await taunts.syncFromIfallertzia(_settings.tauntRepoUrl);
+      _lastQuoteSync = await catalog.syncQuotes(IfallertziaDatasetSource.defaultQuotesUrl);
       if (_settings.notificationsEnabled) await refreshReminders();
     } catch (e) {
       debugPrint('TauntBuddy: background sync failed ($e)');

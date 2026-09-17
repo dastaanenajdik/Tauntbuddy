@@ -102,7 +102,7 @@ enum TauntTrigger {
 }
 
 /// Where a taunt came from — surfaced in the Taunt Vault so the user can see
-/// the GitHub sync actually doing something.
+/// the ifallertzia server sync actually doing something.
 enum TauntSource { bundled, remote }
 
 /// One taunt line, optionally with a device-local favourite flag.
@@ -261,7 +261,7 @@ class TauntPack {
 }
 
 /// The complete taunt dataset. Parsed from a bundled asset **or** fetched from
-/// GitHub raw — the shape is identical so the repository can swap sources
+/// ifallertzia server raw — the shape is identical so the repository can swap sources
 /// without touching UI code.
 class TauntDataset {
   const TauntDataset({
