@@ -1,12 +1,14 @@
 name: Release
 
-# Tagging `v*` (or pressing the button) publishes the Android + Web artefacts
-# that were built from the exact commit, so a release can always be traced back
-# to a green CI run.
+# Tagging `v*` (lowercase or uppercase — tag filters are case-sensitive, and a
+# `V1.0` tag used to slip past the publish pipeline silently) or pressing the
+# button publishes the Android + Web artefacts that were built from the exact
+# commit, so a release can always be traced back to a green CI run.
 on:
   push:
     tags:
       - 'v*'
+      - 'V*'
   workflow_dispatch:
     inputs:
       tag:

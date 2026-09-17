@@ -1,7 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "bash tools/vercel_build.sh",
+  "buildCommand": "bash tools/build_web_deploy.sh",
   "outputDirectory": "build/web",
-  "installCommand": "echo 'Skipping npm install: TauntBuddy builds with Flutter (see tools/vercel_build.sh).'",
-  "trailingSlash": false
+  "installCommand": "echo 'Skipping npm install: TauntBuddy builds with Flutter (see tools/build_web_deploy.sh).'"
 }
