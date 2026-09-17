@@ -1,26 +1,37 @@
-import { renderHome, renderCourses, renderCourse, renderPlanner, renderPomodoro } from "./views.js";
+// ---------------------------------------------------------------------------
+// App bootstrap · registers routes, mounts the live "running session" strip
+// in the topbar, and starts the router. Views live in features/*, one screen
+// per module; shared engine/state in store.js + the pomodoro singleton.
+// ---------------------------------------------------------------------------
 
-const root = document.getElementById("view");
-const nav = document.querySelectorAll("[data-nav]");
+import { addRoute, startRouter, navigate } from "./router.js";
+import { homeView } from "./features/home/home.view.js";
+import { coursesView } from "./features/courses/courses.view.js";
+import { courseDetailView } from "./features/courses/course-detail.view.js";
+import { plannerView } from "./features/planner/planner.view.js";
+import { pomodoroView } from "./features/pomodoro/pomodoro.view.js";
+import { timer, fmtClock } from "./features/pomodoro/timer.js";
 
-function setActive(hash) {
-  nav.forEach((a) => {
-    const h = a.getAttribute("href");
-    a.classList.toggle("active", hash.startsWith(h.replace("#", "")) || (h === "#/" && (hash === "/" || hash === "")));
-  });
-}
+addRoute("/", homeView);
+addRoute("/courses", coursesView);
+addRoute("/course/:id", courseDetailView);
+addRoute("/planner", plannerView);
+addRoute("/planner/:id", plannerView);
+addRoute("/pomodoro", pomodoroView);
 
-function route() {
-  const raw = location.hash.slice(1) || "/";
-  const [path, qs] = raw.split("?");
-  setActive(path);
-  if (path === "/" || path === "") return renderHome(root);
-  if (path === "/courses") return renderCourses(root);
-  if (path.startsWith("/course/")) return renderCourse(root, path.split("/")[2]);
-  if (path.startsWith("/planner")) return renderPlanner(root, path.split("/")[2]);
-  if (path.startsWith("/pomodoro")) return renderPomodoro(root, qs || "");
-  renderHome(root);
-}
+/* Running-session strip — one subscription for the entire shell. */
+const strip = document.getElementById("timeStrip");
+const stripClock = document.getElementById("timeStripClock");
+const stripLabel = document.getElementById("timeStripLabel");
 
-window.addEventListener("hashchange", route);
-route();
+timer.subscribe((snap) => {
+  strip.hidden = !snap.running;
+  if (snap.running) {
+    stripClock.textContent = fmtClock(snap.remain);
+    const c = snap.context;
+    stripLabel.textContent = c.chapter || (c.title && c.title !== "Free focus" ? c.title : "Focus");
+  }
+});
+strip.addEventListener("click", () => navigate("#/pomodoro"));
+
+startRouter(document.getElementById("view"));

@@ -235,10 +235,41 @@ android/        hand-wired Gradle project, KAVACH service, adaptive icons
 assets/         branding + JSON datasets
 docs/           BRANDING.md
 lib/            application code (see Architecture)
+study-hub/      the web Study Hub: Exam Hub · Courses · Planner · Pomodoro (see below)
 test/           dataset contract, taunt engine, date maths, validators, widgets
 tools/          branding generator, add_platforms.sh
 web/            index.html splash, manifest, generated icons
 ```
+
+### Study Hub (web companion)
+
+`study-hub/` is a zero-dependency modular web app (plain ES modules — no build
+step) that brings the Exam Hub, a detailed day-by-day exam planner and the
+Pomodoro engine to the browser:
+
+```
+study-hub/
+├── index.html                  shell only — no inline app code
+├── css/                        tokens · base · layout · components · views
+├── data/exams.js               8 exam tracks, full subject/unit/chapter names
+├── assets/                     section background photography (bundled)
+├── js/
+│   ├── app.js                  bootstrap + running-session strip
+│   ├── router.js               hash router with per-view cleanup hooks
+│   ├── store.js                reactive localStorage store (v3, migrate-safe)
+│   ├── ui.js                   DOM helpers, esc(), toasts
+│   └── features/
+│       ├── home/ · courses/    landing, course grid + Exam Hub detail
+│       ├── planner/            plan-generator (pure) + lazy week accordions
+│       └── pomodoro/           singleton timer engine + reusable widget
+└── tools/                      plan unit tests, jsdom DOM smoke test,
+                                contrast checker (WCAG contract)
+```
+
+Run it with any static server, e.g. `python3 -m http.server -d study-hub 8021`.
+Checks: `node study-hub/tools/plan.test.mjs`, `node study-hub/tools/dom.smoke.mjs`
+(needs a one-off `npm install --no-save jsdom` inside `study-hub/`) and
+`python3 study-hub/tools/contrast_check.py`.
 
 ## Privacy
 

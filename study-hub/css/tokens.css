@@ -1,0 +1,58 @@
+/* ---------------------------------------------------------------------------
+   Design tokens · TauntBuddy Study Hub
+   Every foreground token is paired with a surface it clears WCAG AA on
+   (body pairs clear AAA). Ratios are enforced by tools/contrast_check.py.
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* surfaces (light warm paper) */
+  --bg: #efe7d8;
+  --card: #fffdf7;
+  --card-soft: #faf5ea;
+  --line: #e3d7c2;
+
+  /* text on light surfaces */
+  --ink: #1a140d;          /* 15.9:1 on --card */
+  --muted: #5b5142;        /* 7.4:1 on --card */
+
+  /* deep navy surface + text pair */
+  --navy: #14324e;
+  --on-navy: #ffffff;      /* 12.7:1 */
+  --on-navy-muted: #c4d3e2;/* 7.9:1 */
+
+  /* teal surface + text pair */
+  --teal: #0b554c;
+  --on-teal: #ffffff;      /* 8.7:1 */
+  --on-teal-muted: #c9eae3;/* 5.4:1 */
+
+  /* burnt orange surface + text pair */
+  --accent: #8a3d0c;
+  --on-accent: #fff8f0;    /* 7.2:1 */
+
+  /* gold badge surface + text pair (dark text on gold, never on white) */
+  --gold: #e3b23c;
+  --on-gold: #241a04;      /* 8.2:1 */
+
+  /* success surface + text pair */
+  --ok: #145f3a;
+  --on-ok: #ffffff;        /* 7.6:1 */
+  --ok-soft: #e2f2e8;
+  --ok-soft-ink: #12402a;  /* 7.9:1 on --ok-soft */
+
+  /* danger / destructive (used sparingly) */
+  --bad: #b02a1e;
+  --on-bad: #ffffff;
+
+  /* shadow + shape */
+  --shadow: 0 10px 30px rgba(26, 20, 13, 0.10);
+  --shadow-lg: 0 24px 60px rgba(26, 20, 13, 0.22);
+  --radius: 18px;
+  --radius-lg: 26px;
+
+  /* hero photo overlays keep white text ≥ 6.8:1 even over a pure-white photo */
+  --hero-scrim: linear-gradient(100deg, rgba(12, 20, 34, 0.88) 8%, rgba(12, 20, 34, 0.70) 52%, rgba(12, 20, 34, 0.45) 100%);
+  --hero-scrim-strong: linear-gradient(180deg, rgba(12, 20, 34, 0.68), rgba(12, 20, 34, 0.86));
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Source Serif 4", Georgia, serif;
+}
