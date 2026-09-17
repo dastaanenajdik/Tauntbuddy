@@ -279,7 +279,7 @@ class ExamBlueprint {
     this.icon = 'workspace_premium',
     this.dailyHours = 6,
     this.stages = const <ExamStage>[],
-    this syllabus = const <ExamSyllabusPaper>[],
+    this.syllabus = const <ExamSyllabusPaper>[],
     this.timeline = const <ExamMilestone>[],
   });
 
