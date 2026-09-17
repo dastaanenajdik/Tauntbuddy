@@ -1,0 +1,90 @@
+:root {
+  --bg: #f4efe6;
+  --ink: #1c140e;
+  --muted: #5c5248;
+  --card: #fffdf8;
+  --line: #e6d9c8;
+  --accent: #c45c26;
+  --accent-ink: #fffaf4;
+  --navy: #16324f;
+  --navy-ink: #f4f8fc;
+  --teal: #0f6e62;
+  --teal-ink: #f3fffc;
+  --gold: #c9a227;
+  --ok: #1f7a4d;
+  --ok-ink: #f4fff8;
+  --shadow: 0 10px 30px rgba(28, 20, 14, 0.08);
+  --radius: 18px;
+  font-family: "Source Serif 4", Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--ink); min-height: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; border: 0; background: none; }
+input, textarea, select { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; outline: none; }
+::selection { background: #16324f; color: #fffaf4; }
+*:focus { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+/* Kill yellow spellcheck / decoration underlines */
+html, body, p, h1, h2, h3, h4, span, a, button, li, label, div {
+  text-decoration: none;
+  text-decoration-color: transparent;
+  -webkit-text-decoration-color: transparent;
+}
+[contenteditable], input, textarea {
+  text-decoration: none !important;
+}
+
+.app { max-width: 1180px; margin: 0 auto; padding: 18px 16px 88px; }
+.topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--navy); color: var(--navy-ink); padding: 14px 16px; border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+.brand { font-weight: 700; letter-spacing: 0.02em; }
+.brand small { display: block; font-weight: 400; opacity: 0.82; font-size: 12px; }
+.nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.nav a, .nav button {
+  background: rgba(255,255,255,0.1); color: var(--navy-ink); padding: 8px 12px; border-radius: 999px; font-size: 14px;
+}
+.nav a.active { background: var(--gold); color: #1c140e; font-weight: 700; }
+
+h1, h2, h3 { font-family: "Fraunces", Georgia, serif; }
+.grid { display: grid; gap: 14px; }
+.grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 16px; box-shadow: var(--shadow);
+}
+.card.navy { background: var(--navy); color: var(--navy-ink); border-color: transparent; }
+.card.teal { background: var(--teal); color: var(--teal-ink); border-color: transparent; }
+.card.accent { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+.muted { color: var(--muted); }
+.card.navy .muted, .card.teal .muted, .card.accent .muted { color: rgba(255,255,255,0.78); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px;
+  background: var(--navy); color: var(--navy-ink); font-weight: 600;
+}
+.btn.gold { background: var(--gold); color: #1c140e; }
+.btn.ghost { background: #efe6d8; color: var(--ink); }
+.btn.ok { background: var(--ok); color: var(--ok-ink); }
+.chip { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #efe6d8; color: var(--ink); font-size: 12px; }
+.list { list-style: none; display: grid; gap: 8px; }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.check { display: flex; gap: 10px; align-items: flex-start; padding: 10px; background: #faf6ef; border-radius: 12px; }
+.check.done { background: #e8f6ee; }
+.progress { height: 8px; background: #eadfce; border-radius: 99px; overflow: hidden; }
+.progress > span { display: block; height: 100%; background: var(--ok); width: 0; }
+.hero { margin: 18px 0; }
+.timer {
+  font-variant-numeric: tabular-nums; font-size: clamp(48px, 10vw, 84px);
+  font-family: "Fraunces", serif; letter-spacing: 0.04em;
+}
+footer.note { margin-top: 24px; color: var(--muted); font-size: 13px; }
+@media (max-width: 720px) {
+  .topbar { flex-direction: column; align-items: stretch; }
+}
