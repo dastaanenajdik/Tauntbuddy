@@ -211,7 +211,7 @@ python3 .github/scripts/validate_taunts.py assets/data
 
 | Workflow | Trigger | What it does |
 | --- | --- | --- |
-| [`ci.yml`](.github/workflows/ci.yml) | push (main, `arena/**`), PRs | format report, `flutter analyze`, `flutter test --coverage`, then release **APK + AAB** and **web** builds uploaded as artefacts |
+| [`ci.yml`](.github/workflows/ci.yml) | push (main, `arena/**`), PRs | dataset validation, format report, `flutter analyze`, `flutter test --coverage`, then release **APK + AAB** and **web** builds uploaded as artefacts |
 | [`taunts.yml`](.github/workflows/taunts.yml) | dataset changes, nightly 03:20 IST, manual | validates the bundled JSON, health-checks the **published** raw copy, opens an issue when the live dataset breaks, and mirrors validated data to a `dataset-snapshot` branch |
 | [`release.yml`](.github/workflows/release.yml) | `v*` tags, manual | re-verifies, rebuilds Android + Web artefacts and publishes a GitHub Release |
 

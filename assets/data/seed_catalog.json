@@ -2009,15 +2009,15 @@
           "minutes": 120,
           "negative": "0.50 mark per wrong answer",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Statistics",
               "questions": 100,
               "marks": 200,
               "minutes": 120
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Tier 2 — Paper 3 (AAO)",
@@ -2028,15 +2028,15 @@
           "minutes": 120,
           "negative": "0.50 mark per wrong answer",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Finance & Economics",
               "questions": 100,
               "marks": 200,
               "minutes": 120
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Document verification & medical",
@@ -2230,7 +2230,8 @@
           "minutes": 60,
           "negative": "0.50 mark per wrong answer",
           "merit": false,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "General Intelligence",
               "questions": 25,
@@ -2255,8 +2256,7 @@
               "marks": 50,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Tier 2 — Session I",
@@ -2267,7 +2267,8 @@
           "minutes": 120,
           "negative": "1 mark per wrong answer (Maths & Reasoning sections)",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Mathematical Abilities",
               "questions": 40,
@@ -2292,8 +2293,7 @@
               "marks": 30,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Tier 2 — Session II",
@@ -2485,7 +2485,8 @@
           "minutes": 90,
           "negative": "1/3 mark per wrong answer",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "General Awareness",
               "questions": 50,
@@ -2504,8 +2505,7 @@
               "marks": 35,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Typing skill test / CBAT",
@@ -2650,7 +2650,8 @@
           "minutes": 90,
           "negative": "1/3 mark per wrong answer",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Mathematics",
               "questions": 25,
@@ -2675,8 +2676,7 @@
               "marks": 20,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Physical Efficiency Test",
@@ -3110,7 +3110,8 @@
           "minutes": 160,
           "negative": "0.25 mark per wrong answer",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "General / Financial Awareness",
               "questions": 50,
@@ -3135,8 +3136,7 @@
               "marks": 60,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Language Proficiency Test",
@@ -3310,7 +3310,8 @@
           "minutes": 170,
           "negative": "0.25 mark per wrong answer",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Reasoning & Computer Aptitude",
               "questions": 50,
@@ -3335,8 +3336,7 @@
               "marks": 30,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Mains — descriptive",
@@ -3931,7 +3931,8 @@
           "minutes": 90,
           "negative": "0.50 mark per wrong answer",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "English Language",
               "questions": 20,
@@ -3962,8 +3963,7 @@
               "marks": 40,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Merit list & admission",
@@ -4152,7 +4152,8 @@
           "minutes": 540,
           "negative": "0.25 in the MCQ portion",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Paper 1 — Advanced Accounting",
               "questions": 0,
@@ -4171,8 +4172,7 @@
               "marks": 100,
               "minutes": 180
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Intermediate Group II",
@@ -4183,7 +4183,8 @@
           "minutes": 540,
           "negative": "0.25 in the MCQ portion",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Paper 4 — Cost and Management Accounting",
               "questions": 0,
@@ -4202,8 +4203,7 @@
               "marks": 100,
               "minutes": 180
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Articleship",
@@ -4250,7 +4250,8 @@
           "minutes": 540,
           "negative": "0.25 in the MCQ portion",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Paper 1 — Financial Reporting",
               "questions": 0,
@@ -4269,8 +4270,7 @@
               "marks": 100,
               "minutes": 180
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Final Group II",
@@ -4281,7 +4281,8 @@
           "minutes": 540,
           "negative": "0.25 in the MCQ portion",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Paper 4 — Direct Tax Laws & International Taxation",
               "questions": 0,
@@ -4300,8 +4301,7 @@
               "marks": 100,
               "minutes": 240
             }
-          ],
-          "sections": []
+          ]
         }
       ],
       "syllabus": [
@@ -4787,7 +4787,8 @@
           "minutes": 180,
           "negative": "+4 per correct, −1 per wrong MCQ",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Mathematics",
               "questions": 20,
@@ -4806,8 +4807,7 @@
               "marks": 100,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Paper 2B — B.Planning",
@@ -4818,7 +4818,8 @@
           "minutes": 180,
           "negative": "+4 per correct, −1 per wrong MCQ",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Mathematics",
               "questions": 20,
@@ -4837,8 +4838,7 @@
               "marks": 100,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Counselling",
@@ -6093,7 +6093,8 @@
           "minutes": 150,
           "negative": "None",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Child Development & Pedagogy",
               "questions": 30,
@@ -6124,8 +6125,7 @@
               "marks": 30,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         },
         {
           "name": "Paper II — Classes VI to VIII",
@@ -6136,7 +6136,8 @@
           "minutes": 150,
           "negative": "None",
           "merit": true,
-          "note": [
+          "note": "",
+          "sections": [
             {
               "name": "Child Development & Pedagogy",
               "questions": 30,
@@ -6161,8 +6162,7 @@
               "marks": 60,
               "minutes": 0
             }
-          ],
-          "sections": []
+          ]
         }
       ],
       "syllabus": [

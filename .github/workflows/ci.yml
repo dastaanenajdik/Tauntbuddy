@@ -23,6 +23,24 @@ env:
   FLUTTER_CHANNEL: stable
 
 jobs:
+  # Same contract the nightly dataset workflow enforces on the published copy,
+  # run on every push so a schema drift never reaches analyze/test/build.
+  validate-datasets:
+    name: Validate bundled datasets
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate assets/data
+        run: python3 .github/scripts/validate_taunts.py assets/data
+
   analyze-and-test:
     name: Analyse + test
     runs-on: ubuntu-latest
@@ -195,7 +213,7 @@ jobs:
   build-android:
     name: Build Android APK + AAB
     runs-on: ubuntu-latest
-    needs: analyze-and-test
+    needs: [analyze-and-test, validate-datasets]
     timeout-minutes: 40
     steps:
       - name: Checkout
@@ -289,7 +307,7 @@ jobs:
   build-web:
     name: Build Web bundle
     runs-on: ubuntu-latest
-    needs: analyze-and-test
+    needs: [analyze-and-test, validate-datasets]
     timeout-minutes: 30
     steps:
       - name: Checkout

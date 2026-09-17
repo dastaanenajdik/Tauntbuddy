@@ -67,6 +67,14 @@ MILESTONE_KINDS = {
 
 MIN_EXAMS = 20
 
+
+def _is_number(value: object) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
+def _is_text(value: object) -> bool:
+    return isinstance(value, str)
+
 REQUIRED_EXAM_IDS = {
     "upsc-cse",
     "bpsc",
@@ -412,6 +420,32 @@ def validate_catalog(root: Path, data: dict) -> None:
             marks = stage.get("marks")
             if not isinstance(marks, (int, float)) or float(marks) < 0:
                 fail(stage_where, f"marks must be a non-negative number, found {marks!r}")
+            for field in ("questions", "minutes"):
+                value = stage.get(field)
+                if not _is_number(value):
+                    fail(stage_where, f"{field} must be a number, found {type(value).__name__}")
+            note = stage.get("note")
+            if note is not None and not _is_text(note):
+                fail(
+                    stage_where,
+                    f"note must be a string, found {type(note).__name__} "
+                    "(a section list belongs in 'sections')",
+                )
+            sections = stage.get("sections") or []
+            if not isinstance(sections, list):
+                fail(stage_where, f"sections must be a list, found {type(sections).__name__}")
+                sections = []
+            for section_index, section in enumerate(sections):
+                section_where = f"{stage_where}.sections[{section_index}]"
+                if not isinstance(section, dict):
+                    fail(section_where, "section must be an object")
+                    continue
+                if not str(section.get("name", "")).strip():
+                    fail(section_where, "name is required")
+                for field in ("questions", "marks", "minutes"):
+                    value = section.get(field)
+                    if not _is_number(value):
+                        fail(section_where, f"{field} must be a number, found {type(value).__name__}")
 
         syllabus = exam.get("syllabus")
         if not isinstance(syllabus, list) or not syllabus:
@@ -424,11 +458,17 @@ def validate_catalog(root: Path, data: dict) -> None:
                 continue
             if not str(paper.get("subject", "")).strip():
                 fail(paper_where, "subject is required")
+            if paper.get("marks") is not None and not _is_number(paper.get("marks")):
+                fail(paper_where, f"marks must be a number, found {type(paper.get('marks')).__name__}")
             topics = paper.get("topics") or []
             if not isinstance(topics, list) or len(topics) < 2:
                 fail(paper_where, "a syllabus paper needs at least 2 topics")
+                topics = []
             elif len(topics) > 20:
                 warn(paper_where, f"{len(topics)} topics will be clamped to 20 planner units")
+            for topic_index, topic in enumerate(topics):
+                if not _is_text(topic) or not topic.strip():
+                    fail(f"{paper_where}.topics[{topic_index}]", "each topic must be a non-empty string")
 
         timeline = exam.get("timeline")
         if not isinstance(timeline, list) or not timeline:
@@ -444,6 +484,8 @@ def validate_catalog(root: Path, data: dict) -> None:
                 fail(step_where, "label is required")
             if not str(step.get("window", "")).strip():
                 fail(step_where, "window is required")
+            if step.get("note") is not None and not _is_text(step.get("note")):
+                fail(step_where, f"note must be a string, found {type(step.get('note')).__name__}")
             month = step.get("month")
             if not isinstance(month, int) or not 1 <= month <= 12:
                 fail(step_where, f"month must be an integer 1-12, found {month!r}")
