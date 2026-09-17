@@ -60,6 +60,51 @@ a, a:hover, a:active, a:visited, u, ins, abbr {
   box-shadow: none;              /* box reset applied where real shadows exist */
 }
 
+/* Inner views are allowed to share the same palette, but never inherit a
+   browser/user-agent link colour or a low-contrast text colour from a nested
+   component. The hook is applied by the hash router and intentionally does
+   not touch the home view. */
+.view-inner,
+.view-inner p,
+.view-inner li,
+.view-inner dt,
+.view-inner dd,
+.view-inner h1,
+.view-inner h2,
+.view-inner h3,
+.view-inner h4 {
+  color: var(--ink);
+}
+.view-inner a,
+.view-inner a:visited,
+.view-inner a:hover,
+.view-inner a:active {
+  color: inherit;
+  text-decoration: none !important;
+  border-bottom: 0 !important;
+}
+.view-inner .muted {
+  color: var(--muted);
+}
+.view-inner .card.navy p,
+.view-inner .card.navy li,
+.view-inner .card.navy dt,
+.view-inner .card.navy dd,
+.view-inner .card.teal p,
+.view-inner .card.teal li,
+.view-inner .card.teal dt,
+.view-inner .card.teal dd,
+.view-inner .card.accent p,
+.view-inner .card.accent li,
+.view-inner .card.accent dt,
+.view-inner .card.accent dd {
+  color: inherit;
+}
+.view-inner button,
+.view-inner [role="button"] {
+  text-decoration: none !important;
+}
+
 ::selection { background: var(--navy); color: #ffffff; }
 
 :focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; border-radius: 6px; }
